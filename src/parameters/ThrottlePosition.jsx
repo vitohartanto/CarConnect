@@ -1,10 +1,11 @@
 import GaugeComponent from "react-gauge-component";
 import UpdateRemoveModal from "../components/UpdateRemoveModal";
+// import { useState } from "react";
 
-const ThrottlePosition = ({ selectedComponents }) => {
+const ThrottlePosition = () => {
   return (
     <div className=" my-4 mx-6 border-[#233163] border-4 rounded-2xl relative">
-      <UpdateRemoveModal selectedComponent={selectedComponents} />
+      <UpdateRemoveModal />
       <h1 className="text-center mt-3  text-base font-semibold">
         Throttle Position
       </h1>

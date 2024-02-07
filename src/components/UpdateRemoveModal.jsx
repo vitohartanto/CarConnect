@@ -22,7 +22,7 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 // import { useState } from "react";
 
-const UpdateRemoveModal = ({ selectedComponents }) => {
+const UpdateRemoveModal = () => {
   const handleClick = async () => {
     const { value: parameter } = await Swal.fire({
       title: "Update or Remove",
@@ -63,7 +63,11 @@ const UpdateRemoveModal = ({ selectedComponents }) => {
       showDenyButton: true,
       showCancelButton: true,
     });
+
     console.log(parameter);
+    if (parameter !== null) {
+      updateComponent(parameter);
+    }
   };
 
   return (

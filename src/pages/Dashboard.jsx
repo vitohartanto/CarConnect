@@ -25,7 +25,11 @@ const Dashboard = () => {
     setSelectedComponents([...selectedComponents, component]);
   };
 
-  // const updateComponent =
+  // const updateComponent = (index, component) => {
+  //   let updatedComponents = [...selectedComponents];
+  //   updatedComponents[index] = component;
+  //   setSelectedComponents(updatedComponents);
+  // };
 
   const renderSelectedComponents = () => {
     return selectedComponents.map((Component, index) => (
