@@ -19,52 +19,30 @@ import AddModal from "../components/AddModal";
 import { useState } from "react";
 
 const Dashboard = () => {
-  const [selectedComponent, setSelectedComponent] = useState(null);
-  const renderSelectedComponent = () => {
-    switch (selectedComponent) {
-      case "fuelsystemstatus":
-        return <FuelSystemStatus />;
-      case "throttleposition":
-        return <ThrottlePosition />;
-      case "enginecoolanttemperature":
-        return <EngineCoolantTemperature />;
-      case "enginerpm":
-        return <EngineRPM />;
-      case "vehiclespeed":
-        return <VehicleSpeed />;
-      case "shorttermfueltrim":
-        return <ShortTermFuelTrim />;
-      case "longtermfueltrim":
-        return <LongTermFuelTrim />;
-      case "intakeairtemperature":
-        return <IntakeAirTemperature />;
-      case "oxygensensorbank1sensor1":
-        return <OxygenSensorBank1Sensor1 />;
-      case "oxygensensorbank2sensor2":
-        return <OxygenSensorBank2Sensor2 />;
-      case "massairflow":
-        return <MassAirFlow />;
-      case "catalysttemperature":
-        return <CatalystTemperature />;
-      case "fueltype":
-        return <FuelType />;
-      case "engineoiltemperature":
-        return <EngineOilTemperature />;
-      case "intakemaniholdpressure":
-        return <IntakeManifoldPressure />;
-      default:
-        return null;
-    }
+  const [selectedComponents, setSelectedComponents] = useState([]);
+
+  const addComponent = (component) => {
+    setSelectedComponents([...selectedComponents, component]);
+  };
+
+  // const updateComponent =
+
+  const renderSelectedComponents = () => {
+    return selectedComponents.map((Component, index) => (
+      <div key={index} className="mt-4">
+        <Component />
+      </div>
+    ));
   };
 
   return (
     <div className="">
       <Sidebar>
-        <AddModal setSelectedComponent={setSelectedComponent} />
+        <AddModal addComponent={addComponent} />
       </Sidebar>
       <div className="ml-12">
         <h1 className="text-2xl font-bold ml-5 pt-8">Dashboard</h1>
-        {renderSelectedComponent()}
+        {renderSelectedComponents()}
         <ThrottlePosition />
         <EngineCoolantTemperature />
         <EngineRPM />
