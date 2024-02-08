@@ -1,7 +1,5 @@
 import GaugeComponent from "react-gauge-component";
 
-// import { useState } from "react";
-
 const ThrottlePosition = ({ children }) => {
   return (
     <div className=" my-4 mx-6 border-[#233163] border-4 rounded-2xl relative">

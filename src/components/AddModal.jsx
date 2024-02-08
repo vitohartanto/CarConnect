@@ -45,6 +45,7 @@ const AddModal = ({ addComponent }) => {
       confirmButtonText: "Add",
       color: "#233163",
       input: "select",
+      cancelButtonColor: "#d33",
       inputOptions: {
         Strings: {
           fuelsystemstatus: "Fuel System Status",

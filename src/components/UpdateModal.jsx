@@ -20,8 +20,6 @@ import FuelType from "../parameters/FuelType";
 import EngineOilTemperature from "../parameters/EngineOilTemperature";
 import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
 
-// import { useState } from "react";
-
 const UpdateRemoveModal = ({
   setSelectedComponents,
   componentObject,
@@ -47,31 +45,28 @@ const UpdateRemoveModal = ({
 
   // Function updateComponentById
   const updateComponentById = (componentId, newComponent, generateId) => {
-    console.log(newComponent);
-
     setSelectedComponents((prev) => {
-      const something = prev.map((item) => {
+      return prev.map((item) => {
         if (item.id === componentId) {
           return { id: generateId(), component: newComponent };
         }
-
         return item;
       });
-      return something;
     });
   };
 
   const handleClick = async () => {
     const { value: parameter } = await Swal.fire({
-      title: "Update or Remove",
+      title: "Update Dashboard",
       background: "#F1F1FB",
       position: "bottom",
-      icon: "question",
+      icon: "info",
       confirmButtonColor: "#233163",
       confirmButtonText: "Update",
       denyButtonText: "Remove",
       color: "#233163",
       input: "select",
+      cancelButtonColor: "#d33",
       inputOptions: {
         Strings: {
           fuelsystemstatus: "Fuel System Status",
@@ -115,9 +110,9 @@ const UpdateRemoveModal = ({
 
   return (
     <div>
-      <button className="absolute top-0 right-0" onClick={handleClick}>
+      <button className="absolute top-3.5 left-3.5" onClick={handleClick}>
         <FontAwesomeIcon
-          className="p-3.5 text-lg"
+          className="text-lg"
           icon={faPenToSquare}
           style={{ color: "#233163" }}
         />

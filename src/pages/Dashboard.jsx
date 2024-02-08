@@ -14,8 +14,10 @@ import CatalystTemperature from "../parameters/CatalystTemperature";
 import FuelType from "../parameters/FuelType";
 import EngineOilTemperature from "../parameters/EngineOilTemperature";
 import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
+
 import AddModal from "../components/AddModal";
 import UpdateModal from "../components/UpdateModal";
+import RemoveModal from "../components/RemoveModal";
 
 import { useState, useEffect } from "react";
 
@@ -60,11 +62,16 @@ const Dashboard = () => {
                 componentObject={data}
                 generateId={generateId}
               />
+              <RemoveModal
+                setSelectedComponents={setSelectedComponents}
+                componentObject={data}
+                selectedComponents={selectedComponents}
+              />
             </data.component>
           </div>
         ))}
-        {/* <ThrottlePosition />
-        <EngineCoolantTemperature />
+        {/* <ThrottlePosition /> */}
+        {/* <EngineCoolantTemperature />
         <EngineRPM />
         <FuelSystemStatus />
         <VehicleSpeed />
