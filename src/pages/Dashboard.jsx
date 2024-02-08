@@ -54,6 +54,9 @@ const Dashboard = () => {
       </Sidebar>
       <div className="ml-12">
         <h1 className="text-2xl font-bold ml-5 pt-8">Dashboard</h1>
+        <h1 className="text-lg font-medium ml-5 pt-2">
+          Click the + button to add the dashboard card
+        </h1>
         {selectedComponents.map((data) => (
           <div key={data.id} className="mt-4">
             <data.component id={data.id}>
