@@ -15,28 +15,34 @@ import FuelType from "../parameters/FuelType";
 import EngineOilTemperature from "../parameters/EngineOilTemperature";
 import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
 import AddModal from "../components/AddModal";
+import UpdateModal from "../components/UpdateModal";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const [selectedComponents, setSelectedComponents] = useState([]);
 
-  const addComponent = (component) => {
-    setSelectedComponents([...selectedComponents, component]);
+  useEffect(() => {
+    console.log(selectedComponents);
+  }, [selectedComponents]);
+
+  // Function generateId
+  const generateId = () => {
+    return +new Date();
   };
 
-  // const updateComponent = (index, component) => {
-  //   let updatedComponents = [...selectedComponents];
-  //   updatedComponents[index] = component;
-  //   setSelectedComponents(updatedComponents);
-  // };
+  // Function generateComponentObject
+  const generateComponentObject = (id, component) => {
+    return {
+      id,
+      component,
+    };
+  };
 
-  const renderSelectedComponents = () => {
-    return selectedComponents.map((Component, index) => (
-      <div key={index} className="mt-4">
-        <Component />
-      </div>
-    ));
+  const addComponent = (component) => {
+    const generatedID = generateId();
+    const componentObject = generateComponentObject(generatedID, component);
+    setSelectedComponents([...selectedComponents, componentObject]);
   };
 
   return (
@@ -46,8 +52,18 @@ const Dashboard = () => {
       </Sidebar>
       <div className="ml-12">
         <h1 className="text-2xl font-bold ml-5 pt-8">Dashboard</h1>
-        {renderSelectedComponents()}
-        <ThrottlePosition />
+        {selectedComponents.map((data) => (
+          <div key={data.id} className="mt-4">
+            <data.component id={data.id}>
+              <UpdateModal
+                setSelectedComponents={setSelectedComponents}
+                componentObject={data}
+                generateId={generateId}
+              />
+            </data.component>
+          </div>
+        ))}
+        {/* <ThrottlePosition />
         <EngineCoolantTemperature />
         <EngineRPM />
         <FuelSystemStatus />
@@ -61,7 +77,7 @@ const Dashboard = () => {
         <CatalystTemperature />
         <FuelType />
         <EngineOilTemperature />
-        <IntakeManifoldPressure />
+        <IntakeManifoldPressure /> */}
       </div>
     </div>
   );
