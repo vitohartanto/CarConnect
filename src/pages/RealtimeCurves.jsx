@@ -1,15 +1,15 @@
 import Sidebar from "../components/Sidebar";
 import SelectParameter from "../components/SelectParameter";
-import { useState, useEffect } from "react";
 import { parameterOptions } from "../components/parameterOptions";
-
+import { useState, useEffect, useRef } from "react";
 import {
   LineChart,
-  Line,
   CartesianGrid,
   XAxis,
   YAxis,
   Tooltip,
+  Legend,
+  Line,
 } from "recharts";
 
 const RealtimeCurves = () => {
@@ -17,34 +17,22 @@ const RealtimeCurves = () => {
     parameterOptions[0]
   );
 
-  const [chartData, setChartData] = useState([
-    { time: "00:00", score: 200 },
-    { time: "01:00", score: 220 },
-    { time: "02:00", score: 240 },
-    { time: "03:00", score: 220 },
-    { time: "04:00", score: 400 },
-    { time: "05:00", score: 300 },
-    // Add more data as needed...
-  ]);
+  const [arr, setArr] = useState(Array.from({ length: 60 }, () => ({ X: 0 })));
+  const timeoutRef = useRef(null);
+
+  function validate() {
+    const randomNumber = Math.floor(Math.random() * 9) + 1;
+    setArr((prevState) => [...prevState, { X: randomNumber }].slice(1));
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Generate new random score
-      const newScore = Math.floor(Math.random() * 100) + 200;
-      const newChartData = [...chartData];
-      newChartData.push({
-        time: new Date().toLocaleTimeString(),
-        score: newScore,
-      });
-      // Limit chart data to show only the last 10 data points
-      if (newChartData.length > 10) {
-        newChartData.shift();
-      }
-      setChartData(newChartData);
-    }, 1000); // Update every 2 seconds
+      validate();
+    }, 1000);
 
     return () => clearInterval(interval);
-  }, [chartData]); // Run effect whenever chartData changes
+  }, []);
+
   return (
     <div>
       <Sidebar />
@@ -60,16 +48,21 @@ const RealtimeCurves = () => {
         </div>
         <div className="mt-10 flex justify-center">
           <LineChart
-            width={300}
-            height={300}
-            data={chartData}
-            margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+            width={730}
+            height={250}
+            data={arr}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            animationDuration={0} // Disable animation
           >
-            <Line type="monotone" dataKey="score" stroke="#233163" />
-            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-            <XAxis dataKey="time" />
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="name"
+              label={{ value: "Time", position: "insideBottom", offset: -10 }}
+            />
             <YAxis />
             <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="X" stroke="#8884d8" />
           </LineChart>
         </div>
       </div>
