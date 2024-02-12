@@ -33,6 +33,20 @@ const RealtimeCurves = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // useEffect(() => {
+  //   if (timeoutRef.current !== null) {
+  //     clearTimeout(timeoutRef.current);
+  //   }
+  //   let interval = 6000;
+  //   let speed = 3000;
+  //   for (let i = 0; i < interval; i++) {
+  //     timeoutRef.current = setTimeout(() => {
+  //       timeoutRef.current = null;
+  //       validate();
+  //     }, i * speed);
+  //   }
+  // }, []);
+
   return (
     <div>
       <Sidebar />
@@ -48,7 +62,7 @@ const RealtimeCurves = () => {
         </div>
         <div className="mt-10 flex justify-center">
           <LineChart
-            width={730}
+            width={340}
             height={250}
             data={arr}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
