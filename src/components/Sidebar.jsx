@@ -8,7 +8,7 @@ const Sidebar = ({ children }) => {
       <div className="mt-8"></div>
       <Link to="/">
         <FontAwesomeIcon
-          className=""
+          className="md:text-xl"
           icon={faHouse}
           style={{ color: "#ffffff" }}
         />

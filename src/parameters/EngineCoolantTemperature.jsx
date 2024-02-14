@@ -4,10 +4,13 @@ const EngineCoolantTemperature = ({ children }) => {
   return (
     <div className=" my-4 mx-6 border-[#233163] border-4 rounded-2xl relative">
       {children}
-      <h1 className="text-center mt-3  text-xs font-semibold">
-        Engine Coolant Temperature
-      </h1>
+      <div className="flex justify-center">
+        <h1 className="text-center mt-3 w-4/5 text-base md:text-lg lg:text-xl font-semibold">
+          Engine Coolant Temperature
+        </h1>
+      </div>
       <GaugeComponent
+        className=""
         type="semicircle"
         arc={{
           width: 0.2,

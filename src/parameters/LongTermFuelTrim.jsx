@@ -56,13 +56,15 @@ const LongTermFuelTrim = ({ children }) => {
   return (
     <div className=" my-4 mx-6 border-[#233163] border-4 rounded-2xl relative">
       {children}
-      <h1 className="text-center mt-3  text-base font-semibold">
-        Long Term Fuel Trim
-      </h1>
+      <div className="flex justify-center">
+        <h1 className="text-center mt-3 w-3/4 text-base md:text-lg lg:text-xl font-semibold">
+          Long Term Fuel Trim
+        </h1>
+      </div>
       <div className="text-xs">
         <LineChart
           width={260}
-          height={300}
+          height={260}
           data={data}
           margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
         >

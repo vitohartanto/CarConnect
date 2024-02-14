@@ -23,7 +23,7 @@ const Diagnostics = () => {
       <div className="ml-12">
         <h1 className="text-2xl font-bold ml-5 pt-8">Diagnostics</h1>
         {/* fuel system status */}
-        <div className="mt-6">
+        <div className="mt-6 flex flex-col justify-center items-center md:flex-row">
           <FuelSystemStatus />
           <div className="text-justify my-4 mx-6">
             <h2 className="text-base font-semibold mb-2">
@@ -52,7 +52,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* engine rpm */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <EngineRPM />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -69,7 +69,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* vehicle speed */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <VehicleSpeed />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -83,7 +83,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* throttle position */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <ThrottlePosition />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -99,7 +99,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* engine coolant temperature */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <EngineCoolantTemperature />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -115,7 +115,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* short term fuel trim */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <ShortTermFuelTrim />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -132,7 +132,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* long term fuel trim */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <LongTermFuelTrim />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -151,7 +151,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* intake air temperature */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <IntakeAirTemperature />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -171,7 +171,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* oxygen sensor bank 1 sensor 1 */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <OxygenSensorBank1Sensor1 />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -189,7 +189,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* oxygen sensor bank 2 sensor 2 */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <OxygenSensorBank2Sensor2 />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -208,7 +208,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* mass air flow */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <MassAirFlow />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -225,7 +225,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* catalyst temperature */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <CatalystTemperature />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -241,7 +241,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* fuel type */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <FuelType />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -252,7 +252,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* engine oil temperature */}
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <EngineOilTemperature />
           <div className="text-justify my-4 mx-6">
             <h2>
@@ -267,7 +267,7 @@ const Diagnostics = () => {
           </div>
         </div>
         {/* intake manifold pressure */}
-        <div className="mt-10 mb-10">
+        <div className="mt-10 mb-10 flex flex-col justify-center items-center md:flex-row">
           <IntakeManifoldPressure />
           <div className="text-justify my-4 mx-6">
             <h2>

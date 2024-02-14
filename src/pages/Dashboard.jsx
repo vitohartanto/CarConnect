@@ -53,26 +53,28 @@ const Dashboard = () => {
         <AddModal addComponent={addComponent} />
       </Sidebar>
       <div className="ml-12">
-        <h1 className="text-2xl font-bold ml-5 pt-8">Dashboard</h1>
-        <h1 className="text-lg font-medium ml-5 pt-2">
+        <h1 className="text-2xl md:text-3xl  font-bold ml-5 pt-8">Dashboard</h1>
+        <h1 className="text-lg md:text-xl  font-medium ml-5 pt-2">
           Click the + button to add the dashboard card
         </h1>
-        {selectedComponents.map((data) => (
-          <div key={data.id} className="mt-4">
-            <data.component id={data.id}>
-              <UpdateModal
-                setSelectedComponents={setSelectedComponents}
-                componentObject={data}
-                generateId={generateId}
-              />
-              <RemoveModal
-                setSelectedComponents={setSelectedComponents}
-                componentObject={data}
-                selectedComponents={selectedComponents}
-              />
-            </data.component>
-          </div>
-        ))}
+        <div className="flex flex-wrap flex-col md:flex-row justify-center items-center">
+          {selectedComponents.map((data) => (
+            <div key={data.id} className="mt-4 w-11/12 md:w-5/12 lg:w-1/3">
+              <data.component id={data.id}>
+                <UpdateModal
+                  setSelectedComponents={setSelectedComponents}
+                  componentObject={data}
+                  generateId={generateId}
+                />
+                <RemoveModal
+                  setSelectedComponents={setSelectedComponents}
+                  componentObject={data}
+                  selectedComponents={selectedComponents}
+                />
+              </data.component>
+            </div>
+          ))}
+        </div>
         {/* <ThrottlePosition /> */}
         {/* <EngineCoolantTemperature />
         <EngineRPM />

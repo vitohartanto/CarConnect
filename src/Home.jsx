@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div>
       <div className="w-12 fixed h-screen bg-[#233163]"></div>
-      <div className="flex flex-col text-center text-2xl font-bold h-screen justify-evenly items-center">
+      <div className="flex flex-col text-center text-2xl xl:text-3xl font-bold h-screen justify-evenly items-center">
         <Link
           to="/dashboard"
           className="w-3/4 border-4 rounded-2xl border-[#233163] flex flex-col py-6 ml-12"
