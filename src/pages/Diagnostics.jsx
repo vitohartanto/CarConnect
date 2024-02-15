@@ -23,15 +23,17 @@ const Diagnostics = () => {
       <div className="ml-12">
         <h1 className="text-2xl font-bold ml-5 pt-8">Diagnostics</h1>
         {/* fuel system status */}
-        <div className="mt-6 flex flex-col justify-center items-center md:flex-row">
-          <FuelSystemStatus />
-          <div className="text-justify my-4 mx-6">
-            <h2 className="text-base font-semibold mb-2">
-              The fuel system status can be operated in open loop or closed
+        <div className="mt-6 flex flex-col justify-center items-center lg:flex-row">
+          <div className="">
+            <FuelSystemStatus className="" />
+          </div>
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
+            <h2 className="  font-semibold mb-2">
+              The Fuel System Status can be operated in open loop or closed
               loop.
             </h2>
             <h2>
-              <span className="font-semibold">Open Loop</span> : In open loop,
+              <span className="font-semibold ">Open Loop</span> : In open loop,
               the brain of the vehicle&apos;s engine management system, ECU
               (Engine Control Unit) controls the engine using preset fuel and
               ignition maps without feedback from oxygen sensors. This mode is
@@ -53,8 +55,10 @@ const Diagnostics = () => {
         </div>
         {/* engine rpm */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
-          <EngineRPM />
-          <div className="text-justify my-4 mx-6">
+          <div className="ml-4">
+            <EngineRPM />
+          </div>
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10 md:ml-2 md:mr-10">
             <h2>
               <span className="font-semibold">Engine RPM</span> stands for
               &quot;Revolutions Per Minute&quot; and refers to how many times
@@ -71,7 +75,7 @@ const Diagnostics = () => {
         {/* vehicle speed */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <VehicleSpeed />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">Vehicle Speed</span> indicates how
               quickly the vehicle is traveling along the road.
@@ -85,7 +89,7 @@ const Diagnostics = () => {
         {/* throttle position */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <ThrottlePosition />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">Throttle Position</span> refers to
               how much the throttle valve in the engine&apos;s intake system is
@@ -101,7 +105,7 @@ const Diagnostics = () => {
         {/* engine coolant temperature */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <EngineCoolantTemperature />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">Engine coolant temperature</span>{" "}
               refers to the temperature of the coolant fluid that circulates
@@ -117,7 +121,7 @@ const Diagnostics = () => {
         {/* short term fuel trim */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <ShortTermFuelTrim />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">Short-Term Fuel Trim (STFT)</span>{" "}
               is like a real-time adjustment made by a car&apos;s system to
@@ -134,7 +138,7 @@ const Diagnostics = () => {
         {/* long term fuel trim */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <LongTermFuelTrim />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">Long-Term Fuel Trim (LTFT)</span>{" "}
               is similar to Short-Term Fuel Trim (STFT), but it&apos;s like a
@@ -153,7 +157,7 @@ const Diagnostics = () => {
         {/* intake air temperature */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <IntakeAirTemperature />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">
                 Intake Air Temperature (IAT)
@@ -173,7 +177,7 @@ const Diagnostics = () => {
         {/* oxygen sensor bank 1 sensor 1 */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <OxygenSensorBank1Sensor1 />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">
                 Oxygen Sensor Bank 1 Sensor 1
@@ -191,7 +195,7 @@ const Diagnostics = () => {
         {/* oxygen sensor bank 2 sensor 2 */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <OxygenSensorBank2Sensor2 />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">
                 Oxygen Sensor Bank 2 Sensor 2
@@ -210,7 +214,7 @@ const Diagnostics = () => {
         {/* mass air flow */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <MassAirFlow />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">Mass Air Flow (MAF)</span>{" "}
               measures how much air is flowing into the engine at any given
@@ -227,7 +231,7 @@ const Diagnostics = () => {
         {/* catalyst temperature */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <CatalystTemperature />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">Catalyst Temperature</span> refers
               to the temperature of the catalytic converter in a vehicle&apos;s
@@ -243,7 +247,7 @@ const Diagnostics = () => {
         {/* fuel type */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <FuelType />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">Fuel Type</span> is kind of what
               powers vehicles and machines. There are different types, such as:
@@ -254,7 +258,7 @@ const Diagnostics = () => {
         {/* engine oil temperature */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <EngineOilTemperature />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">Engine Oil Temperature</span>{" "}
               tells you how hot or cold the engine&apos;s oil is.
@@ -269,7 +273,7 @@ const Diagnostics = () => {
         {/* intake manifold pressure */}
         <div className="mt-10 mb-10 flex flex-col justify-center items-center md:flex-row">
           <IntakeManifoldPressure />
-          <div className="text-justify my-4 mx-6">
+          <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
             <h2>
               <span className="font-semibold">Intake Manifold Pressure</span> is
               the air pressure inside the intake manifold of an engine.
