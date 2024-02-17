@@ -74,7 +74,7 @@ const Diagnostics = () => {
         </div>
         {/* vehicle speed */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
-          <div className="ml-4">
+          <div className="ml-4 ">
             <VehicleSpeed />
           </div>
           <div className="text-justify text-base md:text-lg my-4 mx-6 sm:mx-10">
