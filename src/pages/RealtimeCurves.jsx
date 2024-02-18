@@ -51,7 +51,9 @@ const RealtimeCurves = () => {
     <div>
       <Sidebar />
       <div className="ml-12">
-        <h1 className="text-2xl font-bold ml-5 pt-8 ">Real-time Curves</h1>
+        <h1 className="text-2xl md:text-3xl font-bold ml-5 pt-8 ">
+          Real-time Curves
+        </h1>
         <SelectParameter
           selectedParameter={selectedParameter}
           setSelectedParameter={setSelectedParameter}
