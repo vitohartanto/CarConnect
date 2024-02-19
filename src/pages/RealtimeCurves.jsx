@@ -62,7 +62,7 @@ const RealtimeCurves = () => {
           <h1>{selectedParameter.score}</h1>
           <h1>{selectedParameter.unit}</h1>
         </div>
-        <div className="mt-10 flex justify-center">
+        {/* <div className="mt-10 flex justify-center">
           <LineChart
             width={340}
             height={250}
@@ -80,7 +80,9 @@ const RealtimeCurves = () => {
             <Legend />
             <Line type="monotone" dataKey="X" stroke="#8884d8" />
           </LineChart>
-        </div>
+        </div> */}
+
+        <h1>test</h1>
       </div>
     </div>
   );
