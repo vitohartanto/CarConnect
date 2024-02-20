@@ -59,8 +59,12 @@ const RealtimeCurves = () => {
           setSelectedParameter={setSelectedParameter}
         />
         <div className="ml-6 mt-4 text-xl font-semibold">
-          <h1>{selectedParameter.score}</h1>
-          <h1>{selectedParameter.unit}</h1>
+          <h1 className="text-base md:text-lg xl:text-xl">
+            {selectedParameter.score}
+          </h1>
+          <h1 className="text-base md:text-lg xl:text-xl">
+            {selectedParameter.unit}
+          </h1>
         </div>
         {/* <div className="mt-10 flex justify-center">
           <LineChart
