@@ -11,6 +11,7 @@ import {
   Legend,
   Line,
 } from "recharts";
+import ApexChart from "../components/Bars";
 
 const RealtimeCurves = () => {
   const [selectedParameter, setSelectedParameter] = useState(
@@ -86,7 +87,7 @@ const RealtimeCurves = () => {
           </LineChart>
         </div> */}
 
-        <h1>test</h1>
+        <ApexChart />
       </div>
     </div>
   );
