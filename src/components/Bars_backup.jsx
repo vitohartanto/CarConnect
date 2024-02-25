@@ -40,7 +40,7 @@ const ApexChart = () => {
     },
     xaxis: {
       type: "datetime",
-      range: 120000, // 1.5 hours
+      range: 30000, // 1.5 hours
     },
     yaxis: {
       max: 100,
