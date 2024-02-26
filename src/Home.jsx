@@ -3,7 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGaugeSimpleHigh,
   faWrench,
+  faCircleInfo,
   faChartLine,
+  faCode,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
@@ -24,25 +26,25 @@ const Home = () => {
         </Link>
 
         <Link
+          to="/details"
+          className="w-3/4 border-4 rounded-2xl border-[#233163] flex flex-col py-6 ml-12"
+        >
+          <h1 className="pb-4">Details</h1>
+          <FontAwesomeIcon
+            className="text-5xl"
+            icon={faCircleInfo}
+            style={{ color: "#233163" }}
+          />
+        </Link>
+
+        <Link
           to="/diagnostics"
           className="w-3/4 border-4 rounded-2xl border-[#233163] flex flex-col py-6 ml-12"
         >
           <h1 className="pb-4">Diagnostics</h1>
           <FontAwesomeIcon
             className="text-5xl"
-            icon={faWrench}
-            style={{ color: "#233163" }}
-          />
-        </Link>
-
-        <Link
-          to="/realtime-curves"
-          className="w-3/4 border-4 rounded-2xl border-[#233163] flex flex-col py-6 ml-12"
-        >
-          <h1 className="pb-4">Real-time Curves</h1>
-          <FontAwesomeIcon
-            className="text-5xl"
-            icon={faChartLine}
+            icon={faCode}
             style={{ color: "#233163" }}
           />
         </Link>
