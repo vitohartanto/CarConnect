@@ -26,28 +26,25 @@ const VehicleSpeed = ({ children }) => {
           tickLabels: {
             type: "outer",
             ticks: [
+              { value: 10 },
+              { value: 20 },
+              { value: 30 },
+              { value: 40 },
+              { value: 50 },
+              { value: 60 },
+              { value: 70 },
+              { value: 80 },
+              { value: 90 },
               { value: 100 },
-              { value: 200 },
-              { value: 300 },
-              { value: 400 },
-              { value: 500 },
-              { value: 600 },
-              { value: 700 },
-              { value: 800 },
-              { value: 900 },
-              { value: 1000 },
-              { value: 1500 },
-              { value: 2000 },
-              { value: 2500 },
-              { value: 3000 },
+              { value: 110 },
             ],
             valueConfig: {
               formatTextValue: renameUnit,
             },
           },
         }}
-        value={1200}
-        maxValue={3000}
+        value={20}
+        maxValue={120}
       />
     </div>
   );

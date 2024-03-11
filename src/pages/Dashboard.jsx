@@ -1,20 +1,4 @@
 import Sidebar from "../components/Sidebar";
-// import ThrottlePosition from "../parameters/ThrottlePosition";
-// import EngineCoolantTemperature from "../parameters/EngineCoolantTemperature";
-// import EngineRPM from "../parameters/EngineRPM";
-// import FuelSystemStatus from "../parameters/FuelSystemStatus";
-// import VehicleSpeed from "../parameters/VehicleSpeed";
-// import ShortTermFuelTrim from "../parameters/ShortTermFuelTrim";
-// import LongTermFuelTrim from "../parameters/LongTermFuelTrim";
-// import IntakeAirTemperature from "../parameters/IntakeAirTemperature";
-// import OxygenSensorBank1Sensor1 from "../parameters/OxygenSensorBank1Sensor1";
-// import OxygenSensorBank2Sensor2 from "../parameters/OxygenSensorBank2Sensor2";
-// import MassAirFlow from "../parameters/MassAirFlow";
-// import CatalystTemperature from "../parameters/CatalystTemperature";
-// import FuelType from "../parameters/FuelType";
-// import EngineOilTemperature from "../parameters/EngineOilTemperature";
-// import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
-
 import AddModal from "../components/AddModal";
 import UpdateModal from "../components/UpdateModal";
 import RemoveModal from "../components/RemoveModal";
@@ -41,6 +25,7 @@ const Dashboard = () => {
     };
   };
 
+  // Function addComponent
   const addComponent = (component) => {
     const generatedID = generateId();
     const componentObject = generateComponentObject(generatedID, component);

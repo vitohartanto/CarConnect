@@ -20,7 +20,7 @@ import FuelType from "../parameters/FuelType";
 import EngineOilTemperature from "../parameters/EngineOilTemperature";
 import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
 
-const UpdateRemoveModal = ({
+const UpdateModal = ({
   setSelectedComponents,
   componentObject,
   generateId,
@@ -121,4 +121,4 @@ const UpdateRemoveModal = ({
   );
 };
 
-export default UpdateRemoveModal;
+export default UpdateModal;

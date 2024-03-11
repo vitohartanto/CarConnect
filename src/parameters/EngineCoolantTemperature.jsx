@@ -25,11 +25,6 @@ const EngineCoolantTemperature = ({ children }) => {
               tooltip: {
                 text: "Too low temperature!",
               },
-              onClick: () => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
-              onMouseMove: () =>
-                console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"),
-              onMouseLeave: () =>
-                console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"),
             },
             {
               limit: 17,
@@ -80,8 +75,8 @@ const EngineCoolantTemperature = ({ children }) => {
             ticks: [{ value: 13 }, { value: 22.5 }, { value: 32 }],
           },
         }}
-        value={32}
-        minValue={10}
+        value={90}
+        minValue={0}
         maxValue={35}
       />
     </div>

@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGaugeSimpleHigh,
-  faWrench,
   faCircleInfo,
-  faChartLine,
   faCode,
 } from "@fortawesome/free-solid-svg-icons";
 
