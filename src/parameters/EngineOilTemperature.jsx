@@ -19,46 +19,49 @@ const EngineOilTemperature = ({ children }) => {
           // gradient: true,
           subArcs: [
             {
-              limit: 15,
+              limit: 50,
               color: "#EA4228",
               showTick: true,
               tooltip: {
                 text: "Too low temperature!",
               },
-              onClick: () => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
-              onMouseMove: () =>
-                console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"),
-              onMouseLeave: () =>
-                console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"),
             },
             {
-              limit: 17,
-              color: "#F5CD19",
+              limit: 80,
+              color: "#EA4228",
               showTick: true,
               tooltip: {
                 text: "Low temperature!",
               },
             },
             {
-              limit: 28,
-              color: "#5BE12C",
+              limit: 90,
+              color: "#F5CD19",
               showTick: true,
               tooltip: {
                 text: "OK temperature!",
               },
             },
             {
-              limit: 30,
+              limit: 104,
+              color: "#5BE12C",
+              showTick: true,
+              tooltip: {
+                text: "Optimal temperature!",
+              },
+            },
+            {
+              limit: 114,
               color: "#F5CD19",
               showTick: true,
               tooltip: {
-                text: "High temperature!",
+                text: "OK temperature!",
               },
             },
             {
               color: "#EA4228",
               tooltip: {
-                text: "Too high temperature!",
+                text: "High temperature!",
               },
             },
           ],
@@ -77,12 +80,11 @@ const EngineOilTemperature = ({ children }) => {
               formatTextValue: (value) => value + "ºC",
               fontSize: 10,
             },
-            ticks: [{ value: 13 }, { value: 22.5 }, { value: 32 }],
           },
         }}
-        value={32}
-        minValue={10}
-        maxValue={35}
+        value={92}
+        minValue={50}
+        maxValue={150}
       />
     </div>
   );

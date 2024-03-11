@@ -18,46 +18,41 @@ const CatalystTemperature = ({ children }) => {
           // gradient: true,
           subArcs: [
             {
-              limit: 15,
+              limit: 200,
               color: "#EA4228",
-              showTick: true,
-              tooltip: {
-                text: "Too low temperature!",
-              },
-              onClick: () => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"),
-              onMouseMove: () =>
-                console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"),
-              onMouseLeave: () =>
-                console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"),
-            },
-            {
-              limit: 17,
-              color: "#F5CD19",
               showTick: true,
               tooltip: {
                 text: "Low temperature!",
               },
             },
             {
-              limit: 28,
-              color: "#5BE12C",
+              limit: 400,
+              color: "#F5CD19",
               showTick: true,
               tooltip: {
                 text: "OK temperature!",
               },
             },
             {
-              limit: 30,
+              limit: 600,
+              color: "#5BE12C",
+              showTick: true,
+              tooltip: {
+                text: "Optimal temperature!",
+              },
+            },
+            {
+              limit: 800,
               color: "#F5CD19",
               showTick: true,
               tooltip: {
-                text: "High temperature!",
+                text: "OK temperature!",
               },
             },
             {
               color: "#EA4228",
               tooltip: {
-                text: "Too high temperature!",
+                text: "High temperature!",
               },
             },
           ],
@@ -76,12 +71,11 @@ const CatalystTemperature = ({ children }) => {
               formatTextValue: (value) => value + "ºC",
               fontSize: 10,
             },
-            ticks: [{ value: 13 }, { value: 22.5 }, { value: 32 }],
           },
         }}
-        value={32}
-        minValue={10}
-        maxValue={35}
+        value={500}
+        minValue={0}
+        maxValue={1000}
       />
     </div>
   );
