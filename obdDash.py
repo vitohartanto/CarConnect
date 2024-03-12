@@ -49,7 +49,6 @@ def emitTelemetry():
     
     while True:
         try:
-
             # fuel system status
             fuelSystemStatusCmd = obd.commands.FUEL_STATUS
             fuelSystemStatusResp = connection.query(fuelSystemStatusCmd)

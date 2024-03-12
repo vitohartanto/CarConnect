@@ -1,20 +1,20 @@
-import Home from "./Home";
 import "./App.css";
-
+import { useEffect, createContext, useRef, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import io from "socket.io-client";
+
+import Home from "./Home";
 import Dashboard from "./pages/Dashboard";
 import Details from "./pages/Details";
 import Diagnostics from "./pages/Diagnostics";
 
-import io from "socket.io-client";
-
-import { useEffect, createContext, useRef } from "react";
-
 export const AppContext = createContext();
+export const DtcContext = createContext();
 
 const App = () => {
   const socket = io();
-  const variablesInObjectRef = useRef({}); // Use useRef to maintain value
+  const variablesInObjectRef = useRef({});
+  const [dtcResponse, setDtcResponse] = useState(null);
 
   useEffect(() => {
     socket.on("data", (msg) => {
@@ -46,18 +46,24 @@ const App = () => {
         ),
       };
     });
+
+    socket.on("dtcData", (faultCodes) => {
+      setDtcResponse(faultCodes);
+    });
   }, [socket]);
 
   return (
     <AppContext.Provider value={variablesInObjectRef.current}>
-      <Router>
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/details" element={<Details />} />
-          <Route path="/diagnostics" element={<Diagnostics />} />
-        </Routes>
-      </Router>
+      <DtcContext.Provider value={dtcResponse}>
+        <Router>
+          <Routes>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/details" element={<Details />} />
+            <Route path="/diagnostics" element={<Diagnostics />} />
+          </Routes>
+        </Router>
+      </DtcContext.Provider>
     </AppContext.Provider>
   );
 };
