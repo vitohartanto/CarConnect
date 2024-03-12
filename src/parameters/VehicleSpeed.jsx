@@ -1,6 +1,9 @@
 import GaugeComponent from "react-gauge-component";
+import { useContext } from "react";
+import { AppContext } from "../App";
 
 const VehicleSpeed = ({ children }) => {
+  const variablesInObject = useContext(AppContext);
   const renameUnit = (value) => {
     return value.toFixed(0) + " km/h";
   };
@@ -43,7 +46,7 @@ const VehicleSpeed = ({ children }) => {
             },
           },
         }}
-        value={20}
+        value={variablesInObject.v_vehicleSpeed}
         maxValue={120}
       />
     </div>

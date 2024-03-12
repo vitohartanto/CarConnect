@@ -10,7 +10,7 @@ import io from "socket.io-client";
 
 import { useEffect, createContext, useRef } from "react";
 
-const AppContext = createContext();
+export const AppContext = createContext();
 
 const App = () => {
   const socket = io();

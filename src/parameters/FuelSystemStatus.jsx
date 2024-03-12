@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import React from "react";
+import { AppContext } from "../App";
 
 const FuelSystemStatus = ({ children }) => {
   const variablesInObject = useContext(AppContext);
@@ -10,6 +10,7 @@ const FuelSystemStatus = ({ children }) => {
         Fuel System Status
       </h1>
       <h1 className="px-4 py-2 text-base md:text-lg lg:text-xl mb-2 text-center">
+        {variablesInObject.v_fuelSystemStatus}
         {/* Closed loop, using oxygen sensor feedback to determine fuel mix */}
       </h1>
     </div>
