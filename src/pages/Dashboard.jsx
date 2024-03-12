@@ -2,14 +2,21 @@ import Sidebar from "../components/Sidebar";
 import AddModal from "../components/AddModal";
 import UpdateModal from "../components/UpdateModal";
 import RemoveModal from "../components/RemoveModal";
+// import React from "react";
 
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
+  // const storedStates = JSON.parse(localStorage.getItem("selectedComponents"));
+
   const [selectedComponents, setSelectedComponents] = useState([]);
 
   useEffect(() => {
     console.log(selectedComponents);
+    // localStorage.setItem(
+    //   "selectedComponents",
+    //   JSON.stringify(selectedComponents)
+    // );
   }, [selectedComponents]);
 
   // Function generateId
@@ -62,6 +69,11 @@ const Dashboard = () => {
                   selectedComponents={selectedComponents}
                 />
               </data.component>
+              {/* {data.component ? (
+                
+              ) : (
+                ""
+              )} */}
             </div>
           ))}
         </div>
