@@ -69,11 +69,6 @@ const Dashboard = () => {
                   selectedComponents={selectedComponents}
                 />
               </data.component>
-              {/* {data.component ? (
-                
-              ) : (
-                ""
-              )} */}
             </div>
           ))}
         </div>
