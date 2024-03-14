@@ -130,7 +130,7 @@ def emitTelemetry():
             response = connection.query(runTimeCmd)
             runTime = str(response.value)
             
-            if (float(speed) < .1):
+            if (float(varVehicleSpeed) < .1):
                 idleTime += delay
             
             data = {
