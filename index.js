@@ -4,13 +4,22 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const express = require("express");
+import express from "express";
+
+// const express = require("express");
 const app = express();
-const http = require("http");
+
+import http from "http";
+// const http = require("http");
 const server = http.createServer(app);
-const { Server } = require("socket.io");
+
+import { Server } from "socket.io";
+// const { Server } = require("socket.io");
 const io = new Server(server);
+
 const port = process.env.PORT || 3000;
+
+// const port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + "/public"));
 
