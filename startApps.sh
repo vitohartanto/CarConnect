@@ -4,9 +4,12 @@
 cd /home/pi/CarConnect
 
 #start the apps
-/home/pi/.nvm/versions/node/v21.6.2/bin/node index.js & #need to manually specify installation dir if node was installed by nvm
+/home/pi/.nvm/versions/node/v21.7.1/bin/node index.js & #need to manually specify installation dir if node was installed by nvm
 
 python3 obdDash.py & #use python instead of python3 so it wont be terminated on restartApps.sh
+
+# Run npm run dev
+npm run dev &
 
 # Launching chromium-browser 
 chromium-browser --window-position=0,0    --kiosk --user-data-dir="/home/pi/Documents/Profiles/0" http://localhost:3000 &
