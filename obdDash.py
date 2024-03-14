@@ -100,10 +100,10 @@ def emitTelemetry():
             # oxygenSensorBank2Sensor2Resp = connection.query(oxygenSensorBank2Sensor2Cmd)
             # varOxygenSensorBank2Sensor2 = oxygenSensorBank2Sensor2Resp.value
 
-            # mass air flow
-            massAirFlowCmd = obd.commands.MAX_MAF
-            massAirFlowResp = connection.query(massAirFlowCmd)
-            varMassAirFlow = massAirFlowResp.value
+            # # mass air flow
+            # massAirFlowCmd = obd.commands.MAX_MAF
+            # massAirFlowResp = connection.query(massAirFlowCmd)
+            # varMassAirFlow = massAirFlowResp.value
 
             # catalyst temperature
             catalystTemperatureCmd = obd.commands.CATALYST_TEMP_B1S1
@@ -143,7 +143,7 @@ def emitTelemetry():
                 'varLongTermFuelTrim': varLongTermFuelTrim,
                 'varIntakeAirTemperature': varIntakeAirTemperature,
                 
-                'varMassAirFlow': varMassAirFlow,
+                
                 'varCatalystTemperature': varCatalystTemperature,
                 
                 'varIntakeManifoldPressure': varIntakeManifoldPressure,
@@ -153,6 +153,7 @@ def emitTelemetry():
 
             # 'varOxygenSensorBank1Sensor1': varOxygenSensorBank1Sensor1,
             # 'varOxygenSensorBank2Sensor2': varOxygenSensorBank2Sensor2,
+            # 'varMassAirFlow': varMassAirFlow,
             # 'varFuelType': varFuelType,
             # 'varEngineOilTemperature': varEngineOilTemperature,
             
