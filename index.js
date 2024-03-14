@@ -17,7 +17,7 @@ import { Server } from "socket.io";
 // const { Server } = require("socket.io");
 const io = new Server(server);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 // const port = process.env.PORT || 3000;
 

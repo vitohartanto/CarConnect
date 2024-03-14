@@ -168,7 +168,7 @@ while True: #loop until a connection is made with the server instead of immediat
     try:
         print("OBD connection established!")
         sio = socketio.Client()
-        sio.connect('http://localhost:3000')
+        sio.connect('http://localhost:4000')
         emitTelemetry()
         break
 
