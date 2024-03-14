@@ -62,7 +62,8 @@ def emitTelemetry():
             # vehicle speed
             vehicleSpeedCmd = obd.commands.SPEED # select an OBD command (sensor)
             vehicleSpeedResp = connection.query(vehicleSpeedCmd) # send the command, and parse the response
-            varVehicleSpeed = str(vehicleSpeedResp.value.to("mph").magnitude)
+            # varVehicleSpeed = str(vehicleSpeedResp.value.magnitude)
+            varVehicleSpeed = vehicleSpeedResp.value.magnitude
 
             # throttle position
             throttlePositionCmd = obd.commands.THROTTLE_POS
@@ -89,15 +90,15 @@ def emitTelemetry():
             intakeAirTemperatureResp = connection.query(intakeAirTemperatureCmd)
             varIntakeAirTemperature = intakeAirTemperatureResp.value
 
-            # oxygen sensor bank 1 sensor 1
-            oxygenSensorBank1Sensor1Cmd = obd.commands.O2_B1S1
-            oxygenSensorBank1Sensor1Resp = connection.query(oxygenSensorBank1Sensor1Cmd)
-            varOxygenSensorBank1Sensor1 = oxygenSensorBank1Sensor1Resp.value
+            # # oxygen sensor bank 1 sensor 1
+            # oxygenSensorBank1Sensor1Cmd = obd.commands.O2_B1S1
+            # oxygenSensorBank1Sensor1Resp = connection.query(oxygenSensorBank1Sensor1Cmd)
+            # varOxygenSensorBank1Sensor1 = oxygenSensorBank1Sensor1Resp.value
 
-            # oxygen sensor bank 2 sensor 2
-            oxygenSensorBank2Sensor2Cmd = obd.commands.O2_B2S2
-            oxygenSensorBank2Sensor2Resp = connection.query(oxygenSensorBank2Sensor2Cmd)
-            varOxygenSensorBank2Sensor2 = oxygenSensorBank2Sensor2Resp.value
+            # # oxygen sensor bank 2 sensor 2
+            # oxygenSensorBank2Sensor2Cmd = obd.commands.O2_B2S2
+            # oxygenSensorBank2Sensor2Resp = connection.query(oxygenSensorBank2Sensor2Cmd)
+            # varOxygenSensorBank2Sensor2 = oxygenSensorBank2Sensor2Resp.value
 
             # mass air flow
             massAirFlowCmd = obd.commands.MAX_MAF
@@ -109,15 +110,15 @@ def emitTelemetry():
             catalystTemperatureResp = connection.query(catalystTemperatureCmd)
             varCatalystTemperature = catalystTemperatureResp.value
 
-            # fuel type
-            fuelTypeCmd = obd.commands.FUEL_TYPE
-            fuelTypeResp = connection.query(fuelSystemStatusCmd)
-            varFuelType = fuelTypeResp.value
+            # # fuel type
+            # fuelTypeCmd = obd.commands.FUEL_TYPE
+            # fuelTypeResp = connection.query(fuelSystemStatusCmd)
+            # varFuelType = fuelTypeResp.value
 
-            # engine oil temperature
-            engineOilTemperatureCmd = obd.commands.OIL_TEMP
-            engineOilTemperatureResp = connection.query(engineOilTemperatureCmd)
-            varEngineOilTemperature = engineOilTemperatureResp.value
+            # # engine oil temperature
+            # engineOilTemperatureCmd = obd.commands.OIL_TEMP
+            # engineOilTemperatureResp = connection.query(engineOilTemperatureCmd)
+            # varEngineOilTemperature = engineOilTemperatureResp.value
 
             # intake manifold pressure
             intakeManifoldPressureCmd = obd.commands.INTAKE_PRESSURE
@@ -141,16 +142,19 @@ def emitTelemetry():
                 'varShortTermFuelTrim': varShortTermFuelTrim,
                 'varLongTermFuelTrim': varLongTermFuelTrim,
                 'varIntakeAirTemperature': varIntakeAirTemperature,
-                'varOxygenSensorBank1Sensor1': varOxygenSensorBank1Sensor1,
-                'varOxygenSensorBank2Sensor2': varOxygenSensorBank2Sensor2,
+                
                 'varMassAirFlow': varMassAirFlow,
                 'varCatalystTemperature': varCatalystTemperature,
-                'varFuelType': varFuelType,
-                'varEngineOilTemperature': varEngineOilTemperature,
+                
                 'varIntakeManifoldPressure': varIntakeManifoldPressure,
                 'runTime': runTime,
                 'idleTime': idleTime}
             sio.emit('data', json.dumps(data))
+
+            # 'varOxygenSensorBank1Sensor1': varOxygenSensorBank1Sensor1,
+            # 'varOxygenSensorBank2Sensor2': varOxygenSensorBank2Sensor2,
+            # 'varFuelType': varFuelType,
+            # 'varEngineOilTemperature': varEngineOilTemperature,
             
             emitDtcCodes()
             
