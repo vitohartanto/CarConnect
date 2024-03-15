@@ -52,7 +52,7 @@ def emitTelemetry():
             # fuel system status
             fuelSystemStatusCmd = obd.commands.FUEL_STATUS
             fuelSystemStatusResp = connection.query(fuelSystemStatusCmd)
-            varFuelSystemStatus = fuelSystemStatusResp.value
+            varFuelSystemStatus = str(fuelSystemStatusResp.value)
 
             # engine rpm
             engineRpmCmd = obd.commands.RPM
@@ -68,27 +68,27 @@ def emitTelemetry():
             # throttle position
             throttlePositionCmd = obd.commands.THROTTLE_POS
             throttlePositionResp = connection.query(throttlePositionCmd)
-            varThrottlePosition = str(throttlePositionResp.value.magnitude)
+            varThrottlePosition = throttlePositionResp.value.magnitude
 
             # engine coolant temperature
             engineCoolantTemperatureCmd = obd.commands.COOLANT_TEMP
             engineCoolantTemperatureResp = connection.query(engineCoolantTemperatureCmd)
-            varEngineCoolantTemperature = engineCoolantTemperatureResp.value
+            varEngineCoolantTemperature = engineCoolantTemperatureResp.value.magnitude
 
             # short term fuel trim
             shortTermFuelTrimCmd = obd.commands.SHORT_FUEL_TRIM_1
             shortTermFuelTrimResp = connection.query(shortTermFuelTrimCmd)
-            varShortTermFuelTrim = shortTermFuelTrimResp.value
+            varShortTermFuelTrim = shortTermFuelTrimResp.value.magnitude
             
             # long term fuel trim
             longTermFuelTrimCmd = obd.commands.LONG_FUEL_TRIM_1
             longTermFuelTrimResp = connection.query(longTermFuelTrimCmd)
-            varLongTermFuelTrim = longTermFuelTrimResp.value
+            varLongTermFuelTrim = longTermFuelTrimResp.value.magnitude
 
             # intake air temperature
             intakeAirTemperatureCmd = obd.commands.INTAKE_TEMP
             intakeAirTemperatureResp = connection.query(intakeAirTemperatureCmd)
-            varIntakeAirTemperature = intakeAirTemperatureResp.value
+            varIntakeAirTemperature = intakeAirTemperatureResp.value.magnitude
 
             # # oxygen sensor bank 1 sensor 1
             # oxygenSensorBank1Sensor1Cmd = obd.commands.O2_B1S1
@@ -108,7 +108,7 @@ def emitTelemetry():
             # catalyst temperature
             catalystTemperatureCmd = obd.commands.CATALYST_TEMP_B1S1
             catalystTemperatureResp = connection.query(catalystTemperatureCmd)
-            varCatalystTemperature = catalystTemperatureResp.value
+            varCatalystTemperature = catalystTemperatureResp.value.magnitude
 
             # # fuel type
             # fuelTypeCmd = obd.commands.FUEL_TYPE
@@ -123,12 +123,12 @@ def emitTelemetry():
             # intake manifold pressure
             intakeManifoldPressureCmd = obd.commands.INTAKE_PRESSURE
             intakeManifoldPressureResp = connection.query(intakeManifoldPressureCmd)
-            varIntakeManifoldPressure = intakeManifoldPressureResp.value         
+            varIntakeManifoldPressure = intakeManifoldPressureResp.value.magnitude 
                        
             
             runTimeCmd = obd.commands.RUN_TIME
-            response = connection.query(runTimeCmd)
-            runTime = str(response.value)
+            runTimeResp = connection.query(runTimeCmd)
+            runTime = str(runTimeResp.value)
             
             if (float(varVehicleSpeed) < .1):
                 idleTime += delay
@@ -174,7 +174,9 @@ while True: #loop until a connection is made with the server instead of immediat
         print("OBD connection established!")
         sio = socketio.Client()
         sio.connect('http://localhost:4000')
+        print("Socket IO has been connected to port 4000")
         emitTelemetry()
+        print("emitTelemetry sudah berhasil")
         break
 
     except Exception as ex: 

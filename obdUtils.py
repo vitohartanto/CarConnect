@@ -15,7 +15,7 @@ def createLogMessage(logType, sensor, description, detailedDescription):
         'logType': logType,
         'sensor' : sensor,
         'exType' : description,
-        'args' : detailedDescription,
+        'args' : str(detailedDescription),
         'timeStamp': timestamp
     }
 
