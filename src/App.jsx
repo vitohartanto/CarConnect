@@ -1,5 +1,4 @@
-import "./App.css";
-import { useEffect, createContext, useRef, useState } from "react";
+import React, { useEffect, createContext, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import io from "socket.io-client";
 
@@ -13,15 +12,16 @@ export const DtcContext = createContext();
 
 const App = () => {
   const socket = io();
-  const variablesInObjectRef = useRef({});
+  const [variablesInObject, setVariablesInObject] = useState({});
   const [dtcResponse, setDtcResponse] = useState(null);
 
   useEffect(() => {
     console.log("Client mulai menerima data");
     socket.on("data", (msg) => {
       let carData = JSON.parse(msg);
-      variablesInObjectRef.current = {
-        // Update variablesInObjectRef.current
+      setVariablesInObject({
+        // Update variablesInObject
+        ...variablesInObject,
         v_fuelSystemStatus: carData["varFuelSystemStatus"],
         v_engineRpm: parseInt(carData["varEngineRpm"]),
         v_vehicleSpeed: parseInt(carData["varVehicleSpeed"]),
@@ -32,37 +32,33 @@ const App = () => {
         v_shortTermFuelTrim: parseInt(carData["varShortTermFuelTrim"]),
         v_longTermFuelTrim: parseInt(carData["varLongTermFuelTrim"]),
         v_intakeAirTemperature: parseInt(carData["varIntakeAirTemperature"]),
-        v_oxygenSensorBank1Sensor1: parseInt(
-          carData["varOxygenSensorBank1Sensor1"]
-        ),
-        v_oxygenSensorBank2Sensor2: parseInt(
-          carData["varOxygenSensorBank2Sensor2"]
-        ),
-        v_massAirFlow: parseInt(carData["varMassAirFlow"]),
         v_catalystTemperature: parseInt(carData["varCatalystTemperature"]),
-        v_fuelType: carData["varFuelType"],
-        v_engineOilTemperature: parseInt(carData["varEngineOilTemperature"]),
         v_intakeManifoldPressure: parseInt(
           carData["varIntakeManifoldPressure"]
         ),
-      };
+      });
     });
+
     console.log("Client berhasil menerima data dan mulai menerima dtcData");
     socket.on("dtcData", (faultCodes) => {
       setDtcResponse(faultCodes);
     });
-    console.log("Ini adalah variablesInObjectRef");
-    console.log(variablesInObjectRef);
-    console.log("Ini adalah variablesInObjectRef.current");
-    console.log(variablesInObjectRef.current);
-    console.log("Ini adalah variablesInObjectRef.current");
-    console.log(variablesInObjectRef.current.v_engineRpm);
     console.log("Client berhasil menerima dtcData");
-    console.log(variablesInObjectRef.current.v_engineRpm);
-  }, [socket]);
+
+    console.log("Ini adalah variablesInObject");
+    console.log(variablesInObject);
+    console.log("Ini adalah variablesInObject.v_engineRpm");
+    console.log(variablesInObject.v_engineRpm);
+
+    // Cleanup function for useEffect
+    return () => {
+      socket.off("data");
+      socket.off("dtcData");
+    };
+  }, [socket, variablesInObject]);
 
   return (
-    <AppContext.Provider value={variablesInObjectRef.current}>
+    <AppContext.Provider value={variablesInObject}>
       <DtcContext.Provider value={dtcResponse}>
         <Router>
           <Routes>

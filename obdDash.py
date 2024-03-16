@@ -150,6 +150,7 @@ def emitTelemetry():
                 'runTime': runTime,
                 'idleTime': idleTime}
             sio.emit('data', json.dumps(data))
+            print(json.dumps(data))
 
             # 'varOxygenSensorBank1Sensor1': varOxygenSensorBank1Sensor1,
             # 'varOxygenSensorBank2Sensor2': varOxygenSensorBank2Sensor2,
@@ -162,6 +163,7 @@ def emitTelemetry():
             time.sleep(delay)
             
         except Exception as ex: #logs any errors
+            print("There is an exception that makes emitTelemetry failed")
             errorLog = obdUtils.createLogMessage(ERROR, SENSOR_TYPE, type(ex).__name__, ex.args)
             print(errorLog)
             sio.emit('log', json.dumps(errorLog)) # will only work if exception is unrelated to node server connection
@@ -176,7 +178,8 @@ while True: #loop until a connection is made with the server instead of immediat
         sio.connect('http://localhost:4000')
         print("Socket IO has been connected to port 4000")
         emitTelemetry()
-        print("emitTelemetry sudah berhasil")
+        emitDtcCodes()
+        print("emitTelemetry & emiteDtcCodes sudah berhasil")
         break
 
     except Exception as ex:
