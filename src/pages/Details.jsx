@@ -18,6 +18,7 @@ import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
 
 const Details = () => {
   console.log("Ini detail");
+  console.log("");
   return (
     <div>
       <Sidebar />

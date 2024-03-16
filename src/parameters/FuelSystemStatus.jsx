@@ -15,6 +15,12 @@ const FuelSystemStatus = ({ children }) => {
         {variablesInObject.v_fuelSystemStatus}
         {/* Closed loop, using oxygen sensor feedback to determine fuel mix */}
       </h1>
+      <button
+        className="border"
+        onClick={() => console.log(variablesInObject.v_fuelSystemStatus)}
+      >
+        Show Fuel System Status
+      </button>
     </div>
   );
 };
