@@ -2,9 +2,8 @@ import { useContext } from "react";
 import { AppContext } from "../App";
 
 const EngineRPM = ({ children }) => {
-  const { variablesInObject } = useContext(AppContext); // Destructuring variablesInObject from the context object
-  console.log("Testing untuk EngineRPM");
-  console.log(variablesInObject.v_engineRpm);
+  const variablesInObject = useContext(AppContext); // Destructuring variablesInObject from the context object
+
   return (
     <div className=" my-4 mx-6 border-[#233163] border-4 rounded-2xl relative w-64 md:w-64 md:h-60 lg:w-72 xl:w-96 xl:h-[272px] flex flex-col justify-center">
       {children}

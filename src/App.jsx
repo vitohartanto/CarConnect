@@ -18,10 +18,14 @@ const App = () => {
   useEffect(() => {
     console.log("Client mulai menerima data");
     socket.on("data", (msg) => {
+      console.log("Ini msg");
+      console.log(msg);
       let carData = JSON.parse(msg);
-      setVariablesInObject({
+      console.log("Ini carData");
+      console.log(carData);
+      setVariablesInObject((previousVariablesInObjects) => ({
         // Update variablesInObject
-        ...variablesInObject,
+        ...previousVariablesInObjects,
         v_fuelSystemStatus: carData["varFuelSystemStatus"],
         v_engineRpm: parseInt(carData["varEngineRpm"]),
         v_vehicleSpeed: parseInt(carData["varVehicleSpeed"]),
@@ -36,20 +40,14 @@ const App = () => {
         v_intakeManifoldPressure: parseInt(
           carData["varIntakeManifoldPressure"]
         ),
-      });
+      }));
+      console.log("Ini carData yang seharusnya salah");
       console.log(carData);
     });
 
-    console.log("Client berhasil menerima data dan mulai menerima dtcData");
     socket.on("dtcData", (faultCodes) => {
       setDtcResponse(faultCodes);
     });
-    console.log("Client berhasil menerima dtcData");
-
-    console.log("Ini adalah variablesInObject");
-    console.log(variablesInObject);
-    console.log("Ini adalah variablesInObject.v_engineRpm");
-    console.log(variablesInObject.v_engineRpm);
 
     // Cleanup function for useEffect
     return () => {
@@ -58,14 +56,8 @@ const App = () => {
     };
   }, [socket, variablesInObject]);
 
-  console.log("Percobaan 2");
-  console.log("Ini adalah variablesInObject");
-  console.log(variablesInObject);
-  console.log("Ini adalah variablesInObject.v_engineRpm");
-  console.log(variablesInObject.v_engineRpm);
-
   useEffect(() => {
-    console.log("Percobaan 3");
+    console.log("Percobaan Melihat variablesInObject");
     console.log(variablesInObject);
   }, [variablesInObject]);
 
