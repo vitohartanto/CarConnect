@@ -51,7 +51,14 @@ const App = () => {
     socket.on("dtcData", (faultCodes) => {
       setDtcResponse(faultCodes);
     });
+    console.log("Ini adalah variablesInObjectRef");
+    console.log(variablesInObjectRef);
+    console.log("Ini adalah variablesInObjectRef.current");
+    console.log(variablesInObjectRef.current);
+    console.log("Ini adalah variablesInObjectRef.current");
+    console.log(variablesInObjectRef.current.v_engineRpm);
     console.log("Client berhasil menerima dtcData");
+    console.log(variablesInObjectRef.current.v_engineRpm);
   }, [socket]);
 
   return (
