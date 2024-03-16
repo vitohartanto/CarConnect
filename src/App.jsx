@@ -57,6 +57,17 @@ const App = () => {
     };
   }, [socket, variablesInObject]);
 
+  console.log("Percobaan 2");
+  console.log("Ini adalah variablesInObject");
+  console.log(variablesInObject);
+  console.log("Ini adalah variablesInObject.v_engineRpm");
+  console.log(variablesInObject.v_engineRpm);
+
+  useEffect(() => {
+    console.log("Percobaan 3");
+    console.log(variablesInObject);
+  }, [variablesInObject]);
+
   return (
     <AppContext.Provider value={variablesInObject}>
       <DtcContext.Provider value={dtcResponse}>

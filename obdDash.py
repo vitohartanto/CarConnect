@@ -159,7 +159,6 @@ def emitTelemetry():
             # 'varEngineOilTemperature': varEngineOilTemperature,
             
             emitDtcCodes()
-            
             time.sleep(delay)
             
         except Exception as ex: #logs any errors
