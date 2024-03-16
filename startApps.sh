@@ -15,7 +15,7 @@ npm run dev &
 # chromium-browser --enable-chrome-browser-cloud-management --window-position=0,0    --kiosk --user-data-dir="/home/pi/Documents/Profiles/0" http://localhost:5000 &
 
 # Launching firefox-browser
-firefox --new-instance --kiosk --profile "/home/pi/Documents/Profiles/0" "http://localhost:5000" &
+firefox-esr --new-instance --kiosk --profile "/home/pi/Documents/Profiles/0" "http://localhost:5000" &
 
 
 # # Used in Unix-like operating systems to hide the mouse cursor when it's not in use
