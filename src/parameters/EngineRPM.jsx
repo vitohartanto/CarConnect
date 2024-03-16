@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "../App";
 
 const EngineRPM = ({ children }) => {
-  const variablesInObject = useContext(AppContext);
+  const { variablesInObject } = useContext(AppContext); // Destructuring variablesInObject from the context object
   console.log("Testing untuk EngineRPM");
   console.log(variablesInObject.v_engineRpm);
   return (
@@ -19,7 +19,7 @@ const EngineRPM = ({ children }) => {
         className="border"
         onClick={() => console.log(variablesInObject.v_engineRpm)}
       >
-        Show Fuel System Status
+        Show Engine RPM
       </button>
     </div>
   );

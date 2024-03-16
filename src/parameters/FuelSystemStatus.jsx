@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AppContext } from "../App";
 
 const FuelSystemStatus = ({ children }) => {
-  const variablesInObject = useContext(AppContext);
+  const { variablesInObject } = useContext(AppContext);
   console.log("Testing untuk FuelSystemStatus");
   console.log(variablesInObject.v_fuelSystemStatus);
   return (
