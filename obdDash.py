@@ -179,9 +179,12 @@ while True: #loop until a connection is made with the server instead of immediat
         print("emitTelemetry sudah berhasil")
         break
 
-    except Exception as ex: 
+    except Exception as ex:
+            print("There is an exception that makes emitTelemetry failed")
             errorLog = obdUtils.createLogMessage(ERROR, SENSOR_TYPE, type(ex).__name__, ex.args)
+            print("Start of errorLog")
             print(errorLog)
+            print("End of errorLog")
             sio.emit('log', json.dumps(errorLog)) # will only work if exception is unrelated to node server connection
             sleep(RETRY_INTERVAL)
             continue
