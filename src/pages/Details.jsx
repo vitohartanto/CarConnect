@@ -17,6 +17,7 @@ import EngineOilTemperature from "../parameters/EngineOilTemperature";
 import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
 
 const Details = () => {
+  console.log("Ini detail");
   return (
     <div>
       <Sidebar />

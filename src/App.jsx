@@ -17,6 +17,7 @@ const App = () => {
   const [dtcResponse, setDtcResponse] = useState(null);
 
   useEffect(() => {
+    console.log("Client mulai menerima data");
     socket.on("data", (msg) => {
       let carData = JSON.parse(msg);
       variablesInObjectRef.current = {
@@ -46,10 +47,11 @@ const App = () => {
         ),
       };
     });
-
+    console.log("Client berhasil menerima data dan mulai menerima dtcData");
     socket.on("dtcData", (faultCodes) => {
       setDtcResponse(faultCodes);
     });
+    console.log("Client berhasil menerima dtcData");
   }, [socket]);
 
   return (
