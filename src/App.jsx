@@ -37,6 +37,7 @@ const App = () => {
           carData["varIntakeManifoldPressure"]
         ),
       });
+      console.log(carData);
     });
 
     console.log("Client berhasil menerima data dan mulai menerima dtcData");
