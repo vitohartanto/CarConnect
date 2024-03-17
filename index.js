@@ -32,7 +32,9 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
   socket.on("data", (msg) => {
+    console.log("Something1");
     io.emit("data", msg);
+    console.log("Something2");
   });
 
   socket.on("dtcData", (msg) => {
