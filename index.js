@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
   socket.on("data", (msg) => {
-    console.log("Something1");
+    console.log("SERVER: something1");
     io.emit("data", msg);
     console.log("Something2");
   });
