@@ -17,7 +17,11 @@ const port = process.env.PORT || 4000;
 app.use(express.static(__dirname + "/public"));
 
 // Enable CORS middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5000",
+  })
+);
 
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
