@@ -11,7 +11,7 @@ export const AppContext = createContext();
 export const DtcContext = createContext();
 
 const App = () => {
-  const socket = io();
+  const socket = io("http://localhost:4000");
   const [variablesInObject, setVariablesInObject] = useState({});
   const [dtcResponse, setDtcResponse] = useState(null);
 
