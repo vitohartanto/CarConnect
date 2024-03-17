@@ -45,6 +45,6 @@ io.on("connection", (socket) => {
 });
 
 // This method starts the server and binds it to the specified port. The port parameter specifies the port number on which the server should listen for incoming connections.
-server.listen(port, () => {
+io.listen(port, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
