@@ -14,12 +14,6 @@ const EngineRPM = ({ children }) => {
       <h1 className="px-4 py-2 mb-2 text-center text-base md:text-lg lg:text-xl">
         {variablesInObject.v_engineRpm} RPM
       </h1>
-      <button
-        className="border"
-        onClick={() => console.log(variablesInObject.v_engineRpm)}
-      >
-        Show Engine RPM
-      </button>
     </div>
   );
 };

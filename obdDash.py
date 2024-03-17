@@ -90,42 +90,21 @@ def emitTelemetry():
             intakeAirTemperatureResp = connection.query(intakeAirTemperatureCmd)
             varIntakeAirTemperature = intakeAirTemperatureResp.value.magnitude
 
-            # # oxygen sensor bank 1 sensor 1
-            # oxygenSensorBank1Sensor1Cmd = obd.commands.O2_B1S1
-            # oxygenSensorBank1Sensor1Resp = connection.query(oxygenSensorBank1Sensor1Cmd)
-            # varOxygenSensorBank1Sensor1 = oxygenSensorBank1Sensor1Resp.value
-
-            # # oxygen sensor bank 2 sensor 2
-            # oxygenSensorBank2Sensor2Cmd = obd.commands.O2_B2S2
-            # oxygenSensorBank2Sensor2Resp = connection.query(oxygenSensorBank2Sensor2Cmd)
-            # varOxygenSensorBank2Sensor2 = oxygenSensorBank2Sensor2Resp.value
-
-            # # mass air flow
-            # massAirFlowCmd = obd.commands.MAX_MAF
-            # massAirFlowResp = connection.query(massAirFlowCmd)
-            # varMassAirFlow = massAirFlowResp.value
+            # mass air flow
+            massAirFlowCmd = obd.commands.MAF
+            massAirFlowResp = connection.query(massAirFlowCmd)
+            varMassAirFlow = massAirFlowResp.value.magnitude
 
             # catalyst temperature
             catalystTemperatureCmd = obd.commands.CATALYST_TEMP_B1S1
             catalystTemperatureResp = connection.query(catalystTemperatureCmd)
             varCatalystTemperature = catalystTemperatureResp.value.magnitude
 
-            # # fuel type
-            # fuelTypeCmd = obd.commands.FUEL_TYPE
-            # fuelTypeResp = connection.query(fuelSystemStatusCmd)
-            # varFuelType = fuelTypeResp.value
-
-            # # engine oil temperature
-            # engineOilTemperatureCmd = obd.commands.OIL_TEMP
-            # engineOilTemperatureResp = connection.query(engineOilTemperatureCmd)
-            # varEngineOilTemperature = engineOilTemperatureResp.value
-
             # intake manifold pressure
             intakeManifoldPressureCmd = obd.commands.INTAKE_PRESSURE
             intakeManifoldPressureResp = connection.query(intakeManifoldPressureCmd)
             varIntakeManifoldPressure = intakeManifoldPressureResp.value.magnitude 
                        
-            
             runTimeCmd = obd.commands.RUN_TIME
             runTimeResp = connection.query(runTimeCmd)
             runTime = str(runTimeResp.value)
@@ -142,21 +121,13 @@ def emitTelemetry():
                 'varShortTermFuelTrim': varShortTermFuelTrim,
                 'varLongTermFuelTrim': varLongTermFuelTrim,
                 'varIntakeAirTemperature': varIntakeAirTemperature,
-                
-                
+                'varMassAirFlow': varMassAirFlow,
                 'varCatalystTemperature': varCatalystTemperature,
-                
                 'varIntakeManifoldPressure': varIntakeManifoldPressure,
                 'runTime': runTime,
                 'idleTime': idleTime}
             sio.emit('data', json.dumps(data))
             print(json.dumps(data))
-
-            # 'varOxygenSensorBank1Sensor1': varOxygenSensorBank1Sensor1,
-            # 'varOxygenSensorBank2Sensor2': varOxygenSensorBank2Sensor2,
-            # 'varMassAirFlow': varMassAirFlow,
-            # 'varFuelType': varFuelType,
-            # 'varEngineOilTemperature': varEngineOilTemperature,
             
             emitDtcCodes()
             time.sleep(delay)

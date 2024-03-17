@@ -190,7 +190,7 @@ const Details = () => {
           </div>
         </div>
         {/* oxygen sensor bank 1 sensor 1 */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        {/* <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
             <OxygenSensorBank1Sensor1 />
           </div>
@@ -208,9 +208,9 @@ const Details = () => {
               0.1V - 0.9V for a properly functioning sensor.
             </h2>
           </div>
-        </div>
+        </div> */}
         {/* oxygen sensor bank 2 sensor 2 */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        {/* <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
             <OxygenSensorBank2Sensor2 />
           </div>
@@ -229,7 +229,7 @@ const Details = () => {
               0.1V - 0.9V for a properly functioning sensor.
             </h2>
           </div>
-        </div>
+        </div> */}
         {/* mass air flow */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
@@ -268,7 +268,7 @@ const Details = () => {
           </div>
         </div>
         {/* fuel type */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        {/* <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
             <FuelType />
           </div>
@@ -279,9 +279,9 @@ const Details = () => {
               gasoline, diesel, and electricity.
             </h2>
           </div>
-        </div>
+        </div> */}
         {/* engine oil temperature */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        {/* <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
             <EngineOilTemperature />
           </div>
@@ -296,7 +296,7 @@ const Details = () => {
               and longevity.
             </h2>
           </div>
-        </div>
+        </div> */}
         {/* intake manifold pressure */}
         <div className="mt-10 mb-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">

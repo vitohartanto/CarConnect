@@ -1,6 +1,7 @@
-import React, { useEffect, createContext, useState } from "react";
+import { useEffect, createContext, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import io from "socket.io-client";
+import "./App.css";
 
 import Home from "./Home";
 import Dashboard from "./pages/Dashboard";
@@ -37,6 +38,7 @@ const App = () => {
         v_shortTermFuelTrim: parseInt(carData["varShortTermFuelTrim"]),
         v_longTermFuelTrim: parseInt(carData["varLongTermFuelTrim"]),
         v_intakeAirTemperature: parseInt(carData["varIntakeAirTemperature"]),
+        v_massAirFlow: parseInt(carData["varMassAirFlow"]),
         v_catalystTemperature: parseInt(carData["varCatalystTemperature"]),
         v_intakeManifoldPressure: parseInt(
           carData["varIntakeManifoldPressure"]

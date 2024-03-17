@@ -70,23 +70,18 @@ const UpdateModal = ({
       inputOptions: {
         Strings: {
           fuelsystemstatus: "Fuel System Status",
-          fueltype: "Fuel Type",
         },
         Gauges: {
           vehiclespeed: "Vehicle Speed",
           throttleposition: "Throttle Position",
           enginecoolanttemperature: "Engine Coolant Temperature",
           catalysttemperature: "Catalyst Temperature",
-          engineoiltemperature: "Engine Oil Temperature",
         },
-
         Numerics: {
           enginerpm: "Engine RPM",
           shorttermfueltrim: "Short Term Fuel Trim",
           longtermfueltrim: "Long Term Fuel Trim",
           intakeairtemperature: "Intake Air Temperature",
-          oxygensensorbank1sensor1: "Oxygen Sensor Bank 1 Sensor 1",
-          oxygensensorbank2sensor2: "Oxygen Sensor Bank 2 Sensor 2",
           massairflow: "Mass Air Flow",
           intakemaniholdpressure: "Intake Manihold Pressure",
         },
