@@ -45,10 +45,10 @@ const Dashboard = () => {
         <AddModal addComponent={addComponent} />
       </Sidebar>
       <div className="ml-12">
-        <h1 className="text-2xl md:text-3xl font-bold ml-5 sm:ml-10 pt-8">
+        <h1 className="text-2xl md:text-3xl xl:text-4xl font-bold ml-5 sm:ml-10 pt-8">
           Dashboard
         </h1>
-        <h1 className="text-lg md:text-xl font-medium ml-5 sm:ml-10 pt-2">
+        <h1 className="text-lg md:text-xl xl:text-2xl font-medium ml-5 sm:ml-10 pt-2">
           Click the + button to add the dashboard card
         </h1>
         <div className="flex flex-wrap flex-col md:flex-row justify-center items-center">

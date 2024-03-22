@@ -10,14 +10,14 @@ const Home = () => {
   return (
     <div>
       <div className="w-12 fixed h-screen bg-[#233163]"></div>
-      <div className="flex flex-col text-center text-2xl xl:text-3xl font-bold h-screen justify-evenly items-center">
+      <div className="flex flex-col lg:flex-row lg:px-20 lg:py-12 lg:ml-12 text-center text-2xl xl:text-3xl font-bold h-screen justify-evenly items-center">
         <Link
           to="/dashboard"
-          className="w-3/4 border-4 rounded-2xl border-[#233163] flex flex-col py-6 ml-12"
+          className="lg:h-full w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl  bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-6 ml-12 lg:mx-10"
         >
-          <h1 className="pb-4">Dashboard</h1>
+          <h1 className="pb-4 lg:text-3xl xl:text-4xl">Dashboard</h1>
           <FontAwesomeIcon
-            className="text-5xl"
+            className="text-5xl lg:text-6xl xl:text-7xl"
             icon={faGaugeSimpleHigh}
             style={{ color: "#233163" }}
           />
@@ -25,11 +25,11 @@ const Home = () => {
 
         <Link
           to="/details"
-          className="w-3/4 border-4 rounded-2xl border-[#233163] flex flex-col py-6 ml-12"
+          className="lg:h-full w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl  bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-6 ml-12 lg:mx-10"
         >
-          <h1 className="pb-4">Details</h1>
+          <h1 className="pb-4 lg:text-3xl xl:text-4xl">Details</h1>
           <FontAwesomeIcon
-            className="text-5xl"
+            className="text-5xl lg:text-6xl xl:text-7xl"
             icon={faCircleInfo}
             style={{ color: "#233163" }}
           />
@@ -37,11 +37,11 @@ const Home = () => {
 
         <Link
           to="/diagnostics"
-          className="w-3/4 border-4 rounded-2xl border-[#233163] flex flex-col py-6 ml-12"
+          className="lg:h-full w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl  bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-6 ml-12 lg:mx-10"
         >
-          <h1 className="pb-4">Diagnostics</h1>
+          <h1 className="pb-4 lg:text-3xl xl:text-4xl">Diagnostics</h1>
           <FontAwesomeIcon
-            className="text-5xl"
+            className="text-5xl lg:text-6xl xl:text-7xl"
             icon={faCode}
             style={{ color: "#233163" }}
           />

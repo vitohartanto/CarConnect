@@ -21,7 +21,7 @@ const Details = () => {
     <div>
       <Sidebar />
       <div className="ml-12">
-        <h1 className="text-2xl md:text-3xl font-bold ml-5 sm:ml-10 pt-8">
+        <h1 className="text-2xl md:text-3xl xl:text-4xl font-bold ml-5 sm:ml-10 pt-8">
           Details
         </h1>
         {/* fuel system status */}
