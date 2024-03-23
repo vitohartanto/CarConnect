@@ -4,12 +4,36 @@ import {
   faGaugeSimpleHigh,
   faCircleInfo,
   faCode,
+  faRightFromBracket,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import { HyperbaseContext } from "./App";
 
 const Home = () => {
+  const hyperbase = useContext(HyperbaseContext);
+
+  const signOut = (e) => {
+    e.stopPropagation();
+    hyperbase.signOut();
+  };
+
   return (
     <div>
-      <div className="w-12 fixed h-screen bg-[#233163]"></div>
+      <div className="w-12 fixed h-screen bg-[#233163] flex flex-col justify-between items-center py-8">
+        <FontAwesomeIcon
+          className="text-2xl"
+          icon={faArrowLeft}
+          style={{ color: "#FFF" }}
+        />
+        <button onClick={signOut}>
+          <FontAwesomeIcon
+            className="text-2xl"
+            icon={faRightFromBracket}
+            style={{ color: "#FFF" }}
+          />
+        </button>
+      </div>
       <div className="flex flex-col lg:flex-row lg:px-20 lg:py-12 lg:ml-12 text-center text-2xl xl:text-3xl font-bold h-screen justify-evenly items-center">
         <Link
           to="/dashboard"

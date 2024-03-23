@@ -7,7 +7,12 @@ import Home from "./Home";
 import Dashboard from "./pages/Dashboard";
 import Details from "./pages/Details";
 import Diagnostics from "./pages/Diagnostics";
+import SignIn from "./SignIn";
+import useHyperbase from "./hooks/useHyperbase";
+import ProtectedRoute from "./ProtectedRoute";
+import AvailableCars from "./AvailableCars";
 
+export const HyperbaseContext = createContext();
 export const AppContext = createContext();
 export const DtcContext = createContext();
 
@@ -15,6 +20,7 @@ const App = () => {
   const socket = io("http://localhost:4000");
   const [variablesInObject, setVariablesInObject] = useState({});
   const [dtcResponse, setDtcResponse] = useState(null);
+  const hyperbase = useHyperbase();
 
   useEffect(() => {
     console.log("Client mulai menerima data");
@@ -65,18 +71,36 @@ const App = () => {
   }, [variablesInObject]);
 
   return (
-    <AppContext.Provider value={variablesInObject}>
-      <DtcContext.Provider value={dtcResponse}>
-        <Router>
-          <Routes>
-            <Route path="/" exact element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/details" element={<Details />} />
-            <Route path="/diagnostics" element={<Diagnostics />} />
-          </Routes>
-        </Router>
-      </DtcContext.Provider>
-    </AppContext.Provider>
+    <HyperbaseContext.Provider value={hyperbase}>
+      <AppContext.Provider value={variablesInObject}>
+        <DtcContext.Provider value={dtcResponse}>
+          <Router>
+            <Routes>
+              <Route path="/signin" exact element={<SignIn />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/app" exact element={<AvailableCars />} />
+                <Route path="/app/:car_id/" exact element={<Home />} />
+                <Route
+                  path="/app/:car_id/dashboard"
+                  exact
+                  element={<Dashboard />}
+                />
+                <Route
+                  path="/app/:car_id/details"
+                  exact
+                  element={<Details />}
+                />
+                <Route
+                  path="/app/:car_id/diagnostics"
+                  exact
+                  element={<Diagnostics />}
+                />
+              </Route>
+            </Routes>
+          </Router>
+        </DtcContext.Provider>
+      </AppContext.Provider>
+    </HyperbaseContext.Provider>
   );
 };
 
