@@ -135,7 +135,7 @@ def emitTelemetry():
             sio.emit('data', json.dumps(data))
             print(json.dumps(data))
 
-            publish.single("hyperbase-pg", json.dumps({
+            publish.single(os.getenv("HYPERBASE_MQTT_TOPIC"), json.dumps({
                 "project_id": os.getenv("PROJECT_ID"),
                 "token_id": os.getenv("TOKEN_ID"),
                 "token": os.getenv("TOKEN"),
@@ -160,7 +160,7 @@ def emitTelemetry():
                     "run_time": runTime,
                     "idle_time": idleTime
                 }
-            }), hostname="10.42.28.156")
+            }), hostname=os.getenv("HYPERBASE_MQTT_HOST"))
             
             emitDtcCodes()
             time.sleep(delay)
