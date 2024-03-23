@@ -26,7 +26,12 @@ function SignIn() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await hyperbase.signIn(email, password);
+    try {
+      await hyperbase.signIn(email, password);
+    } catch (err) {
+      alert(`${err.status}\n${err.message}`);
+      return;
+    }
     navigate("/app");
   };
 

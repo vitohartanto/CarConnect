@@ -4,19 +4,20 @@ import hyperbaseCollections from "../utils/hyperbase/hyperbaseCollections.json";
 import Hyperbase from "../utils/hyperbase/hyperbase";
 
 function useHyperbase() {
-  const hyperbase = useMemo(() => new Hyperbase(), []);
+  const hyperbase = useMemo(() => new Hyperbase(hyperbaseConfig), []);
   const [isLoading, setIsLoading] = useState(true);
   const [isSignedIn, setIsSignedIn] = useState(false);
 
   useEffect(() => {
     (async () => {
       setIsLoading(true);
-      hyperbase.init(hyperbaseConfig);
       const token = localStorage.getItem("token");
       if (token) {
         const newToken = await hyperbase.setAuthToken(token);
-        localStorage.setItem("token", newToken);
-        setIsSignedIn(true);
+        if (newToken) {
+          localStorage.setItem("token", newToken);
+          setIsSignedIn(true);
+        }
       }
       setIsLoading(false);
     })();
@@ -24,11 +25,10 @@ function useHyperbase() {
 
   const signIn = async (email, password) => {
     setIsLoading(true);
-    const token = await hyperbase.signin(
-      hyperbaseCollections.users,
+    const token = await hyperbase.signIn(hyperbaseCollections.users, {
       email,
-      password
-    );
+      password,
+    });
     if (token) {
       localStorage.setItem("token", token);
       setIsSignedIn(true);

@@ -13,10 +13,15 @@ function AvailableCars() {
     if (hyperbase.isLoading) return;
 
     (async () => {
-      const carCollections = await hyperbase.newCollection(collections.cars);
-      setCarsCollection(carCollections);
-      const cars = await carCollections.findMany();
-      setCars(cars.data);
+      try {
+        const carCollections = await hyperbase.newCollection(collections.cars);
+        setCarsCollection(carCollections);
+        const cars = await carCollections.findMany();
+        setCars(cars.data);
+      } catch (err) {
+        alert(`${err.status}\n${err.message}`);
+        return;
+      }
     })();
   }, [hyperbase, hyperbase.isLoading]);
 
