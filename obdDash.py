@@ -6,6 +6,12 @@ import obd
 import obdUtils
 import time
 import re
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+import paho.mqtt.publish as publish
+
+load_dotenv(dotenv_path=Path("./.env.obd-dash"))
 
 SENSOR_TYPE = 'OBD'
 ERROR = 'ERR'
@@ -128,6 +134,33 @@ def emitTelemetry():
                 'idleTime': idleTime}
             sio.emit('data', json.dumps(data))
             print(json.dumps(data))
+
+            publish.single("hyperbase-pg", json.dumps({
+                "project_id": os.getenv("PROJECT_ID"),
+                "token_id": os.getenv("TOKEN_ID"),
+                "token": os.getenv("TOKEN"),
+                "user": {
+                    "collection_id": os.getenv("USER_COLLECTION_ID"),
+                    "id": os.getenv("USER_ID")
+                },
+                "collection_id": os.getenv("COLLECTION_ID"),
+                "data": {
+                    "car_id": os.getenv("CAR_ID"),
+                    "fuel_system_status": varFuelSystemStatus,
+                    "engine_rpm": varEngineRpm,
+                    "vehicle_speed": varVehicleSpeed,
+                    "throttle_position": varThrottlePosition,
+                    "engine_coolant_temperature": varEngineCoolantTemperature,
+                    "short_term_fuel_trim": varShortTermFuelTrim,
+                    "long_term_fuel_trim": varLongTermFuelTrim,
+                    "intake_air_temperature": varIntakeAirTemperature,
+                    "mass_air_flow": varMassAirFlow,
+                    "catalyst_temperature": varCatalystTemperature,
+                    "intake_manifold_pressure": varIntakeManifoldPressure,
+                    "run_time": runTime,
+                    "idle_time": idleTime
+                }
+            }), hostname="10.42.28.156")
             
             emitDtcCodes()
             time.sleep(delay)
