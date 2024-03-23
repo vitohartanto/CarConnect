@@ -17,7 +17,7 @@ export default class Hyperbase {
     return this.#_authToken;
   }
 
-  init(config) {
+  constructor(config) {
     this.#_baseUrl = config.base_url;
     this.#_projectId = config.project_id;
     this.#_tokenId = config.token_id;
@@ -37,27 +37,17 @@ export default class Hyperbase {
     return this.#_authToken;
   }
 
-  async signin(collectionId, email, password) {
+  async signIn(collectionId, data) {
     const res = await this.#api(`/auth/token-based`, {
       method: "POST",
       body: JSON.stringify({
         token_id: this.#_tokenId,
         token: this.#_token,
         collection_id: collectionId,
-        data: {
-          email,
-          password,
-        },
+        data,
       }),
       headers: {
         "content-type": "application/json",
-      },
-    });
-
-    this.#api(`/project/${this.#_projectId}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${res.data.token}`,
       },
     });
 
@@ -103,10 +93,6 @@ class HyperbaseCollection {
     const res = await this.#api(`/record`, {
       method: "POST",
       body: JSON.stringify(object),
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${this.#_hyperbase.authToken}`,
-      },
     });
 
     return res.data;
@@ -115,9 +101,6 @@ class HyperbaseCollection {
   async findOne(_id) {
     const res = await this.#api(`/record/${_id}`, {
       method: "GET",
-      headers: {
-        authorization: `Bearer ${this.#_hyperbase.authToken}`,
-      },
     });
 
     return res.data;
@@ -127,10 +110,6 @@ class HyperbaseCollection {
     const res = await this.#api(`/record/${_id}`, {
       method: "PATCH",
       body: JSON.stringify(object),
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${this.#_hyperbase.authToken}`,
-      },
     });
 
     return res.data;
@@ -139,9 +118,6 @@ class HyperbaseCollection {
   async deleteOne(_id) {
     await this.#api(`/record/${_id}`, {
       method: "DELETE",
-      headers: {
-        authorization: `Bearer ${this.#_hyperbase.authToken}`,
-      },
     });
   }
 
@@ -161,10 +137,6 @@ class HyperbaseCollection {
         orders,
         limit,
       }),
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${this.#_hyperbase.authToken}`,
-      },
     });
 
     return res;
@@ -178,7 +150,14 @@ class HyperbaseCollection {
       `${this.#_hyperbase.baseUrl}/api/rest/project/${
         this.#_hyperbase.projectId
       }/collection/${this.#_collectionId}/${input}`,
-      init
+      {
+        ...init,
+        headers: {
+          ...init.headers,
+          "content-type": "application/json",
+          authorization: `Bearer ${this.#_hyperbase.authToken}`,
+        },
+      }
     );
     const resJson = await res.json();
     if (res.status.toString()[0] != "2") {

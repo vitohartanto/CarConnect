@@ -1,5 +1,10 @@
 import { useEffect, createContext, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import io from "socket.io-client";
 import "./App.css";
 
@@ -76,6 +81,7 @@ const App = () => {
         <DtcContext.Provider value={dtcResponse}>
           <Router>
             <Routes>
+              <Route path="/" exact element={<Navigate to="/app" replace />} />
               <Route path="/signin" exact element={<SignIn />} />
               <Route element={<ProtectedRoute />}>
                 <Route path="/app" exact element={<AvailableCars />} />
