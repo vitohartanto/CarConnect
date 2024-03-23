@@ -1,5 +1,5 @@
 import React from "react";
-import { CarConnectLogo } from "../public/Trans_CarConnect.png";
+import { CarConnectLogo } from "./src/Trans_CarConnect.png";
 
 function SignIn() {
   return (
