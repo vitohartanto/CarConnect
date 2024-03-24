@@ -58,7 +58,8 @@ const AvailableCars = () => {
     setCars([...cars, { licence_plate }]);
   };
 
-  const editCarLicencePlate = async () => {
+  const editCarLicencePlate = async (event) => {
+    event.preventDefault();
     const { value: licence_plate_corrected } = await Swal.fire({
       title: "Edit Car's Licence Plate",
       inputPlaceholder: "e.g. B 1234 VH",
@@ -79,7 +80,10 @@ const AvailableCars = () => {
     // setCars([...cars, { licence_plate }]);
   };
 
-  const deleteCarLicencePlate = async () => {
+  const deleteCarLicencePlate = async (event) => {
+    // Assuming event is passed from an event listener
+    event.preventDefault();
+
     const { value: removed } = await Swal.fire({
       title: "Delete this?",
       icon: "warning",
@@ -89,10 +93,8 @@ const AvailableCars = () => {
       confirmButtonText: "Yes, delete it!",
       color: "#233163",
     });
-    // console.log(removed);
-    // if (removed == true) {
-    //   removeComponentById(componentObject.id, selectedComponents);
-    // }
+
+    // Your remaining code
   };
 
   // const removeComponentById = (componentId, array) => {
