@@ -121,6 +121,7 @@ const App = () => {
           setVariablesInObject((previousVariablesInObjects) => ({
             // Update variablesInObject
             ...previousVariablesInObjects,
+            v_car_id: d.car_id,
             v_fuelSystemStatus: d.fuel_system_status,
             v_engineRpm: d.engine_rpm,
             v_vehicleSpeed: d.vehicle_speed,
