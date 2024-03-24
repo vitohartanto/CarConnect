@@ -17,29 +17,79 @@ const AvailableCars = () => {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    if (hyperbase.isLoading) return;
+    if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
+
+    let unsubscribe;
 
     (async () => {
       try {
-        const carCollections = await hyperbase.newCollection(collections.cars);
-        setCarsCollection(carCollections);
-        const cars = await carCollections.findMany();
-        setCars(cars.data);
+        const carCollection = await hyperbase.setCollection(collections.cars);
+        unsubscribe = subscribe(carCollection);
+
+        setCarsCollection(carCollection);
       } catch (err) {
         alert(`${err.status}\n${err.message}`);
-        return;
       }
     })();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
   }, [hyperbase, hyperbase.isLoading]);
+
+  useEffect(() => {
+    if (!carsCollection) return;
+    fetchAllCars();
+  }, [carsCollection]);
 
   const signOut = (e) => {
     e.stopPropagation();
     hyperbase.signOut();
   };
 
-  const addCarLicencePlate = async () => {
-    const { value: licence_plate } = await Swal.fire({
-      title: "Enter Car's Licence Plate",
+  const fetchAllCars = async () => {
+    try {
+      const cars = await carsCollection.findMany({
+        orders: [
+          {
+            field: "_id",
+            kind: "asc",
+          },
+        ],
+      });
+      setCars(cars.data);
+    } catch (err) {
+      alert(`${err.status}\n${err.message}`);
+    }
+  };
+
+  const subscribe = (carsCollection) => {
+    carsCollection.subscribe({
+      onOpenCallback: (e) => {
+        console.log("Subscribe cars status open:", e);
+      },
+      onErrorCallback: (e) => {
+        console.log("Subscribe cars status error:", e);
+      },
+      onCloseCallback: (e) => {
+        console.log("Subscribe cars status close:", e);
+        if (e.status !== 1000) {
+          setTimeout(() => {
+            subscribe(carsCollection);
+          }, 5000);
+        }
+      },
+      onMessageCallback: (e) => {
+        console.log("Subscribe cars status message:", e);
+      },
+    });
+
+    return () => carsCollection.unsubscribe(1000);
+  };
+
+  const addCarLicensePlate = async () => {
+    const { value: license_plate } = await Swal.fire({
+      title: "Enter Car's License Plate",
       inputPlaceholder: "e.g. B 1234 VH",
       input: "text",
       color: "#233163",
@@ -54,14 +104,24 @@ const AvailableCars = () => {
         }
       },
     });
-    console.log(licence_plate);
-    setCars([...cars, { licence_plate }]);
+
+    if (license_plate) {
+      try {
+        await carsCollection.insertOne({
+          user_id: hyperbase.user._id,
+          license_plate,
+        });
+        await fetchAllCars();
+      } catch (err) {
+        alert(`${err.status}\n${err.message}`);
+      }
+    }
   };
 
-  const editCarLicencePlate = async (event) => {
+  const editCarLicensePlate = async (event, id) => {
     event.preventDefault();
-    const { value: licence_plate_corrected } = await Swal.fire({
-      title: "Edit Car's Licence Plate",
+    const { value: license_plate_corrected } = await Swal.fire({
+      title: "Edit Car's License Plate",
       inputPlaceholder: "e.g. B 1234 VH",
       input: "text",
       color: "#233163",
@@ -76,11 +136,20 @@ const AvailableCars = () => {
         }
       },
     });
-    console.log(licence_plate_corrected);
-    // setCars([...cars, { licence_plate }]);
+
+    if (license_plate_corrected) {
+      try {
+        await carsCollection.updateOne(id, {
+          license_plate: license_plate_corrected,
+        });
+        await fetchAllCars();
+      } catch (err) {
+        alert(`${err.status}\n${err.message}`);
+      }
+    }
   };
 
-  const deleteCarLicencePlate = async (event) => {
+  const deleteCarLicensePlate = async (event, id) => {
     // Assuming event is passed from an event listener
     event.preventDefault();
 
@@ -95,6 +164,14 @@ const AvailableCars = () => {
     });
 
     // Your remaining code
+    if (removed) {
+      try {
+        await carsCollection.deleteOne(id);
+        await fetchAllCars();
+      } catch (err) {
+        alert(`${err.status}\n${err.message}`);
+      }
+    }
   };
 
   // const removeComponentById = (componentId, array) => {
@@ -105,7 +182,7 @@ const AvailableCars = () => {
   return (
     <div>
       <div className="w-12 fixed h-screen bg-[#233163] flex items-center justify-between flex-col py-10">
-        <button onClick={addCarLicencePlate} className="text-4xl text-white">
+        <button onClick={addCarLicensePlate} className="text-4xl text-white">
           +
         </button>
         <button onClick={signOut}>
@@ -127,11 +204,11 @@ const AvailableCars = () => {
               href={`/app/${car._id}`}
               className="shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] px-8 py-4 lg:py-8 rounded-2xl mt-6 flex justify-between font-medium w-full"
             >
-              <h1 className=" md:text-xl xl:text-2xl">{car.licence_plate}</h1>
+              <h1 className=" md:text-xl xl:text-2xl">{car.license_plate}</h1>
               <div>
                 <button
                   className="mx-4 sm:text-xl lg:text-2xl"
-                  onClick={editCarLicencePlate}
+                  onClick={(e) => editCarLicensePlate(e, car._id)}
                 >
                   <FontAwesomeIcon
                     icon={faPenToSquare}
@@ -140,7 +217,7 @@ const AvailableCars = () => {
                 </button>
                 <button
                   className="mx-4 sm:text-xl lg:text-2xl"
-                  onClick={deleteCarLicencePlate}
+                  onClick={(e) => deleteCarLicensePlate(e, car._id)}
                 >
                   <FontAwesomeIcon
                     icon={faTrash}

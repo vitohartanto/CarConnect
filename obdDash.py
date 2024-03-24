@@ -132,7 +132,7 @@ def emitTelemetry():
                 'varIntakeManifoldPressure': varIntakeManifoldPressure,
                 'runTime': runTime,
                 'idleTime': idleTime}
-            sio.emit('data', json.dumps(data))
+            # sio.emit('data', json.dumps(data))
             print(json.dumps(data))
 
             publish.single(os.getenv("HYPERBASE_MQTT_TOPIC"), json.dumps({
