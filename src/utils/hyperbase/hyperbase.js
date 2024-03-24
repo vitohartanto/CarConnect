@@ -1,5 +1,6 @@
 export default class Hyperbase {
   #_baseUrl;
+  #_baseWsUrl;
   #_projectId;
   #_tokenId;
   #_token;
@@ -7,6 +8,10 @@ export default class Hyperbase {
 
   get baseUrl() {
     return this.#_baseUrl;
+  }
+
+  get baseWsUrl() {
+    return this.#_baseWsUrl;
   }
 
   get projectId() {
@@ -19,6 +24,7 @@ export default class Hyperbase {
 
   constructor(config) {
     this.#_baseUrl = config.base_url;
+    this.#_baseWsUrl = config.base_ws_url;
     this.#_projectId = config.project_id;
     this.#_tokenId = config.token_id;
     this.#_token = config.token;
@@ -56,6 +62,17 @@ export default class Hyperbase {
     return this.#_authToken;
   }
 
+  async getUserData() {
+    const user = await this.#api(`/user`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${this.authToken}`,
+      },
+    });
+
+    return user.data;
+  }
+
   async setCollection(collectionId) {
     this.#api(`/project/${this.#_projectId}/collection/${collectionId}`, {
       method: "GET",
@@ -83,6 +100,7 @@ export default class Hyperbase {
 class HyperbaseCollection {
   #_hyperbase;
   #_collectionId;
+  #_socket;
 
   constructor(hyperbase, collectionId) {
     this.#_hyperbase = hyperbase;
@@ -140,6 +158,54 @@ class HyperbaseCollection {
     });
 
     return res;
+  }
+
+  async subscribe(callbacks) {
+    if (this.#_socket) {
+      this.unsubscribe();
+    }
+
+    let onOpenCallback, onMessageCallback, onErrorCallback, onCloseCallback;
+
+    if (callbacks) {
+      ({ onOpenCallback, onMessageCallback, onErrorCallback, onCloseCallback } =
+        callbacks);
+    }
+
+    this.#_socket = new WebSocket(
+      `${this.#_hyperbase.baseWsUrl}/api/rest/project/${
+        this.#_hyperbase.projectId
+      }/collection/${this.#_collectionId}/subscribe?token=${
+        this.#_hyperbase.authToken
+      }`
+    );
+
+    if (onOpenCallback) {
+      this.#_socket.addEventListener("open", onOpenCallback);
+    }
+
+    if (onMessageCallback) {
+      this.#_socket.addEventListener("message", onMessageCallback);
+    }
+
+    if (onErrorCallback) {
+      this.#_socket.addEventListener("error", onErrorCallback);
+    }
+
+    if (onCloseCallback) {
+      this.#_socket.addEventListener("close", onCloseCallback);
+    }
+  }
+
+  async unsubscribe(close) {
+    let code, reason;
+
+    if (close) {
+      ({ code, reason } = close);
+    }
+
+    this.#_socket.close(code, reason);
+    this.#_socket = undefined;
   }
 
   async #api(input, init) {

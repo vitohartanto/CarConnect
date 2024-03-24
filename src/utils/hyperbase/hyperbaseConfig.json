@@ -1,5 +1,6 @@
 {
   "base_url": "http://10.42.28.156:8081",
+  "base_ws_url": "ws://10.42.28.156:8081",
   "project_id": "018e6934-7654-76de-a31c-af58e02d464d",
   "token_id": "018e693c-cd99-7105-a9f6-b3f2b3c79292",
   "token": "Z4OE5jCKVlCek8UXx5sKkBWjIVnylmXnlkSZ81fT"
