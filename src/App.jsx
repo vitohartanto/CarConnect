@@ -5,7 +5,6 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import io from "socket.io-client";
 import "./App.css";
 
 import Home from "./Home";
@@ -23,53 +22,9 @@ export const AppContext = createContext();
 export const DtcContext = createContext();
 
 const App = () => {
-  // const socket = io("http://localhost:4000");
   const [variablesInObject, setVariablesInObject] = useState({});
   const [dtcResponse, setDtcResponse] = useState(null);
   const hyperbase = useHyperbase();
-
-  // useEffect(() => {
-  //   console.log("Client mulai menerima data");
-
-  //   socket.on("data", (msg) => {
-  //     console.log("Ini msg");
-  //     console.log(msg);
-  //     let carData = JSON.parse(msg);
-  //     console.log("Ini carData");
-  //     console.log(carData);
-  //     setVariablesInObject((previousVariablesInObjects) => ({
-  //       // Update variablesInObject
-  //       ...previousVariablesInObjects,
-  //       v_fuelSystemStatus: carData["varFuelSystemStatus"],
-  //       v_engineRpm: parseInt(carData["varEngineRpm"]),
-  //       v_vehicleSpeed: parseInt(carData["varVehicleSpeed"]),
-  //       v_throttlePosition: parseInt(carData["varThrottlePosition"]),
-  //       v_engineCoolantTemperature: parseInt(
-  //         carData["varEngineCoolantTemperature"]
-  //       ),
-  //       v_shortTermFuelTrim: parseInt(carData["varShortTermFuelTrim"]),
-  //       v_longTermFuelTrim: parseInt(carData["varLongTermFuelTrim"]),
-  //       v_intakeAirTemperature: parseInt(carData["varIntakeAirTemperature"]),
-  //       v_massAirFlow: parseInt(carData["varMassAirFlow"]),
-  //       v_catalystTemperature: parseInt(carData["varCatalystTemperature"]),
-  //       v_intakeManifoldPressure: parseInt(
-  //         carData["varIntakeManifoldPressure"]
-  //       ),
-  //     }));
-  //     console.log("Ini carData yang seharusnya salah");
-  //     console.log(carData);
-  //   });
-
-  //   socket.on("dtcData", (faultCodes) => {
-  //     setDtcResponse(faultCodes);
-  //   });
-
-  //   // Cleanup function for useEffect
-  //   return () => {
-  //     socket.off("data");
-  //     socket.off("dtcData");
-  //   };
-  // }, [socket, variablesInObject]);
 
   useEffect(() => {
     if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
@@ -82,7 +37,29 @@ const App = () => {
           collections.obd_data
         );
 
-        unsubscribe = subscribe(obdDataCollection);
+        unsubscribe = subscribeObdData(obdDataCollection);
+      } catch (err) {
+        alert(`${err.status}\n${err.message}`);
+      }
+    })();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [hyperbase.isLoading, hyperbase.isSignedIn]);
+
+  useEffect(() => {
+    if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
+
+    let unsubscribe;
+
+    (async () => {
+      try {
+        const dtcDataCollection = await hyperbase.setCollection(
+          collections.dtc_data
+        );
+
+        unsubscribe = subscribeDtcData(dtcDataCollection);
       } catch (err) {
         alert(`${err.status}\n${err.message}`);
       }
@@ -98,7 +75,7 @@ const App = () => {
     console.log(variablesInObject);
   }, [variablesInObject]);
 
-  const subscribe = (obdDataCollection) => {
+  const subscribeObdData = (obdDataCollection) => {
     obdDataCollection.subscribe({
       onOpenCallback: (e) => {
         console.log("Subscribe obdData status open:", e);
@@ -110,7 +87,7 @@ const App = () => {
         console.log("Subscribe obdData status close:", e);
         if (e.status !== 1000) {
           setTimeout(() => {
-            subscribe(obdDataCollection);
+            subscribeObdData(obdDataCollection);
           }, 5000);
         }
       },
@@ -118,9 +95,7 @@ const App = () => {
         const parsedData = JSON.parse(e.data);
         if (parsedData.kind === "insert_one") {
           const d = parsedData.data;
-          setVariablesInObject((previousVariablesInObjects) => ({
-            // Update variablesInObject
-            ...previousVariablesInObjects,
+          setVariablesInObject({
             v_car_id: d.car_id,
             v_fuelSystemStatus: d.fuel_system_status,
             v_engineRpm: d.engine_rpm,
@@ -134,12 +109,44 @@ const App = () => {
             v_catalystTemperature: d.catalyst_temperature,
             v_intakeManifoldPressure: d.intake_manifold_pressure,
             v_timestamp: d.timestamp,
-          }));
+          });
         }
       },
     });
 
     return () => obdDataCollection.unsubscribe(1000);
+  };
+
+  const subscribeDtcData = (dtcDataCollection) => {
+    dtcDataCollection.subscribe({
+      onOpenCallback: (e) => {
+        console.log("Subscribe dtcData status open:", e);
+      },
+      onErrorCallback: (e) => {
+        console.log("Subscribe dtcData status error:", e);
+      },
+      onCloseCallback: (e) => {
+        console.log("Subscribe dtcData status close:", e);
+        if (e.status !== 1000) {
+          setTimeout(() => {
+            subscribeDtcData(dtcDataCollection);
+          }, 5000);
+        }
+      },
+      onMessageCallback: (e) => {
+        const parsedData = JSON.parse(e.data);
+        if (parsedData.kind === "insert_one") {
+          const d = parsedData.data;
+          setDtcResponse({
+            v_car_id: d.car_id,
+            v_value: d.value,
+            v_timestamp: d.timestamp,
+          });
+        }
+      },
+    });
+
+    return () => dtcDataCollection.unsubscribe(1000);
   };
 
   return (
