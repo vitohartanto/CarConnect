@@ -9,7 +9,7 @@ import re
 import os
 from dotenv import load_dotenv
 from pathlib import Path
-import paho.mqtt.publish as publish
+import datetime;
 
 load_dotenv(dotenv_path=Path("./.env.obd-dash"))
 
@@ -23,31 +23,26 @@ delay = 0.3 #Delay in seconds before sending data. This can be decreased, but .3
 idleTime = 0.0 #Time the engine is idling in seconds
 
 currentDtcCodes = []
-dtcCodesChanged = False
 
 numTries = 1
 
 # emitDtcCodes function to emit currentDtcCodes
 def emitDtcCodes():
-    global dtcCodesChanged
     dtcCmd = obd.commands.GET_DTC
     response = connection.query(dtcCmd)
     dtcCodes = response.value
     
-    for i in dtcCodes: #add new codes if they don't exist
-        dtcCodesChanged = True
-        if dtcCodes[i] not in currentDtcCodes:
-            currentDtcCodes.append(dtcCodes[i])
-            
-    for i in currentDtcCodes: #remove any codes that were resolved
-        dtcCodesChanged = True
-        if (currentDtcCodes[i] not in dtcCodes):
-            currentDtcCodes.pop(i)
-                    
-    # Client emits currentDtcCodes with dtcData as event name
-    if dtcCodesChanged:
-        sio.emit('dtcData', currentDtcCodes())
-        dtcCodesChanged = False
+    data = {
+        "car_id": os.getenv("CAR_ID"),
+        "value": dtcCodes,
+        "timestamp": datetime.datetime.now()
+    }
+
+    #publish data to hyperbase collection DTC Data
+    hyperbase.publish(os.getenv("DTC_DATA_COLLECTION_ID"), data)
+
+    print("===DTC DATA===")
+    print(json.dumps(data))
 
 # emitTelemetry function to emit the data
 def emitTelemetry():
@@ -119,48 +114,28 @@ def emitTelemetry():
                 idleTime += delay
             
             data = {
-                'varFuelSystemStatus': varFuelSystemStatus,
-                'varEngineRpm': varEngineRpm,
-                'varVehicleSpeed': varVehicleSpeed,
-                'varThrottlePosition': varThrottlePosition,
-                'varEngineCoolantTemperature': varEngineCoolantTemperature,
-                'varShortTermFuelTrim': varShortTermFuelTrim,
-                'varLongTermFuelTrim': varLongTermFuelTrim,
-                'varIntakeAirTemperature': varIntakeAirTemperature,
-                'varMassAirFlow': varMassAirFlow,
-                'varCatalystTemperature': varCatalystTemperature,
-                'varIntakeManifoldPressure': varIntakeManifoldPressure,
-                'runTime': runTime,
-                'idleTime': idleTime}
-            # sio.emit('data', json.dumps(data))
-            print(json.dumps(data))
+                "car_id": os.getenv("CAR_ID"),
+                "fuel_system_status": varFuelSystemStatus,
+                "engine_rpm": varEngineRpm,
+                "vehicle_speed": varVehicleSpeed,
+                "throttle_position": varThrottlePosition,
+                "engine_coolant_temperature": varEngineCoolantTemperature,
+                "short_term_fuel_trim": varShortTermFuelTrim,
+                "long_term_fuel_trim": varLongTermFuelTrim,
+                "intake_air_temperature": varIntakeAirTemperature,
+                "mass_air_flow": varMassAirFlow,
+                "catalyst_temperature": varCatalystTemperature,
+                "intake_manifold_pressure": varIntakeManifoldPressure,
+                "run_time": runTime,
+                "idle_time": idleTime,
+                "timestamp": datetime.datetime.now()
+            }
 
-            publish.single(os.getenv("HYPERBASE_MQTT_TOPIC"), json.dumps({
-                "project_id": os.getenv("PROJECT_ID"),
-                "token_id": os.getenv("TOKEN_ID"),
-                "token": os.getenv("TOKEN"),
-                "user": {
-                    "collection_id": os.getenv("USER_COLLECTION_ID"),
-                    "id": os.getenv("USER_ID")
-                },
-                "collection_id": os.getenv("COLLECTION_ID"),
-                "data": {
-                    "car_id": os.getenv("CAR_ID"),
-                    "fuel_system_status": varFuelSystemStatus,
-                    "engine_rpm": varEngineRpm,
-                    "vehicle_speed": varVehicleSpeed,
-                    "throttle_position": varThrottlePosition,
-                    "engine_coolant_temperature": varEngineCoolantTemperature,
-                    "short_term_fuel_trim": varShortTermFuelTrim,
-                    "long_term_fuel_trim": varLongTermFuelTrim,
-                    "intake_air_temperature": varIntakeAirTemperature,
-                    "mass_air_flow": varMassAirFlow,
-                    "catalyst_temperature": varCatalystTemperature,
-                    "intake_manifold_pressure": varIntakeManifoldPressure,
-                    "run_time": runTime,
-                    "idle_time": idleTime
-                }
-            }), hostname=os.getenv("HYPERBASE_MQTT_HOST"))
+            #publish data to hyperbase collection OBD Data
+            hyperbase.publish(os.getenv("OBD_DATA_COLLECTION_ID"), data)
+
+            print("===OBD DATA===")
+            print(json.dumps(data))
             
             emitDtcCodes()
             time.sleep(delay)
