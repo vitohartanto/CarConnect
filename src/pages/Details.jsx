@@ -15,8 +15,10 @@ import CatalystTemperature from "../parameters/CatalystTemperature";
 import FuelType from "../parameters/FuelType";
 import EngineOilTemperature from "../parameters/EngineOilTemperature";
 import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
+import { useParams } from "react-router-dom";
 
 const Details = () => {
+  const { car_id } = useParams();
   return (
     <div>
       <Sidebar />
@@ -27,7 +29,7 @@ const Details = () => {
         {/* fuel system status */}
         <div className="mt-6 flex flex-col justify-center items-center lg:flex-row">
           <div className="ml-4">
-            <FuelSystemStatus className="" />
+            <FuelSystemStatus carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10">
             <h2 className="font-semibold mb-2">
@@ -58,7 +60,7 @@ const Details = () => {
         {/* engine rpm */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
-            <EngineRPM />
+            <EngineRPM carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
             <h2>
@@ -77,7 +79,7 @@ const Details = () => {
         {/* vehicle speed */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4 ">
-            <VehicleSpeed />
+            <VehicleSpeed carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
             <h2>
@@ -94,7 +96,7 @@ const Details = () => {
         {/* throttle position */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
-            <ThrottlePosition />
+            <ThrottlePosition carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
             <h2>
@@ -112,7 +114,7 @@ const Details = () => {
         {/* engine coolant temperature */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
-            <EngineCoolantTemperature />
+            <EngineCoolantTemperature carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
             <h2>
@@ -130,7 +132,7 @@ const Details = () => {
         {/* short term fuel trim */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
-            <ShortTermFuelTrim />
+            <ShortTermFuelTrim carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
             <h2>
@@ -149,7 +151,7 @@ const Details = () => {
         {/* long term fuel trim */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
-            <LongTermFuelTrim />
+            <LongTermFuelTrim carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
             <h2>
@@ -170,7 +172,7 @@ const Details = () => {
         {/* intake air temperature */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
-            <IntakeAirTemperature />
+            <IntakeAirTemperature carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
             <h2>
@@ -233,7 +235,7 @@ const Details = () => {
         {/* mass air flow */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
-            <MassAirFlow />
+            <MassAirFlow carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
             <h2>
@@ -252,7 +254,7 @@ const Details = () => {
         {/* catalyst temperature */}
         <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
-            <CatalystTemperature />
+            <CatalystTemperature carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
             <h2>
@@ -300,7 +302,7 @@ const Details = () => {
         {/* intake manifold pressure */}
         <div className="mt-10 mb-10 flex flex-col justify-center items-center md:flex-row">
           <div className="ml-4">
-            <IntakeManifoldPressure />
+            <IntakeManifoldPressure carId={car_id} />
           </div>
           <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
             <h2>

@@ -96,19 +96,20 @@ const App = () => {
         if (parsedData.kind === "insert_one") {
           const d = parsedData.data;
           setVariablesInObject({
-            v_car_id: d.car_id,
-            v_fuelSystemStatus: d.fuel_system_status,
-            v_engineRpm: d.engine_rpm,
-            v_vehicleSpeed: d.vehicle_speed,
-            v_throttlePosition: d.throttle_position,
-            v_engineCoolantTemperature: d.engine_coolant_temperature,
-            v_shortTermFuelTrim: d.short_term_fuel_trim,
-            v_longTermFuelTrim: d.long_term_fuel_trim,
-            v_intakeAirTemperature: d.intake_air_temperature,
-            v_massAirFlow: d.mass_air_flow,
-            v_catalystTemperature: d.catalyst_temperature,
-            v_intakeManifoldPressure: d.intake_manifold_pressure,
-            v_timestamp: d.timestamp,
+            [d.car_id]: {
+              v_fuelSystemStatus: d.fuel_system_status,
+              v_engineRpm: d.engine_rpm,
+              v_vehicleSpeed: d.vehicle_speed,
+              v_throttlePosition: d.throttle_position,
+              v_engineCoolantTemperature: d.engine_coolant_temperature,
+              v_shortTermFuelTrim: d.short_term_fuel_trim,
+              v_longTermFuelTrim: d.long_term_fuel_trim,
+              v_intakeAirTemperature: d.intake_air_temperature,
+              v_massAirFlow: d.mass_air_flow,
+              v_catalystTemperature: d.catalyst_temperature,
+              v_intakeManifoldPressure: d.intake_manifold_pressure,
+              v_timestamp: d.timestamp,
+            },
           });
         }
       },
