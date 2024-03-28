@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
@@ -6,6 +6,7 @@ import { HyperbaseContext } from "../App";
 
 const Sidebar = ({ children }) => {
   const hyperbase = useContext(HyperbaseContext);
+  const { car_id } = useParams();
 
   const signOut = (e) => {
     e.stopPropagation();
@@ -16,7 +17,7 @@ const Sidebar = ({ children }) => {
     <div className="w-12 fixed h-screen bg-[#233163] flex flex-col items-center justify-between">
       {/* <div className="mt-8"></div> */}
       <div className="mt-8">
-        <Link to="/">
+        <Link to={`/app/${car_id}`}>
           <FontAwesomeIcon
             className="md:text-xl"
             icon={faHouse}

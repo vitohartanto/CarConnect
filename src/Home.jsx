@@ -22,7 +22,7 @@ const Home = () => {
   };
 
   const backToAvailableCars = () => {
-    navigate(-1);
+    navigate("/app");
   };
 
   return (

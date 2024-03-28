@@ -2,13 +2,13 @@ import Sidebar from "../components/Sidebar";
 import AddModal from "../components/AddModal";
 import UpdateModal from "../components/UpdateModal";
 import RemoveModal from "../components/RemoveModal";
-// import React from "react";
+import { useParams } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   // const storedStates = JSON.parse(localStorage.getItem("selectedComponents"));
-
+  const { car_id } = useParams();
   const [selectedComponents, setSelectedComponents] = useState([]);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Dashboard = () => {
               key={data.id}
               className="mt-4 flex justify-center w-11/12 md:w-5/12 lg:w-1/3"
             >
-              <data.component id={data.id}>
+              <data.component id={data.id} carId={car_id}>
                 <UpdateModal
                   setSelectedComponents={setSelectedComponents}
                   componentObject={data}

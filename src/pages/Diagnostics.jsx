@@ -11,6 +11,8 @@ function Diagnostics() {
   //   ("C0123", ""),
   // ];
 
+  // let dtcResponseStr = JSON.stringify(dtcResponse);
+
   // console.log(dtcResponse);
 
   return (
@@ -101,25 +103,10 @@ function Diagnostics() {
               </tr>
             </thead>
             <tbody className="text-base md:text-lg xl:text-xl">
-              {/* <tr>
-                <td className="px-4 py-2">P0104</td>
-                <td className="px-4 py-2">
-                  Mass or Volume Air Flow Circuit Intermittent
-                </td>
-              </tr>
               <tr>
-                <td className="px-4 py-2">B0003</td>
                 <td></td>
-              </tr> */}
-
-              {dtcResponse
-                ? dtcResponse.map((dtcArray, index) => (
-                    <tr key={index}>
-                      <td className="px-4 py-2">{dtcArray[0]}</td>
-                      <td className="px-4 py-2">{dtcArray[1]}</td>
-                    </tr>
-                  ))
-                : null}
+                <td>{dtcResponse}</td>
+              </tr>
             </tbody>
           </table>
         </div>
