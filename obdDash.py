@@ -119,7 +119,7 @@ def emitTelemetry():
             intakeManifoldPressureResp = connection.query(intakeManifoldPressureCmd)
             varIntakeManifoldPressure = intakeManifoldPressureResp.value.magnitude 
                        
-            timestamp_str = datetime.now().isoformat()
+            timestamp_str = str(datetime.datetime.now())
 
             runTimeCmd = obd.commands.RUN_TIME
             runTimeResp = connection.query(runTimeCmd)
