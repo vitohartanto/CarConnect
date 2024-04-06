@@ -9,7 +9,13 @@ class Hyperbase:
 
         client = mqtt_client.Client(mqtt_client.CallbackAPIVersion.VERSION2, client_id)
         client.username_pw_set(username, password)
-        client.connect(broker, int(port))
+        # client.connect(broker, int(port))
+
+        # Check if port is None before converting to int
+        if port is not None:
+            client.connect(broker, int(port))
+        else:
+            print("Port is not provided or is invalid.")
 
         self.client = client
         self.topic = topic
