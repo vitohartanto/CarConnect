@@ -119,6 +119,8 @@ def emitTelemetry():
             intakeManifoldPressureResp = connection.query(intakeManifoldPressureCmd)
             varIntakeManifoldPressure = intakeManifoldPressureResp.value.magnitude 
                        
+            timestamp_str = datetime.now().isoformat()
+
             runTimeCmd = obd.commands.RUN_TIME
             runTimeResp = connection.query(runTimeCmd)
             runTime = str(runTimeResp.value)
@@ -141,7 +143,7 @@ def emitTelemetry():
                 "intake_manifold_pressure": varIntakeManifoldPressure,
                 "run_time": runTime,
                 "idle_time": idleTime,
-                "timestamp": datetime.datetime.now()
+                "timestamp": timestamp_str
             }
 
             #publish data to hyperbase collection OBD Data
