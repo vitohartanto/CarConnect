@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 .env.obd-dash
+venv
+__pycache__

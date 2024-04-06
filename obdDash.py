@@ -10,8 +10,21 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 import datetime;
+from hyperbase import Hyperbase
 
 load_dotenv(dotenv_path=Path("./.env.obd-dash"))
+
+hyperbase = Hyperbase(
+    os.getenv("HYPERBASE_MQTT_HOST"),
+    os.getenv("HYPERBASE_MQTT_PORT"),
+    os.getenv("HYPERBASE_MQTT_CLIENT_ID"),
+    os.getenv("HYPERBASE_MQTT_TOPIC"),
+    os.getenv("PROJECT_ID"),
+    os.getenv("TOKEN_ID"),
+    os.getenv("TOKEN"),
+    os.getenv("USER_COLLECTION_ID"),
+    os.getenv("USER_ID")
+)
 
 SENSOR_TYPE = 'OBD'
 ERROR = 'ERR'
