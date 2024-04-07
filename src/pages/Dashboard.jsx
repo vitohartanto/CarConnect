@@ -45,17 +45,17 @@ const Dashboard = () => {
         <AddModal addComponent={addComponent} />
       </Sidebar>
       <div className="ml-12">
-        <h1 className="text-2xl md:text-3xl xl:text-4xl font-bold ml-5 sm:ml-10 pt-8">
+        <h1 className="pt-8 ml-5 text-2xl font-bold md:text-3xl xl:text-4xl sm:ml-10">
           Dashboard
         </h1>
-        <h1 className="text-lg md:text-xl xl:text-2xl font-medium ml-5 sm:ml-10 pt-2">
+        <h1 className="pt-2 ml-5 text-lg font-medium md:text-xl xl:text-2xl sm:ml-10">
           Click the + button to add the dashboard card
         </h1>
-        <div className="flex flex-wrap flex-col md:flex-row justify-center items-center">
+        <div className="flex flex-col flex-wrap items-center justify-center md:flex-row">
           {selectedComponents.map((data) => (
             <div
               key={data.id}
-              className="mt-4 flex justify-center w-11/12 md:w-5/12 lg:w-1/3"
+              className="flex justify-center w-11/12 mt-4 md:w-5/12 lg:w-1/3"
             >
               <data.component id={data.id} carId={car_id}>
                 <UpdateModal

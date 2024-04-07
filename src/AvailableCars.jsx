@@ -194,7 +194,7 @@ const AvailableCars = () => {
         </button>
       </div>
       <div className="ml-12 ">
-        <h1 className="text-2xl md:text-3xl xl:text-4xl font-bold  pt-8 ml-12">
+        <h1 className="pt-8 ml-12 text-2xl font-bold md:text-3xl xl:text-4xl">
           Available Cars
         </h1>
         <div className="px-6 md:px-12">

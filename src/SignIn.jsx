@@ -36,21 +36,21 @@ function SignIn() {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center px-6 sm:px-12">
+    <div className="flex items-center justify-center h-screen px-6 sm:px-12">
       <img
         src={CarConnectLogo}
         alt=""
-        className="w-24 absolute top-8 left-8 lg:w-32"
+        className="absolute w-24 top-8 left-8 lg:w-32"
       />
       <form
         action=""
         className="flex flex-col justify-center  shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl w-80 lg:w-96 h-[400px] lg:h-[450px] px-6 lg:px-12"
         onSubmit={onSubmit}
       >
-        <h1 className="text-2xl lg:text-3xl font-bold text-left mt-6 lg:mt-0 mb-4">
+        <h1 className="mt-6 mb-4 text-2xl font-bold text-left lg:text-3xl lg:mt-0">
           Sign In
         </h1>
-        <p className="font-normal mb-6 lg:text-lg">
+        <p className="mb-6 font-normal lg:text-lg">
           Empowering car rental companies with vehicle health monitoring
         </p>
         <div className="flex flex-col">

@@ -43,7 +43,7 @@ const Home = () => {
           />
         </button>
       </div>
-      <div className="flex flex-col lg:flex-row lg:px-20 lg:py-12 lg:ml-12 text-center text-2xl xl:text-3xl font-bold h-screen justify-evenly items-center">
+      <div className="flex flex-col items-center h-screen text-2xl font-bold text-center lg:flex-row lg:px-20 lg:py-12 lg:ml-12 xl:text-3xl justify-evenly">
         <Link
           to={`/app/${car_id}/dashboard`}
           className="lg:h-full w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl  bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-6 ml-12 lg:mx-10"

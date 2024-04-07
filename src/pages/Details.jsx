@@ -23,16 +23,16 @@ const Details = () => {
     <div>
       <Sidebar />
       <div className="ml-12">
-        <h1 className="text-2xl md:text-3xl xl:text-4xl font-bold ml-5 sm:ml-10 pt-8">
+        <h1 className="pt-8 ml-5 text-2xl font-bold md:text-3xl xl:text-4xl sm:ml-10">
           Details
         </h1>
         {/* fuel system status */}
-        <div className="mt-6 flex flex-col justify-center items-center lg:flex-row">
+        <div className="flex flex-col items-center justify-center mt-6 lg:flex-row">
           <div className="ml-4">
             <FuelSystemStatus carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10">
-            <h2 className="font-semibold mb-2">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10">
+            <h2 className="mb-2 font-semibold">
               The Fuel System Status can be operated in open loop or closed
               loop.
             </h2>
@@ -58,11 +58,11 @@ const Details = () => {
           </div>
         </div>
         {/* engine rpm */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <EngineRPM carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Engine RPM</span> stands for
               &quot;Revolutions Per Minute&quot; and refers to how many times
@@ -77,11 +77,11 @@ const Details = () => {
           </div>
         </div>
         {/* vehicle speed */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4 ">
             <VehicleSpeed carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Vehicle Speed</span> indicates how
               quickly the vehicle is traveling along the road. The unit is in
@@ -94,11 +94,11 @@ const Details = () => {
           </div>
         </div>
         {/* throttle position */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <ThrottlePosition carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Throttle Position</span> refers to
               how much the throttle valve in the engine&apos;s intake system is
@@ -112,11 +112,11 @@ const Details = () => {
           </div>
         </div>
         {/* engine coolant temperature */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <EngineCoolantTemperature carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Engine coolant temperature</span>{" "}
               refers to the temperature of the coolant fluid that circulates
@@ -130,11 +130,11 @@ const Details = () => {
           </div>
         </div>
         {/* short term fuel trim */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <ShortTermFuelTrim carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Short-Term Fuel Trim (STFT)</span>{" "}
               is like a real-time adjustment made by a car&apos;s system to
@@ -149,11 +149,11 @@ const Details = () => {
           </div>
         </div>
         {/* long term fuel trim */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <LongTermFuelTrim carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Long-Term Fuel Trim (LTFT)</span>{" "}
               is similar to Short-Term Fuel Trim (STFT), but it&apos;s like a
@@ -170,11 +170,11 @@ const Details = () => {
           </div>
         </div>
         {/* intake air temperature */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <IntakeAirTemperature carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">
                 Intake Air Temperature (IAT)
@@ -192,11 +192,11 @@ const Details = () => {
           </div>
         </div>
         {/* oxygen sensor bank 1 sensor 1 */}
-        {/* <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        {/* <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <OxygenSensorBank1Sensor1 />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">
                 Oxygen Sensor Bank 1 Sensor 1
@@ -212,11 +212,11 @@ const Details = () => {
           </div>
         </div> */}
         {/* oxygen sensor bank 2 sensor 2 */}
-        {/* <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        {/* <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <OxygenSensorBank2Sensor2 />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">
                 Oxygen Sensor Bank 2 Sensor 2
@@ -233,11 +233,11 @@ const Details = () => {
           </div>
         </div> */}
         {/* mass air flow */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <MassAirFlow carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Mass Air Flow (MAF)</span>{" "}
               measures how much air is flowing into the engine at any given
@@ -252,11 +252,11 @@ const Details = () => {
           </div>
         </div>
         {/* catalyst temperature */}
-        <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <CatalystTemperature carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Catalyst Temperature</span> refers
               to the temperature of the catalytic converter in a vehicle&apos;s
@@ -270,11 +270,11 @@ const Details = () => {
           </div>
         </div>
         {/* fuel type */}
-        {/* <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        {/* <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <FuelType />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Fuel Type</span> is kind of what
               powers vehicles and machines. There are different types, such as:
@@ -283,11 +283,11 @@ const Details = () => {
           </div>
         </div> */}
         {/* engine oil temperature */}
-        {/* <div className="mt-10 flex flex-col justify-center items-center md:flex-row">
+        {/* <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <EngineOilTemperature />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Engine Oil Temperature</span>{" "}
               tells you how hot or cold the engine&apos;s oil is.
@@ -300,11 +300,11 @@ const Details = () => {
           </div>
         </div> */}
         {/* intake manifold pressure */}
-        <div className="mt-10 mb-10 flex flex-col justify-center items-center md:flex-row">
+        <div className="flex flex-col items-center justify-center mt-10 mb-10 md:flex-row">
           <div className="ml-4">
             <IntakeManifoldPressure carId={car_id} />
           </div>
-          <div className="text-justify text-base md:text-lg xl:text-xl my-4 mx-6 sm:mx-10 md:ml-3 md:mr-10">
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Intake Manifold Pressure</span> is
               the air pressure inside the intake manifold of an engine.
