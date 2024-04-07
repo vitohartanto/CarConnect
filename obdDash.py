@@ -14,6 +14,8 @@ from hyperbase import Hyperbase
 
 load_dotenv(dotenv_path=Path("./.env.obd-dash"))
 
+print(os.getenv("HYPERBASE_MQTT_TOPIC"))
+
 hyperbase = Hyperbase(
     os.getenv("HYPERBASE_MQTT_HOST"),
     os.getenv("HYPERBASE_MQTT_PORT"),
@@ -48,7 +50,7 @@ def emitDtcCodes():
     data = {
         "car_id": os.getenv("CAR_ID"),
         "value": dtcCodes,
-        "timestamp": datetime.datetime.now()
+        "timestamp": str(datetime.datetime.now())
     }
 
     #publish data to hyperbase collection DTC Data
