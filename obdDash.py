@@ -14,7 +14,9 @@ from hyperbase import Hyperbase
 
 load_dotenv(dotenv_path=Path("./.env.obd-dash"))
 
+print("Coba")
 print(os.getenv("HYPERBASE_MQTT_TOPIC"))
+print("Coba 2")
 
 hyperbase = Hyperbase(
     os.getenv("HYPERBASE_MQTT_HOST"),
