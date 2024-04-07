@@ -132,9 +132,15 @@ def emitTelemetry():
             intakeManifoldPressureResp = connection.query(intakeManifoldPressureCmd)
             varIntakeManifoldPressure = intakeManifoldPressureResp.value.magnitude 
                        
-            timestamp_str = str(datetime.datetime.now())
-            print("INI TIMESTAMP_STR")
-            print(timestamp_str)
+            # Get the current date and time in UTC timezone
+            current_time_utc = datetime.datetime.now()
+
+            # Convert the current time to your timezone (GMT+7)
+            gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
+            current_time_gmt7 = current_time_utc + gmt_offset
+
+            # Convert the datetime object to the desired string format
+            timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
             runTimeCmd = obd.commands.RUN_TIME
             runTimeResp = connection.query(runTimeCmd)
