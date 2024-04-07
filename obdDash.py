@@ -57,11 +57,21 @@ def emitDtcCodes():
     dtcCmd = obd.commands.GET_DTC
     response = connection.query(dtcCmd)
     dtcCodes = response.value
+
+    # Get the current date and time in UTC timezone
+    current_time_utc = datetime.datetime.now()
+
+    # Convert the current time to your timezone (GMT+7)
+    gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
+    current_time_gmt7 = current_time_utc + gmt_offset
+
+    # Convert the datetime object to the desired string format
+    timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
     
     data = {
         "car_id": os.getenv("CAR_ID"),
         "value": dtcCodes,
-        "timestamp": str(datetime.datetime.now())
+        "timestamp": timestamp_str
     }
 
     #publish data to hyperbase collection DTC Data
