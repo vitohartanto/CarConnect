@@ -41,6 +41,11 @@ class Hyperbase:
                 "collection_id": collection_id,
                 "data": data
             })
-            self.client.publish(self.topic, msg)
+            result = self.client.publish(self.topic, msg)
+            status = result[0]
+            if status == 0:
+                print("Hyperbase MQTT Client successfully sent message")
+            else:
+                print("Hyperbase MQTT Client failed to sent message")
         else:
             print("Hyperbase MQTT Client is not ready")
