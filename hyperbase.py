@@ -1,47 +1,9 @@
 import os
-import sys
 from paho.mqtt import client as mqtt_client
 import json
 
 class Hyperbase:
     def __init__(self, broker, port, client_id, topic, project_id, token_id, token, user_collection_id, user_id):
-        if broker == None or broker == '':
-            print("broker can't be None or empty string")
-            sys.exit(1)
-            return
-        if port == None or port == '':
-            print("port can't be None or empty string")
-            sys.exit(1)
-            return
-        if client_id == None or client_id == '':
-            print("client_id can't be None or empty string")
-            sys.exit(1)
-            return
-        if topic == None or topic == '':
-            print("topic can't be None or empty string")
-            sys.exit(1)
-            return
-        if project_id == None or project_id == '':
-            print("project_id can't be None or empty string")
-            sys.exit(1)
-            return
-        if token_id == None or token_id == '':
-            print("token_id can't be None or empty string")
-            sys.exit(1)
-            return
-        if token == None or token == '':
-            print("token can't be None or empty string")
-            sys.exit(1)
-            return
-        if user_collection_id == None or user_collection_id == '':
-            print("user_collection_id can't be None or empty string")
-            sys.exit(1)
-            return
-        if user_id == None or user_id == '':
-            print("user_id can't be None or empty string")
-            sys.exit(1)
-            return
-
         username = token_id
         password = token
 
