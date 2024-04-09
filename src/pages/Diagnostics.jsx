@@ -5,16 +5,6 @@ import { useContext } from "react";
 function Diagnostics() {
   const dtcResponse = useContext(DtcContext);
 
-  // let dtcResponse = [
-  //   ("P0104", "Mass or Volume Air Flow Circuit Intermittent"),
-  //   ("B0003", ""),
-  //   ("C0123", ""),
-  // ];
-
-  // let dtcResponseStr = JSON.stringify(dtcResponse);
-
-  // console.log(dtcResponse);
-
   return (
     <div>
       <Sidebar />
