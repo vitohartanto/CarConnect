@@ -11,13 +11,7 @@ python3 obdDash.py & #use python instead of python3 so it wont be terminated on 
 # Run npm run dev
 npm run dev &
 
-# # Launching chromium-browser 
-# chromium-browser --enable-chrome-browser-cloud-management --window-position=0,0    --kiosk --user-data-dir="/home/pi/Documents/Profiles/0" http://localhost:5000 &
-
 # Launching firefox-browser
 firefox-esr --new-instance --kiosk "http://localhost:5000" &
 # firefox-esr -P --new-instance --kiosk --profile "/home/pi/Documents/Profiles/0" "http://localhost:5000" &
 
-
-# # Used in Unix-like operating systems to hide the mouse cursor when it's not in use
-# unclutter -idle 1 &
