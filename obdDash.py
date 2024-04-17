@@ -45,6 +45,8 @@ def emitDtcCodes():
     response = connection.query(dtcCmd)
     dtcCodes = response.value
 
+    dtcJSON = json.dumps(dtcCodes)
+
     # Get the current date and time in UTC timezone
     current_time_utc = datetime.datetime.now()
 
@@ -57,7 +59,7 @@ def emitDtcCodes():
     
     data = {
         "car_id": os.getenv("CAR_ID"),
-        "value": dtcCodes,
+        "value": dtcJSON,
         "timestamp": timestamp_str
     }
 

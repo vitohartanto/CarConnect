@@ -1,6 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import { DtcContext } from "../App";
-import { useContext } from "react";
+import { useContext, useLayoutEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function Diagnostics() {
   const dtcResponse = useContext(DtcContext);
@@ -93,10 +94,15 @@ function Diagnostics() {
               </tr>
             </thead>
             <tbody className="text-base md:text-lg xl:text-xl">
-              <tr>
-                <td></td>
-                <td>{dtcResponse}</td>
-              </tr>
+              {dtcResponse &&
+                dtcResponse.v_value.map((dtcArray) => {
+                  return (
+                    <tr key={uuidv4()}>
+                      <td className="p-2">{dtcArray[0]}</td>
+                      <td className="p-2">{dtcArray[1]}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </table>
         </div>
