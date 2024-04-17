@@ -6,6 +6,7 @@ import {
   faCode,
   faRightFromBracket,
   faArrowLeft,
+  faBell,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import { HyperbaseContext } from "../App";
@@ -43,10 +44,10 @@ const Home = () => {
           />
         </button>
       </div>
-      <div className="flex flex-col items-center h-screen text-2xl font-bold text-center lg:flex-row lg:px-20 lg:py-12 lg:ml-12 xl:text-3xl justify-evenly">
+      <div className="flex flex-col items-center h-screen text-2xl font-bold text-center lg:flex-row md:ml-12 xl:text-3xl justify-evenly">
         <Link
           to={`/app/${car_id}/dashboard`}
-          className="lg:h-full w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl  bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-6 ml-12 lg:mx-10"
+          className="lg:h-3/4 w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl my-2 bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-4 md:px-2 ml-12 lg:mx-5 lg:ml-[48px]"
         >
           <h1 className="pb-4 lg:text-3xl xl:text-4xl">Dashboard</h1>
           <FontAwesomeIcon
@@ -58,7 +59,7 @@ const Home = () => {
 
         <Link
           to={`/app/${car_id}/details`}
-          className="lg:h-full w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl  bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-6 ml-12 lg:mx-10"
+          className="lg:h-3/4 w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl my-2 bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-4 md:px-2 ml-12 lg:mx-5"
         >
           <h1 className="pb-4 lg:text-3xl xl:text-4xl">Details</h1>
           <FontAwesomeIcon
@@ -70,12 +71,23 @@ const Home = () => {
 
         <Link
           to={`/app/${car_id}/diagnostics`}
-          className="lg:h-full w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl  bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-6 ml-12 lg:mx-10"
+          className="lg:h-3/4 w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl my-2 bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-4 md:px-2 ml-12 lg:mx-5"
         >
           <h1 className="pb-4 lg:text-3xl xl:text-4xl">Diagnostics</h1>
           <FontAwesomeIcon
             className="text-5xl lg:text-6xl xl:text-7xl"
             icon={faCode}
+            style={{ color: "#233163" }}
+          />
+        </Link>
+        <Link
+          to={`/app/${car_id}/notifications`}
+          className="lg:h-3/4 w-3/4 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] rounded-2xl my-2 bg-[#F1F1FB] hover:bg-[#d5d8de] flex flex-col justify-center py-4 md:px-2 ml-12 lg:mx-5 lg:mr-[48px]"
+        >
+          <h1 className="pb-4 lg:text-3xl xl:text-4xl">Notifications</h1>
+          <FontAwesomeIcon
+            className="text-5xl lg:text-6xl xl:text-7xl"
+            icon={faBell}
             style={{ color: "#233163" }}
           />
         </Link>

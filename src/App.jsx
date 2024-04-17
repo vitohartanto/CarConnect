@@ -16,6 +16,7 @@ import useHyperbase from "./hooks/useHyperbase";
 import ProtectedRoute from "./ProtectedRoute";
 import AvailableCars from "./pages/AvailableCars";
 import collections from "./utils/hyperbase/hyperbaseCollections.json";
+import Notifications from "./pages/Notifications";
 
 export const HyperbaseContext = createContext();
 export const AppContext = createContext();
@@ -175,6 +176,11 @@ const App = () => {
                   path="/app/:car_id/diagnostics"
                   exact
                   element={<Diagnostics />}
+                />
+                <Route
+                  path="/app/:car_id/notifications"
+                  exact
+                  element={<Notifications />}
                 />
               </Route>
             </Routes>
