@@ -8,7 +8,7 @@ import {
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
-import { HyperbaseContext } from "./App";
+import { HyperbaseContext } from "../App";
 import { useParams, useNavigate } from "react-router-dom";
 
 const Home = () => {

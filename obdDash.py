@@ -69,7 +69,7 @@ def emitDtcCodes():
     print("===DTC DATA===")
     print(json.dumps(data))
 
-# emitTelemetry function to emit the data
+# emitTelemetry function to emit the obd data
 def emitTelemetry():
     global idleTime
     

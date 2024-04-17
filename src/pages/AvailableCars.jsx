@@ -5,8 +5,8 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useState } from "react";
-import { HyperbaseContext } from "./App";
-import collections from "./utils/hyperbase/hyperbaseCollections.json";
+import { HyperbaseContext } from "../App";
+import collections from "../utils/hyperbase/hyperbaseCollections.json";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 

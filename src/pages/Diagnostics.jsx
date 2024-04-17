@@ -1,6 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import { DtcContext } from "../App";
-import { useContext, useLayoutEffect } from "react";
+import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 function Diagnostics() {

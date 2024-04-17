@@ -7,14 +7,14 @@ import {
 } from "react-router-dom";
 import "./App.css";
 
-import Home from "./Home";
+import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Details from "./pages/Details";
 import Diagnostics from "./pages/Diagnostics";
-import SignIn from "./SignIn";
+import SignIn from "./pages/SignIn";
 import useHyperbase from "./hooks/useHyperbase";
 import ProtectedRoute from "./ProtectedRoute";
-import AvailableCars from "./AvailableCars";
+import AvailableCars from "./pages/AvailableCars";
 import collections from "./utils/hyperbase/hyperbaseCollections.json";
 
 export const HyperbaseContext = createContext();
@@ -71,7 +71,7 @@ const App = () => {
   }, [hyperbase.isLoading, hyperbase.isSignedIn]);
 
   useEffect(() => {
-    console.log("Percobaan Melihat variablesInObject");
+    console.log("This is variablesInObject");
     console.log(variablesInObject);
   }, [variablesInObject]);
 
