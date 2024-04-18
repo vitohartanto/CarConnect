@@ -201,7 +201,7 @@ const AvailableCars = () => {
               className="shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] px-8 py-4 lg:py-8 rounded-2xl mt-6 flex justify-between font-medium w-full"
             >
               <h1 className=" md:text-xl xl:text-2xl">{car.license_plate}</h1>
-              <div>
+              <div className="flex items-center">
                 <a href={`/app/${car._id}/notifications`}>
                   <FaBell className="text-[#233163] mx-4 text-lg" />
                 </a>
