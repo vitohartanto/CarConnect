@@ -4,6 +4,7 @@ import {
   faPenToSquare,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import { FaBell } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import { HyperbaseContext } from "../App";
 import collections from "../utils/hyperbase/hyperbaseCollections.json";
@@ -174,11 +175,6 @@ const AvailableCars = () => {
     }
   };
 
-  // const removeComponentById = (componentId, array) => {
-  //   let updatedComponents = array.filter((item) => item.id !== componentId);
-  //   setSelectedComponents(updatedComponents);
-  // };
-
   return (
     <div>
       <div className="w-12 fixed h-screen bg-[#233163] flex items-center justify-between flex-col py-10">
@@ -206,6 +202,9 @@ const AvailableCars = () => {
             >
               <h1 className=" md:text-xl xl:text-2xl">{car.license_plate}</h1>
               <div>
+                <a href={`/app/${car._id}/notifications`}>
+                  <FaBell className="text-[#233163] mx-4 text-lg" />
+                </a>
                 <button
                   className="mx-4 sm:text-xl lg:text-2xl"
                   onClick={(e) => editCarLicensePlate(e, car._id)}
