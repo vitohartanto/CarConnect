@@ -14,7 +14,7 @@ import Diagnostics from "./pages/Diagnostics";
 import SignIn from "./pages/SignIn";
 import useHyperbase from "./hooks/useHyperbase";
 import ProtectedRoute from "./ProtectedRoute";
-import AvailableCars from "./pages/AvailableCars";
+import RegisteredCars from "./pages/RegisteredCars";
 import collections from "./utils/hyperbase/hyperbaseCollections.json";
 import Notifications from "./pages/Notifications";
 
@@ -160,7 +160,7 @@ const App = () => {
               <Route path="/" exact element={<Navigate to="/app" replace />} />
               <Route path="/signin" exact element={<SignIn />} />
               <Route element={<ProtectedRoute />}>
-                <Route path="/app" exact element={<AvailableCars />} />
+                <Route path="/app" exact element={<RegisteredCars />} />
                 <Route path="/app/:car_id/" exact element={<Home />} />
                 <Route
                   path="/app/:car_id/dashboard"

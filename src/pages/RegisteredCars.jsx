@@ -10,8 +10,9 @@ import { HyperbaseContext } from "../App";
 import collections from "../utils/hyperbase/hyperbaseCollections.json";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
+import carBackground from "../pageRegisteredCars.png";
 
-const AvailableCars = () => {
+const RegisteredCars = () => {
   const hyperbase = useContext(HyperbaseContext);
 
   const [carsCollection, setCarsCollection] = useState();
@@ -176,8 +177,11 @@ const AvailableCars = () => {
   };
 
   return (
-    <div>
-      <div className="w-12 fixed h-screen bg-[#233163] flex items-center justify-between flex-col py-10">
+    <div
+      className="h-screen bg-center bg-cover"
+      style={{ backgroundImage: `url(${carBackground})` }}
+    >
+      <div className="w-12 fixed h-screen backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(25,25,25,0.90)] flex items-center justify-between flex-col py-10">
         <button onClick={addCarLicensePlate} className="text-4xl text-white">
           +
         </button>
@@ -189,10 +193,12 @@ const AvailableCars = () => {
           />
         </button>
       </div>
-      <div className="ml-12 ">
-        <h1 className="pt-8 ml-12 text-2xl font-bold md:text-3xl xl:text-4xl">
-          Available Cars
-        </h1>
+      <div className="pt-8 ml-12">
+        <div className="backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+          <h1 className="ml-12 text-2xl font-bold md:text-3xl xl:text-4xl">
+            Registered Cars
+          </h1>
+        </div>
         <div className="px-6 md:px-12">
           {cars.map((car) => (
             <a
@@ -232,4 +238,4 @@ const AvailableCars = () => {
   );
 };
 
-export default AvailableCars;
+export default RegisteredCars;
