@@ -161,12 +161,12 @@ const App = () => {
               <Route path="/signin" exact element={<SignIn />} />
               <Route element={<ProtectedRoute />}>
                 <Route path="/app" exact element={<RegisteredCars />} />
-                <Route path="/app/:car_id/" exact element={<Home />} />
-                <Route
+                <Route path="/app/:car_id/" exact element={<Dashboard />} />
+                {/* <Route
                   path="/app/:car_id/dashboard"
                   exact
                   element={<Dashboard />}
-                />
+                /> */}
                 <Route
                   path="/app/:car_id/details"
                   exact

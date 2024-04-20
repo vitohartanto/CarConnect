@@ -209,10 +209,10 @@ const RegisteredCars = () => {
   return (
     <div className="">
       <img src={carBackground} alt="" className="fixed w-screen h-screen" />
-      <div className="w-12 fixed h-screen backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(25,25,25,0.90)] flex items-center justify-between flex-col py-10">
+      <div className="w-12 sm:w-16 lg:w-20 fixed h-screen backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(25,25,25,0.90)] flex items-center justify-between flex-col py-10">
         <button
           onClick={addCarLicensePlate}
-          className=" relative text-4xl w-8 h-8  rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]"
+          className=" relative text-4xl w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]"
         >
           <p className="text-[#191919] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             +
@@ -220,7 +220,7 @@ const RegisteredCars = () => {
         </button>
         <button
           onClick={signOutHandler}
-          className="relative w-8 h-8  rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]"
+          className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]"
         >
           <p className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
             <FontAwesomeIcon
@@ -231,36 +231,36 @@ const RegisteredCars = () => {
           </p>
         </button>
       </div>
-      <div className="pt-8 ml-12">
-        <div className="flex justify-between mx-5 mb-6 ">
+      <div className="pt-8 ml-12 sm:ml-14 lg:ml-[72px]">
+        <div className="flex justify-between mx-5 min-[600px]:mx-10 mb-6 ">
           <input
             type="text"
-            className="px-4 py-2 w-32 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
-            placeholder="🔍 Search for car's license plate"
+            className="placeholder-[#191919] px-4 lg:py-4 lg:px-6 py-2 w-32 min-[500px]:w-48 md:w-64 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
+            placeholder="🔍 Car's license plate"
           />
           <input
             type="text"
-            className="px-4 py-2 w-32 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
-            placeholder="🔍 Search for car's brand"
+            className="placeholder-[#191919] px-4 lg:py-4 lg:px-6 py-2 w-32 min-[500px]:w-48 md:w-64 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
+            placeholder="🔍 Car's brand"
           />
         </div>
-        <h1 className="py-2 w-64 text-center px-4 ml-5 text-2xl font-bold md:text-3xl xl:text-4xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+        <h1 className="py-2 w-64 xl:w-96 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
           Registered Cars
         </h1>
-        <h2 className="mt-4 py-2 w-[270px] text-center px-4 ml-5 text-lg font-medium md:text-3xl xl:text-4xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+        <h2 className="mt-4 py-2 w-[270px] xl:w-[336px] text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
           Currently, there are 3 Cars
         </h2>
 
-        <div className="px-5 mb-6 md:px-12">
+        <div className="flex flex-col flex-grow px-5 mb-6 md:px-12 min-[600px]:flex-row min-[600px]:flex-wrap min-[600px]:justify-start">
           {cars.map((car) => (
             <a
               key={car._id}
               href={`/app/${car._id}`}
-              className="px-8 py-6 lg:py-8 mt-6 flex flex-col w-64  font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
+              className="mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
             >
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h1 className="text-[#191919] md:text-xl xl:text-2xl">
+                  <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl">
                     {car.license_plate}
                   </h1>
                   <h1 className="text-[#191919]">Mazda</h1>

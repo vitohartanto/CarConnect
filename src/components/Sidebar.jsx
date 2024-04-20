@@ -17,7 +17,7 @@ const Sidebar = ({ children }) => {
     <div className="w-12 fixed h-screen bg-[#233163] flex flex-col items-center justify-between">
       {/* <div className="mt-8"></div> */}
       <div className="mt-8">
-        <Link to={`/app/${car_id}`}>
+        <Link to={`/app/`}>
           <FontAwesomeIcon
             className="md:text-xl"
             icon={faHouse}
@@ -28,7 +28,7 @@ const Sidebar = ({ children }) => {
       </div>
       <button onClick={signOut}>
         <FontAwesomeIcon
-          className="text-2xl mb-8"
+          className="mb-8 text-2xl"
           icon={faRightFromBracket}
           style={{ color: "#FFF" }}
         />
