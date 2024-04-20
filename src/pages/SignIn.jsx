@@ -57,7 +57,7 @@ function SignIn() {
       >
         <form
           action=""
-          className="flex flex-col justify-center backdrop-blur-[6px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba( 31, 38, 135, 0.37 )] rounded-[18px] bg-[rgba(255,255,255,0.80)] w-80 lg:w-96 h-[400px] lg:h-[450px] px-6 lg:px-12"
+          className="flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba( 31, 38, 135, 0.37 )] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[400px] lg:h-[450px] px-6 lg:px-12"
           onSubmit={onSubmit}
         >
           <h1 className="mt-6 mb-4 text-2xl font-bold text-left lg:text-3xl lg:mt-0">
@@ -70,16 +70,16 @@ function SignIn() {
             <input
               type="email"
               placeholder="Email"
-              className="rounded-[18px] p-4 bg-[#7cadee] placeholder-[#233163] mb-4 shadow-[inset_5px_5px_15px_#3d5575,inset_-5px_-5px_15px_#bbffff]"
+              className="rounded-[18px] text-white p-4 bg-[rgba(25,25,25,0.90)] placeholder-[white] mb-4 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]"
               onChange={onEmailChangeEvent}
             />
             <input
               type="password"
               placeholder="Password"
-              className="rounded-[18px] p-4 bg-[#7cadee] placeholder-[#233163] mb-4 shadow-[inset_5px_5px_15px_#3d5575,inset_-5px_-5px_15px_#bbffff]"
+              className="rounded-[18px] text-white p-4 bg-[rgba(25,25,25,0.90)] placeholder-[white] backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] mb-4 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]"
               onChange={onPasswordChangeEvent}
             />
-            <button className="bg-[#7cadee] font-medium shadow-[5px_5px_15px_#3d5575,-5px_-5px_15px_#bbffff] lg:text-lg text-[#233163]] hover:text-[#233163] hover:bg-white hover:border-[#233163] hover:border-2 rounded-[18px] p-4 ">
+            <button className="bg-[rgba(255,255,255,0.50)] hover:bg-[rgba(255,255,255,0.70)] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] lg:text-lg text-[#191919] rounded-[18px] p-4 ">
               Sign In
             </button>
           </div>
