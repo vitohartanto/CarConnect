@@ -4,7 +4,7 @@ import {
   faPenToSquare,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import { FaBell } from "react-icons/fa";
+import { FaBell, FaCircle } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import { HyperbaseContext } from "../App";
 import collections from "../utils/hyperbase/hyperbaseCollections.json";
@@ -194,39 +194,65 @@ const RegisteredCars = () => {
         </button>
       </div>
       <div className="pt-8 ml-12">
-        <div className="backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-          <h1 className="ml-12 text-2xl font-bold md:text-3xl xl:text-4xl">
-            Registered Cars
-          </h1>
+        <div className="flex justify-between mx-5 mb-4 ">
+          <input
+            type="text"
+            className="px-4 py-2 w-32 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
+            placeholder="🔍 Search for car's license plate"
+          />
+          <input
+            type="text"
+            className="px-4 py-2 w-32 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
+            placeholder="🔍 Search for car's brand"
+          />
         </div>
-        <div className="px-6 md:px-12">
+        <h1 className="py-2 w-64 text-center px-4 ml-5 text-2xl font-bold md:text-3xl xl:text-4xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+          Registered Cars
+        </h1>
+        <h2 className="mt-4 py-2 w-72 text-center px-4 ml-5 text-lg font-medium md:text-3xl xl:text-4xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+          Currently, there are 3 Cars
+        </h2>
+
+        <div className="px-5 md:px-12">
           {cars.map((car) => (
             <a
               key={car._id}
               href={`/app/${car._id}`}
-              className="shadow-[0px_0px_30px_0px_rgba(0,0,0,0.8)] px-8 py-4 lg:py-8 rounded-2xl mt-6 flex justify-between font-medium w-full"
+              className="px-8 py-6 lg:py-8 mt-6 flex flex-col w-64  font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
             >
-              <h1 className=" md:text-xl xl:text-2xl">{car.license_plate}</h1>
-              <div className="flex items-center">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h1 className="text-[#191919] md:text-xl xl:text-2xl">
+                    {car.license_plate}
+                  </h1>
+                  <h1 className="text-[#191919]">Mazda</h1>
+                </div>
+
+                <div>
+                  <FaCircle className="text-[#20F95D]" />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-center">
                 <a href={`/app/${car._id}/notifications`}>
-                  <FaBell className="text-[#233163] mx-4 text-lg" />
+                  <FaBell className="text-[#191919] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
                 </a>
                 <button
-                  className="mx-4 sm:text-xl lg:text-2xl"
+                  className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
                   onClick={(e) => editCarLicensePlate(e, car._id)}
                 >
                   <FontAwesomeIcon
                     icon={faPenToSquare}
-                    style={{ color: "#233163" }}
+                    style={{ color: "#191919" }}
                   />
                 </button>
                 <button
-                  className="mx-4 sm:text-xl lg:text-2xl"
+                  className="mx-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
                   onClick={(e) => deleteCarLicensePlate(e, car._id)}
                 >
                   <FontAwesomeIcon
                     icon={faTrash}
-                    style={{ color: "#233163" }}
+                    style={{ color: "#191919" }}
                   />
                 </button>
               </div>
