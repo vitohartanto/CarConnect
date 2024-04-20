@@ -3,6 +3,7 @@ import AddModal from "../components/AddModal";
 import UpdateModal from "../components/UpdateModal";
 import RemoveModal from "../components/RemoveModal";
 import { useParams } from "react-router-dom";
+import carBackground from "../pageDashboard.png";
 
 import { useState, useEffect } from "react";
 
@@ -41,6 +42,11 @@ const Dashboard = () => {
 
   return (
     <div className="">
+      <img
+        src={carBackground}
+        alt=""
+        className="fixed w-screen h-screen z-[-100]"
+      />
       <Sidebar>
         <AddModal addComponent={addComponent} />
       </Sidebar>
