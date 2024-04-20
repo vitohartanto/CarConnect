@@ -44,9 +44,36 @@ const RegisteredCars = () => {
     fetchAllCars();
   }, [carsCollection]);
 
-  const signOut = (e) => {
-    e.stopPropagation();
-    hyperbase.signOut();
+  // const signOut = (e) => {
+  //   e.stopPropagation();
+  //   hyperbase.signOut();
+  // };
+
+  const signOutHandler = async (event) => {
+    // Assuming event is passed from an event listener
+    event.preventDefault();
+
+    const { value: removed } = await Swal.fire({
+      title: "Do you want to Sign Out?",
+      background: "rgba(25,25,25,0.90)",
+      backdrop: `rgba(7,193,250,0.1)`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#16db3d",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sign Out",
+      color: "#fff",
+    });
+
+    // Your remaining code
+    if (removed) {
+      try {
+        event.stopPropagation();
+        hyperbase.signOut();
+      } catch (err) {
+        alert(`${err.status}\n${err.message}`);
+      }
+    }
   };
 
   const fetchAllCars = async () => {
@@ -94,11 +121,11 @@ const RegisteredCars = () => {
       title: "Enter Car's License Plate",
       inputPlaceholder: "e.g. B 1234 VH",
       input: "text",
-      color: "#233163",
-      background: "#F1F1FB",
-
+      color: "#fff",
+      background: "rgba(25,25,25,0.90)",
+      backdrop: `rgba(7,193,250,0.1)`,
       cancelButtonColor: "#d33",
-      confirmButtonColor: "#233163",
+      confirmButtonColor: "#16db3d",
       showCancelButton: true,
       inputValidator: (value) => {
         if (!value) {
@@ -126,11 +153,12 @@ const RegisteredCars = () => {
       title: "Edit Car's License Plate",
       inputPlaceholder: "e.g. B 1234 VH",
       input: "text",
-      color: "#233163",
-      background: "#F1F1FB",
+      color: "#fff",
+      background: "rgba(25,25,25,0.90)",
+      backdrop: `rgba(7,193,250,0.1)`,
 
       cancelButtonColor: "#d33",
-      confirmButtonColor: "#233163",
+      confirmButtonColor: "#16db3d",
       showCancelButton: true,
       inputValidator: (value) => {
         if (!value) {
@@ -157,12 +185,14 @@ const RegisteredCars = () => {
 
     const { value: removed } = await Swal.fire({
       title: "Delete this?",
+      background: "rgba(25,25,25,0.90)",
+      backdrop: `rgba(7,193,250,0.1)`,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#233163",
+      confirmButtonColor: "#16db3d",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-      color: "#233163",
+      color: "#fff",
     });
 
     // Your remaining code
@@ -177,24 +207,32 @@ const RegisteredCars = () => {
   };
 
   return (
-    <div
-      className="h-screen bg-center bg-cover"
-      style={{ backgroundImage: `url(${carBackground})` }}
-    >
+    <div className="">
+      <img src={carBackground} alt="" className="fixed w-screen h-screen" />
       <div className="w-12 fixed h-screen backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(25,25,25,0.90)] flex items-center justify-between flex-col py-10">
-        <button onClick={addCarLicensePlate} className="text-4xl text-white">
-          +
+        <button
+          onClick={addCarLicensePlate}
+          className=" relative text-4xl w-8 h-8  rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]"
+        >
+          <p className="text-[#191919] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            +
+          </p>
         </button>
-        <button onClick={signOut}>
-          <FontAwesomeIcon
-            className="text-2xl"
-            icon={faRightFromBracket}
-            style={{ color: "#FFF" }}
-          />
+        <button
+          onClick={signOutHandler}
+          className="relative w-8 h-8  rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]"
+        >
+          <p className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+            <FontAwesomeIcon
+              className="text-base"
+              icon={faRightFromBracket}
+              style={{ color: "#191919" }}
+            />
+          </p>
         </button>
       </div>
       <div className="pt-8 ml-12">
-        <div className="flex justify-between mx-5 mb-4 ">
+        <div className="flex justify-between mx-5 mb-6 ">
           <input
             type="text"
             className="px-4 py-2 w-32 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
@@ -209,11 +247,11 @@ const RegisteredCars = () => {
         <h1 className="py-2 w-64 text-center px-4 ml-5 text-2xl font-bold md:text-3xl xl:text-4xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
           Registered Cars
         </h1>
-        <h2 className="mt-4 py-2 w-72 text-center px-4 ml-5 text-lg font-medium md:text-3xl xl:text-4xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+        <h2 className="mt-4 py-2 w-[270px] text-center px-4 ml-5 text-lg font-medium md:text-3xl xl:text-4xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
           Currently, there are 3 Cars
         </h2>
 
-        <div className="px-5 md:px-12">
+        <div className="px-5 mb-6 md:px-12">
           {cars.map((car) => (
             <a
               key={car._id}
@@ -234,8 +272,11 @@ const RegisteredCars = () => {
               </div>
 
               <div className="flex items-center justify-center">
-                <a href={`/app/${car._id}/notifications`}>
+                <a href={`/app/${car._id}/notifications`} className="relative">
                   <FaBell className="text-[#191919] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
+                  <div className="absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]">
+                    <p className="absolute top-[-1px] left-[6px] text-sm">3</p>
+                  </div>
                 </a>
                 <button
                   className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
@@ -247,7 +288,7 @@ const RegisteredCars = () => {
                   />
                 </button>
                 <button
-                  className="mx-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
+                  className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
                   onClick={(e) => deleteCarLicensePlate(e, car._id)}
                 >
                   <FontAwesomeIcon
