@@ -103,15 +103,15 @@ const UpdateModal = ({
   };
 
   return (
-    <div>
+    <>
       <button className="absolute top-3.5 left-3.5" onClick={handleClick}>
         <FontAwesomeIcon
           className="text-lg"
           icon={faPenToSquare}
-          style={{ color: "#233163" }}
+          style={{ color: "#FFF" }}
         />
       </button>
-    </div>
+    </>
   );
 };
 

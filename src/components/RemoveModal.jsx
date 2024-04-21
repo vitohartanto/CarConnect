@@ -38,7 +38,7 @@ const RemoveModal = ({
         <FontAwesomeIcon
           className="text-lg"
           icon={faTrash}
-          style={{ color: "#233163" }}
+          style={{ color: "#FFF" }}
         />
       </button>
     </div>
