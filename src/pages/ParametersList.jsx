@@ -42,7 +42,7 @@ const ParametersList = () => {
         </h1>
 
         {/* engine rpm */}
-        <div>
+        <div className="flex flex-col">
           <EngineRPM carId={car_id} />
           <VehicleSpeed carId={car_id} />
           <EngineCoolantTemperature carId={car_id} />
