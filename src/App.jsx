@@ -9,7 +9,7 @@ import "./App.css";
 
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import Details from "./pages/Details";
+import ParametersList from "./pages/ParametersList";
 import Diagnostics from "./pages/Diagnostics";
 import SignIn from "./pages/SignIn";
 import useHyperbase from "./hooks/useHyperbase";
@@ -162,15 +162,15 @@ const App = () => {
               <Route element={<ProtectedRoute />}>
                 <Route path="/app" exact element={<RegisteredCars />} />
                 <Route path="/app/:car_id/" exact element={<Dashboard />} />
-                {/* <Route
+                <Route
                   path="/app/:car_id/dashboard"
                   exact
                   element={<Dashboard />}
-                /> */}
+                />
                 <Route
-                  path="/app/:car_id/details"
+                  path="/app/:car_id/parametersList"
                   exact
-                  element={<Details />}
+                  element={<ParametersList />}
                 />
                 <Route
                   path="/app/:car_id/diagnostics"

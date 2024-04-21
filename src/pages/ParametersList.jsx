@@ -17,14 +17,14 @@ import CatalystTemperature from "../parameters/CatalystTemperature";
 import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
 import { useParams } from "react-router-dom";
 
-const Details = () => {
+const ParametersList = () => {
   const { car_id } = useParams();
   return (
     <div>
       <Sidebar />
       <div className="ml-12">
         <h1 className="pt-8 ml-5 text-2xl font-bold md:text-3xl xl:text-4xl sm:ml-10">
-          Details
+          Parameters List
         </h1>
         {/* fuel system status */}
         <div className="flex flex-col items-center justify-center mt-6 lg:flex-row">
@@ -323,4 +323,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default ParametersList;
