@@ -28,16 +28,24 @@ const ParametersList = () => {
         className="fixed w-screen h-screen z-[-100] bg-center"
       />
       <Sidebar />
-      <div className="ml-12 pt-8 pr-8">
-        <h1 className="py-2 mb-4 w-64 xl:w-64 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-          Parameters List
+      <div className="ml-12 pt-8 pr-8 lg:ml-[72px]">
+        <div className="flex items-center justify-between flex-wrap">
+          <h1 className="py-2 mb-4 w-64 xl:w-72 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            Parameters List
+          </h1>
+          <h1 className="py-2 mb-4 w-[280px] xl:w-[420px] text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            Car - AB 1911 TE - Mazda
+          </h1>
+        </div>
+        <h1 className="py-2 mb-4 w-72 xl:w-72 text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+          Basic Engine Parameters
         </h1>
         {/* engine rpm */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <EngineRPM carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Engine RPM</span> stands for
               &quot;Revolutions Per Minute&quot; and refers to how many times
@@ -49,14 +57,14 @@ const ParametersList = () => {
               1000, it indicates a problem, the engine being cold or temporary
               RPM increase.
             </h2>
-          </div>
+          </div> */}
         </div>
         {/* vehicle speed */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4 ">
             <VehicleSpeed carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Vehicle Speed</span> indicates how
               quickly the vehicle is traveling along the road. The unit is in
@@ -66,14 +74,14 @@ const ParametersList = () => {
               <span className="font-semibold">Optimal Value</span> : Varies by
               vehicle speed.
             </h2>
-          </div>
+          </div> */}
         </div>
         {/* engine coolant temperature */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <EngineCoolantTemperature carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Engine coolant temperature</span>{" "}
               refers to the temperature of the coolant fluid that circulates
@@ -84,14 +92,14 @@ const ParametersList = () => {
               <span className="font-semibold">Optimal Value</span> : Between
               90°C - 104°C.
             </h2>
-          </div>
+          </div> */}
         </div>
         {/* throttle position */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <ThrottlePosition carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Throttle Position</span> refers to
               how much the throttle valve in the engine&apos;s intake system is
@@ -102,14 +110,14 @@ const ParametersList = () => {
               0-100%, with 0% indicating that the throttle valve is fully closed
               and 100% indicating that the throttle valve is fully open.
             </h2>
-          </div>
+          </div> */}
         </div>
         {/* intake air temperature */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <IntakeAirTemperature carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">
                 Intake Air Temperature (IAT)
@@ -124,14 +132,14 @@ const ParametersList = () => {
               ignition timing, which affects the engine&apos;s performance and
               fuel efficiency.
             </h2>
-          </div>
+          </div> */}
         </div>
         {/* intake manifold pressure */}
         <div className="flex flex-col items-center justify-center mt-10 mb-10 md:flex-row">
           <div className="ml-4">
             <IntakeManifoldPressure carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Intake Manifold Pressure</span> is
               the air pressure inside the intake manifold of an engine.
@@ -143,14 +151,14 @@ const ParametersList = () => {
               <span className="font-semibold">Optimal Value</span> : Varies by
               engine and load.
             </h2>
-          </div>
+          </div> */}
         </div>
         {/* fuel system status */}
         <div className="flex flex-col items-center justify-center mt-6 lg:flex-row">
           <div className="ml-4">
             <FuelSystemStatus carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10">
             <h2 className="mb-2 font-semibold">
               The Fuel System Status can be operated in open loop or closed
               loop.
@@ -174,7 +182,7 @@ const ParametersList = () => {
               in lower emissions, as it allows the ECM to fine-tune the fuel
               delivery based on real-time feedback from the oxygen sensor(s).
             </h2>
-          </div>
+          </div> */}
         </div>
 
         {/* short term fuel trim */}
@@ -182,7 +190,7 @@ const ParametersList = () => {
           <div className="ml-4">
             <ShortTermFuelTrim carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Short-Term Fuel Trim (STFT)</span>{" "}
               is like a real-time adjustment made by a car&apos;s system to
@@ -194,14 +202,14 @@ const ParametersList = () => {
               value is in single-digit numbers, preferably under ± 5%. Anything
               more than ± 10% is a problem.
             </h2>
-          </div>
+          </div> */}
         </div>
         {/* long term fuel trim */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <LongTermFuelTrim carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Long-Term Fuel Trim (LTFT)</span>{" "}
               is similar to Short-Term Fuel Trim (STFT), but it&apos;s like a
@@ -215,7 +223,7 @@ const ParametersList = () => {
               value is in single-digit numbers, preferably under ± 5%. Anything
               more than ± 10% is a problem.
             </h2>
-          </div>
+          </div> */}
         </div>
 
         {/* oxygen sensor bank 1 sensor 1 */}
@@ -264,7 +272,7 @@ const ParametersList = () => {
           <div className="ml-4">
             <CatalystTemperature carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Catalyst Temperature</span> refers
               to the temperature of the catalytic converter in a vehicle&apos;s
@@ -275,14 +283,14 @@ const ParametersList = () => {
               200°C - 800°C. To function properly, the catalytic converter must
               reach a certain temperature, typically around 400°C - 600°C.
             </h2>
-          </div>
+          </div> */}
         </div>
         {/* mass air flow */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
             <MassAirFlow carId={car_id} />
           </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+          {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
               <span className="font-semibold">Mass Air Flow (MAF)</span>{" "}
               measures how much air is flowing into the engine at any given
@@ -294,7 +302,7 @@ const ParametersList = () => {
               <span className="font-semibold">Optimal Value</span> : Varies by
               engine and load.
             </h2>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
