@@ -12,7 +12,7 @@ const IntakeManifoldPressure = ({ carId, children }) => {
         </h1>
       </div>
       <h1 className="pt-[20px] text-5xl font-semibold text-center ">
-        {variablesInObject[carId]?.v_intakeManifoldPressure}23 kPa
+        {variablesInObject[carId]?.v_intakeManifoldPressure} kPa
       </h1>
     </div>
   );

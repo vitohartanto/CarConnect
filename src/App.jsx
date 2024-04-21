@@ -109,6 +109,7 @@ const App = () => {
               v_massAirFlow: d.mass_air_flow,
               v_catalystTemperature: d.catalyst_temperature,
               v_intakeManifoldPressure: d.intake_manifold_pressure,
+              v_oxygenSensorBank1Sensor2: d.oxygen_sensor,
               v_timestamp: d.timestamp,
             },
           });

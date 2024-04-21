@@ -130,6 +130,12 @@ def emitTelemetry():
             intakeManifoldPressureCmd = obd.commands.INTAKE_PRESSURE
             intakeManifoldPressureResp = connection.query(intakeManifoldPressureCmd)
             varIntakeManifoldPressure = intakeManifoldPressureResp.value.magnitude 
+
+            # oxygen sensor bank 1 sensor 2
+            oxygenSensorBank1Sensor2Cmd = obd.commands.O2_B1S2
+            oxygenSensorBank1Sensor2Resp = connection.query(oxygenSensorBank1Sensor2Cmd)
+            varOxygenSensorBank1Sensor2 = oxygenSensorBank1Sensor2Resp.value.magnitude 
+
                        
             # Get the current date and time in UTC timezone
             current_time_utc = datetime.datetime.now()
@@ -161,6 +167,7 @@ def emitTelemetry():
                 "mass_air_flow": varMassAirFlow,
                 "catalyst_temperature": varCatalystTemperature,
                 "intake_manifold_pressure": varIntakeManifoldPressure,
+                "oxygen_sensor": varOxygenSensorBank1Sensor2,
                 "run_time": runTime,
                 "idle_time": idleTime,
                 "timestamp": timestamp_str

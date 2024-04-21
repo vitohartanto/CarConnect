@@ -9,7 +9,7 @@ import VehicleSpeed from "../parameters/VehicleSpeed";
 import ShortTermFuelTrim from "../parameters/ShortTermFuelTrim";
 import LongTermFuelTrim from "../parameters/LongTermFuelTrim";
 import IntakeAirTemperature from "../parameters/IntakeAirTemperature";
-import OxygenSensorBank1Sensor1 from "../parameters/OxygenSensorBank1Sensor1";
+import OxygenSensorBank1Sensor1 from "../parameters/OxygenSensorBank1Sensor2";
 import OxygenSensorBank2Sensor2 from "../parameters/OxygenSensorBank2Sensor2";
 import MassAirFlow from "../parameters/MassAirFlow";
 import CatalystTemperature from "../parameters/CatalystTemperature";

@@ -63,12 +63,9 @@ const Dashboard = () => {
           </h1>
           <AddModal className="ml-4" addComponent={addComponent} />
         </div>
-        <div className="flex flex-col flex-wrap items-center justify-center md:flex-row">
+        <div className="">
           {selectedComponents.map((data) => (
-            <div
-              key={data.id}
-              className="flex justify-center w-11/12 mt-4 md:w-5/12 lg:w-1/3"
-            >
+            <div key={data.id} className="">
               <data.component id={data.id} carId={car_id}>
                 <UpdateModal
                   setSelectedComponents={setSelectedComponents}
