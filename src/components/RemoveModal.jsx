@@ -20,10 +20,12 @@ const RemoveModal = ({
       title: "Delete this?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#233163",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-      color: "#233163",
+      color: "#FFF",
+      background: "rgba(25,25,25,0.95)",
+      backdrop: `rgba(7,193,250,0.1)`,
+      confirmButtonColor: "#16db3d",
     });
     console.log(removed);
     console.log(componentObject.id);

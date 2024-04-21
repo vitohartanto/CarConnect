@@ -63,22 +63,20 @@ const Dashboard = () => {
           </h1>
           <AddModal className="ml-4" addComponent={addComponent} />
         </div>
-        <div className="">
+        <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
           {selectedComponents.map((data) => (
-            <div key={data.id} className="">
-              <data.component id={data.id} carId={car_id}>
-                <UpdateModal
-                  setSelectedComponents={setSelectedComponents}
-                  componentObject={data}
-                  generateId={generateId}
-                />
-                <RemoveModal
-                  setSelectedComponents={setSelectedComponents}
-                  componentObject={data}
-                  selectedComponents={selectedComponents}
-                />
-              </data.component>
-            </div>
+            <data.component key={data.id} id={data.id} carId={car_id}>
+              <UpdateModal
+                setSelectedComponents={setSelectedComponents}
+                componentObject={data}
+                generateId={generateId}
+              />
+              <RemoveModal
+                setSelectedComponents={setSelectedComponents}
+                componentObject={data}
+                selectedComponents={selectedComponents}
+              />
+            </data.component>
           ))}
         </div>
       </div>

@@ -12,12 +12,9 @@ import VehicleSpeed from "../parameters/VehicleSpeed";
 import ShortTermFuelTrim from "../parameters/ShortTermFuelTrim";
 import LongTermFuelTrim from "../parameters/LongTermFuelTrim";
 import IntakeAirTemperature from "../parameters/IntakeAirTemperature";
-import OxygenSensorBank1Sensor1 from "../parameters/OxygenSensorBank1Sensor2";
-import OxygenSensorBank2Sensor2 from "../parameters/OxygenSensorBank2Sensor2";
+import OxygenSensorBank1Sensor2 from "../parameters/OxygenSensorBank1Sensor2";
 import MassAirFlow from "../parameters/MassAirFlow";
 import CatalystTemperature from "../parameters/CatalystTemperature";
-import FuelType from "../parameters/FuelType";
-import EngineOilTemperature from "../parameters/EngineOilTemperature";
 import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
 
 const UpdateModal = ({
@@ -34,12 +31,9 @@ const UpdateModal = ({
     shorttermfueltrim: ShortTermFuelTrim,
     longtermfueltrim: LongTermFuelTrim,
     intakeairtemperature: IntakeAirTemperature,
-    oxygensensorbank1sensor1: OxygenSensorBank1Sensor1,
-    oxygensensorbank2sensor2: OxygenSensorBank2Sensor2,
+    oxygensensorbank1sensor2: OxygenSensorBank1Sensor2,
     massairflow: MassAirFlow,
     catalysttemperature: CatalystTemperature,
-    fueltype: FuelType,
-    engineoiltemperature: EngineOilTemperature,
     intakemaniholdpressure: IntakeManifoldPressure,
   };
 
@@ -58,32 +52,36 @@ const UpdateModal = ({
   const handleClick = async () => {
     const { value: parameter } = await Swal.fire({
       title: "Update Dashboard",
-      background: "#F1F1FB",
       position: "bottom",
       icon: "info",
-      confirmButtonColor: "#233163",
       confirmButtonText: "Update",
       denyButtonText: "Remove",
-      color: "#233163",
-      input: "select",
+      color: "#191919",
+      background: "rgba(255,255,255,0.90)",
+      backdrop: `rgba(7,193,250,0.1)`,
       cancelButtonColor: "#d33",
+      confirmButtonColor: "#16db3d",
+      input: "select",
+
       inputOptions: {
         Strings: {
           fuelsystemstatus: "Fuel System Status",
         },
         Gauges: {
           vehiclespeed: "Vehicle Speed",
-          throttleposition: "Throttle Position",
           enginecoolanttemperature: "Engine Coolant Temperature",
+          throttleposition: "Throttle Position",
           catalysttemperature: "Catalyst Temperature",
         },
+
         Numerics: {
           enginerpm: "Engine RPM",
+          intakeairtemperature: "Intake Air Temperature",
+          intakemaniholdpressure: "Intake Manihold Pressure",
           shorttermfueltrim: "Short Term Fuel Trim",
           longtermfueltrim: "Long Term Fuel Trim",
-          intakeairtemperature: "Intake Air Temperature",
+          oxygensensorbank1sensor2: "Oxygen Sensor Bank 1 Sensor 2 Voltage",
           massairflow: "Mass Air Flow",
-          intakemaniholdpressure: "Intake Manihold Pressure",
         },
       },
       inputPlaceholder: "Select a parameter",

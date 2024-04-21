@@ -17,6 +17,7 @@ import CatalystTemperature from "../parameters/CatalystTemperature";
 import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
 import { useParams } from "react-router-dom";
 import carBackground from "../pageParametersList.png";
+import { BsFillQuestionCircleFill } from "react-icons/bs";
 
 const ParametersList = () => {
   const { car_id } = useParams();
@@ -45,7 +46,9 @@ const ParametersList = () => {
         {/* engine rpm */}
 
         <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
-          <EngineRPM carId={car_id} />
+          <EngineRPM carId={car_id}>
+            <BsFillQuestionCircleFill />
+          </EngineRPM>
           <VehicleSpeed carId={car_id} />
           <EngineCoolantTemperature carId={car_id} />
           <ThrottlePosition carId={car_id} />
@@ -80,7 +83,7 @@ const ParametersList = () => {
         <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
           Miscellaneous Parameter
         </h1>
-        <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
+        <div className="mb-6 ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
           <MassAirFlow carId={car_id} />
         </div>
 
