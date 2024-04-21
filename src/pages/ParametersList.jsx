@@ -43,7 +43,7 @@ const ParametersList = () => {
 
         {/* engine rpm */}
 
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
+        <div className="ml-12 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
           <EngineRPM carId={car_id} />
           <VehicleSpeed carId={car_id} />
           <EngineCoolantTemperature carId={car_id} />
