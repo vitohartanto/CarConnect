@@ -16,47 +16,22 @@ import CatalystTemperature from "../parameters/CatalystTemperature";
 // import EngineOilTemperature from "../parameters/EngineOilTemperature";
 import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
 import { useParams } from "react-router-dom";
+import carBackground from "../pageParametersList.png";
 
 const ParametersList = () => {
   const { car_id } = useParams();
   return (
     <div>
+      <img
+        src={carBackground}
+        alt=""
+        className="fixed w-screen h-screen z-[-100] bg-center"
+      />
       <Sidebar />
-      <div className="ml-12">
-        <h1 className="pt-8 ml-5 text-2xl font-bold md:text-3xl xl:text-4xl sm:ml-10">
+      <div className="ml-12 pt-8 pr-8">
+        <h1 className="py-2 mb-4 w-64 xl:w-64 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
           Parameters List
         </h1>
-        {/* fuel system status */}
-        <div className="flex flex-col items-center justify-center mt-6 lg:flex-row">
-          <div className="ml-4">
-            <FuelSystemStatus carId={car_id} />
-          </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10">
-            <h2 className="mb-2 font-semibold">
-              The Fuel System Status can be operated in open loop or closed
-              loop.
-            </h2>
-            <h2>
-              <span className="font-semibold ">Open Loop</span> : In open loop,
-              the brain of the vehicle&apos;s engine management system, ECU
-              (Engine Control Unit) controls the engine using preset fuel and
-              ignition maps without feedback from oxygen sensors. This mode is
-              used during cold starts, warm-up, and heavy acceleration.
-            </h2>
-            <h2 className="mt-2">
-              <span className="font-semibold">Closed Loop</span> : In closed
-              loop, the ECU adjusts fuel delivery based on oxygen sensor
-              feedback. This mode is active during normal driving conditions
-              when the engine is warmed up and operating optimally.
-            </h2>
-            <h2 className="mt-2">
-              <span className="font-semibold">Optimal Value</span> : Closed
-              loop, operating in closed loop mode is more efficient and results
-              in lower emissions, as it allows the ECM to fine-tune the fuel
-              delivery based on real-time feedback from the oxygen sensor(s).
-            </h2>
-          </div>
-        </div>
         {/* engine rpm */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
@@ -93,24 +68,6 @@ const ParametersList = () => {
             </h2>
           </div>
         </div>
-        {/* throttle position */}
-        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
-          <div className="ml-4">
-            <ThrottlePosition carId={car_id} />
-          </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
-            <h2>
-              <span className="font-semibold">Throttle Position</span> refers to
-              how much the throttle valve in the engine&apos;s intake system is
-              open. Simply, the position of the throttle in percentage.
-            </h2>
-            <h2 className="mt-2">
-              <span className="font-semibold">Optimal Value</span> : Between
-              0-100%, with 0% indicating that the throttle valve is fully closed
-              and 100% indicating that the throttle valve is fully open.
-            </h2>
-          </div>
-        </div>
         {/* engine coolant temperature */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
@@ -129,6 +86,97 @@ const ParametersList = () => {
             </h2>
           </div>
         </div>
+        {/* throttle position */}
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
+          <div className="ml-4">
+            <ThrottlePosition carId={car_id} />
+          </div>
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+            <h2>
+              <span className="font-semibold">Throttle Position</span> refers to
+              how much the throttle valve in the engine&apos;s intake system is
+              open. Simply, the position of the throttle in percentage.
+            </h2>
+            <h2 className="mt-2">
+              <span className="font-semibold">Optimal Value</span> : Between
+              0-100%, with 0% indicating that the throttle valve is fully closed
+              and 100% indicating that the throttle valve is fully open.
+            </h2>
+          </div>
+        </div>
+        {/* intake air temperature */}
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
+          <div className="ml-4">
+            <IntakeAirTemperature carId={car_id} />
+          </div>
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+            <h2>
+              <span className="font-semibold">
+                Intake Air Temperature (IAT)
+              </span>{" "}
+              refers to the temperature of the air as it enters the
+              engine&apos;s intake system.
+            </h2>
+            <h2 className="mt-2">
+              <span className="font-semibold">Optimal Value</span> : Varies by
+              engine and load. The engine control module (ECM) uses the
+              information from the IAT sensor to adjust the air/fuel mixture and
+              ignition timing, which affects the engine&apos;s performance and
+              fuel efficiency.
+            </h2>
+          </div>
+        </div>
+        {/* intake manifold pressure */}
+        <div className="flex flex-col items-center justify-center mt-10 mb-10 md:flex-row">
+          <div className="ml-4">
+            <IntakeManifoldPressure carId={car_id} />
+          </div>
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
+            <h2>
+              <span className="font-semibold">Intake Manifold Pressure</span> is
+              the air pressure inside the intake manifold of an engine.
+              It&apos;s crucial for the engine&apos;s performance because it
+              determines how much air gets into the engine cylinders for
+              combustion.
+            </h2>
+            <h2 className="mt-2">
+              <span className="font-semibold">Optimal Value</span> : Varies by
+              engine and load.
+            </h2>
+          </div>
+        </div>
+        {/* fuel system status */}
+        <div className="flex flex-col items-center justify-center mt-6 lg:flex-row">
+          <div className="ml-4">
+            <FuelSystemStatus carId={car_id} />
+          </div>
+          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10">
+            <h2 className="mb-2 font-semibold">
+              The Fuel System Status can be operated in open loop or closed
+              loop.
+            </h2>
+            <h2>
+              <span className="font-semibold ">Open Loop</span> : In open loop,
+              the brain of the vehicle&apos;s engine management system, ECU
+              (Engine Control Unit) controls the engine using preset fuel and
+              ignition maps without feedback from oxygen sensors. This mode is
+              used during cold starts, warm-up, and heavy acceleration.
+            </h2>
+            <h2 className="mt-2">
+              <span className="font-semibold">Closed Loop</span> : In closed
+              loop, the ECU adjusts fuel delivery based on oxygen sensor
+              feedback. This mode is active during normal driving conditions
+              when the engine is warmed up and operating optimally.
+            </h2>
+            <h2 className="mt-2">
+              <span className="font-semibold">Optimal Value</span> : Closed
+              loop, operating in closed loop mode is more efficient and results
+              in lower emissions, as it allows the ECM to fine-tune the fuel
+              delivery based on real-time feedback from the oxygen sensor(s).
+            </h2>
+          </div>
+        </div>
+
         {/* short term fuel trim */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
@@ -169,28 +217,7 @@ const ParametersList = () => {
             </h2>
           </div>
         </div>
-        {/* intake air temperature */}
-        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
-          <div className="ml-4">
-            <IntakeAirTemperature carId={car_id} />
-          </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
-            <h2>
-              <span className="font-semibold">
-                Intake Air Temperature (IAT)
-              </span>{" "}
-              refers to the temperature of the air as it enters the
-              engine&apos;s intake system.
-            </h2>
-            <h2 className="mt-2">
-              <span className="font-semibold">Optimal Value</span> : Varies by
-              engine and load. The engine control module (ECM) uses the
-              information from the IAT sensor to adjust the air/fuel mixture and
-              ignition timing, which affects the engine&apos;s performance and
-              fuel efficiency.
-            </h2>
-          </div>
-        </div>
+
         {/* oxygen sensor bank 1 sensor 1 */}
         {/* <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
@@ -232,25 +259,6 @@ const ParametersList = () => {
             </h2>
           </div>
         </div> */}
-        {/* mass air flow */}
-        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
-          <div className="ml-4">
-            <MassAirFlow carId={car_id} />
-          </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
-            <h2>
-              <span className="font-semibold">Mass Air Flow (MAF)</span>{" "}
-              measures how much air is flowing into the engine at any given
-              moment. This information is crucial for the Engine Control Unit
-              (ECU) to calculate the correct amount of fuel needed for efficient
-              combustion.
-            </h2>
-            <h2 className="mt-2">
-              <span className="font-semibold">Optimal Value</span> : Varies by
-              engine and load.
-            </h2>
-          </div>
-        </div>
         {/* catalyst temperature */}
         <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
@@ -269,47 +277,17 @@ const ParametersList = () => {
             </h2>
           </div>
         </div>
-        {/* fuel type */}
-        {/* <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
+        {/* mass air flow */}
+        <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
           <div className="ml-4">
-            <FuelType />
+            <MassAirFlow carId={car_id} />
           </div>
           <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>
-              <span className="font-semibold">Fuel Type</span> is kind of what
-              powers vehicles and machines. There are different types, such as:
-              gasoline, diesel, and electricity.
-            </h2>
-          </div>
-        </div> */}
-        {/* engine oil temperature */}
-        {/* <div className="flex flex-col items-center justify-center mt-10 md:flex-row">
-          <div className="ml-4">
-            <EngineOilTemperature />
-          </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
-            <h2>
-              <span className="font-semibold">Engine Oil Temperature</span>{" "}
-              tells you how hot or cold the engine&apos;s oil is.
-            </h2>
-            <h2 className="mt-2">
-              <span className="font-semibold">Optimal Value</span> : Between
-              90°C - 104°C. Operating outside this range can affect performance
-              and longevity.
-            </h2>
-          </div>
-        </div> */}
-        {/* intake manifold pressure */}
-        <div className="flex flex-col items-center justify-center mt-10 mb-10 md:flex-row">
-          <div className="ml-4">
-            <IntakeManifoldPressure carId={car_id} />
-          </div>
-          <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
-            <h2>
-              <span className="font-semibold">Intake Manifold Pressure</span> is
-              the air pressure inside the intake manifold of an engine.
-              It&apos;s crucial for the engine&apos;s performance because it
-              determines how much air gets into the engine cylinders for
+              <span className="font-semibold">Mass Air Flow (MAF)</span>{" "}
+              measures how much air is flowing into the engine at any given
+              moment. This information is crucial for the Engine Control Unit
+              (ECU) to calculate the correct amount of fuel needed for efficient
               combustion.
             </h2>
             <h2 className="mt-2">
