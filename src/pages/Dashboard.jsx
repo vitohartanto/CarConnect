@@ -50,13 +50,16 @@ const Dashboard = () => {
       <Sidebar>
         <AddModal addComponent={addComponent} />
       </Sidebar>
-      <div className="ml-12">
-        <h1 className="pt-8 ml-5 text-2xl font-bold md:text-3xl xl:text-4xl sm:ml-10">
+      <div className="ml-12 pt-8 pr-8 lg:ml-[72px]">
+        <h1 className="py-2 w-48 xl:w-64 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
           Dashboard
         </h1>
-        <h1 className="pt-2 ml-5 text-lg font-medium md:text-xl xl:text-2xl sm:ml-10">
-          Click the + button to add the dashboard card
-        </h1>
+        <div className="flex items-center justify-between mt-4 py-2 min-w-60 min-[600px]:w-[480px] text-left px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+          <h1 className="text-lg font-medium xl:text-xl">
+            Choose which OBD2 parameters to display
+          </h1>
+          <AddModal className="ml-4" addComponent={addComponent} />
+        </div>
         <div className="flex flex-col flex-wrap items-center justify-center md:flex-row">
           {selectedComponents.map((data) => (
             <div

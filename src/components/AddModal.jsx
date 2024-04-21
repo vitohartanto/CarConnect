@@ -38,14 +38,19 @@ const AddModal = ({ addComponent }) => {
   const handleClick = async () => {
     const { value: parameter } = await Swal.fire({
       title: "Add Dashboard",
-      background: "#F1F1FB",
+
       position: "bottom",
       icon: "info",
-      confirmButtonColor: "#233163",
+
       confirmButtonText: "Add",
-      color: "#233163",
-      input: "select",
+      color: "#191919",
+      background: "rgba(255,255,255,0.90)",
+      backdrop: `rgba(7,193,250,0.1)`,
+
       cancelButtonColor: "#d33",
+      confirmButtonColor: "#16db3d",
+      input: "select",
+
       inputOptions: {
         Strings: {
           fuelsystemstatus: "Fuel System Status",
@@ -76,11 +81,16 @@ const AddModal = ({ addComponent }) => {
   };
 
   return (
-    <div>
-      <button className="text-white text-3xl mt-6" onClick={handleClick}>
-        +
+    <>
+      <button
+        className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]"
+        onClick={handleClick}
+      >
+        <p className="text-[#191919] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          +
+        </p>
       </button>
-    </div>
+    </>
   );
 };
 
