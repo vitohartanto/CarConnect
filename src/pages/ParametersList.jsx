@@ -37,12 +37,13 @@ const ParametersList = () => {
             Car - AB 1911 TE - Mazda
           </h1>
         </div>
-        <h1 className="py-2 mb-4 w-72 xl:w-72 text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+        <h1 className="py-2 mb-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
           Basic Engine Parameters
         </h1>
 
         {/* engine rpm */}
-        <div className="flex flex-col">
+
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
           <EngineRPM carId={car_id} />
           <VehicleSpeed carId={car_id} />
           <EngineCoolantTemperature carId={car_id} />
@@ -50,6 +51,7 @@ const ParametersList = () => {
           <IntakeAirTemperature carId={car_id} />
           <IntakeManifoldPressure carId={car_id} />
         </div>
+
         <div>
           <FuelSystemStatus carId={car_id} />
           <ShortTermFuelTrim carId={car_id} />
