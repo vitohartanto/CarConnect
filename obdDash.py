@@ -198,7 +198,7 @@ while True: #loop until a connection is made with the server instead of immediat
         sio.connect('http://localhost:4000')
         print("Socket IO has been connected to port 4000")
         emitTelemetry()
-        print("emitTelemetry sudah berhasil")
+       
         break
 
     except Exception as ex:

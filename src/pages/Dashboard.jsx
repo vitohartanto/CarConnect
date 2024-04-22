@@ -92,17 +92,6 @@ const Dashboard = () => {
     return () => carsCollection.unsubscribe(1000);
   };
 
-  const findCar = (id) => {
-    let foundedCar = cars.find((car) => car._id === id);
-    console.log("HALO");
-    console.log(foundedCar);
-    console.log(cars);
-    let parsedPlateBrand = JSON.parse(foundedCar.plate_brand);
-    let plate = parsedPlateBrand[0];
-    // let brand = parsedPlateBrand[1];
-    return plate;
-  };
-
   // Function generateId
   const generateId = () => {
     return +new Date();
