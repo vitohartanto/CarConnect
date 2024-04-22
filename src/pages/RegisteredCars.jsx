@@ -18,6 +18,26 @@ const RegisteredCars = () => {
 
   const [carsCollection, setCarsCollection] = useState();
   const [cars, setCars] = useState([]);
+  const [searchPlate, setSearchPlate] = useState("");
+  const [searchBrand, setSearchBrand] = useState("");
+
+  const onChangeSearchPlateHandler = (event) => {
+    setSearchPlate(event.target.value);
+  };
+
+  const onChangeSearchBrandHandler = (event) => {
+    setSearchBrand(event.target.value);
+  };
+
+  const filteredCars = cars.filter(
+    (car) =>
+      JSON.parse(car.plate_brand)[0]
+        .toLowerCase()
+        .includes(searchPlate.toLowerCase()) &&
+      JSON.parse(car.plate_brand)[1]
+        .toLowerCase()
+        .includes(searchBrand.toLowerCase())
+  );
 
   useEffect(() => {
     if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
@@ -44,11 +64,6 @@ const RegisteredCars = () => {
     if (!carsCollection) return;
     fetchAllCars();
   }, [carsCollection]);
-
-  // const signOut = (e) => {
-  //   e.stopPropagation();
-  //   hyperbase.signOut();
-  // };
 
   const signOutHandler = async (event) => {
     // Assuming event is passed from an event listener
@@ -117,7 +132,7 @@ const RegisteredCars = () => {
     return () => carsCollection.unsubscribe(1000);
   };
 
-  const addCarLicensePlate = async () => {
+  const addCarPlateBrand = async () => {
     const { value: plate_brand } = await Swal.fire({
       title: "Enter Car's License Plate and Car's Brand",
       html: `
@@ -126,20 +141,14 @@ const RegisteredCars = () => {
   `,
       focusConfirm: false,
 
-      preConfirm: (plate_brand) => {
-        if (!plate_brand[0] || !plate_brand[1]) {
-          Swal.fire({
-            color: "#fff",
-            background: "rgba(25,25,25,0.90)",
-            backdrop: `rgba(7,193,250,0.1)`,
-
-            confirmButtonColor: "#16db3d",
-
-            icon: "error",
-            title: "Error",
-            text: "You need to complete both inputs!",
-          });
+      preConfirm: () => {
+        if (
+          document.getElementById("swal-input1").value == "" ||
+          document.getElementById("swal-input2").value == ""
+        ) {
+          return Swal.showValidationMessage("Please complete both inputs");
         }
+
         return JSON.stringify([
           document.getElementById("swal-input1").value,
           document.getElementById("swal-input2").value,
@@ -167,30 +176,42 @@ const RegisteredCars = () => {
     }
   };
 
-  const editCarLicensePlate = async (event, id) => {
+  const editCarPlateBrand = async (event, id) => {
     event.preventDefault();
-    const { value: license_plate_corrected } = await Swal.fire({
-      title: "Edit Car's License Plate",
-      inputPlaceholder: "e.g. B 1234 VH",
-      input: "text",
+    const { value: plate_brand_corrected } = await Swal.fire({
+      title: "Edit Car's License Plate and Car's Brand",
+      html: `
+    <input id="swal-input3" class="swal2-input placeholder-white text-base min-w-[230px]" placeholder="e.g. B 1234 VH"}>
+    <input id="swal-input4" class="swal2-input placeholder-white text-base min-w-[230px]" placeholder="e.g. Toyota, Honda, Mazda">
+  `,
+      focusConfirm: false,
+
+      preConfirm: () => {
+        if (
+          document.getElementById("swal-input3").value == "" ||
+          document.getElementById("swal-input4").value == ""
+        ) {
+          return Swal.showValidationMessage("Please complete both inputs");
+        }
+
+        return JSON.stringify([
+          document.getElementById("swal-input3").value,
+          document.getElementById("swal-input4").value,
+        ]);
+      },
+
       color: "#fff",
       background: "rgba(25,25,25,0.90)",
       backdrop: `rgba(7,193,250,0.1)`,
-
       cancelButtonColor: "#d33",
       confirmButtonColor: "#16db3d",
       showCancelButton: true,
-      inputValidator: (value) => {
-        if (!value) {
-          return "You need to write something!";
-        }
-      },
     });
 
-    if (license_plate_corrected) {
+    if (plate_brand_corrected) {
       try {
         await carsCollection.updateOne(id, {
-          license_plate: license_plate_corrected,
+          plate_brand: plate_brand_corrected,
         });
         await fetchAllCars();
       } catch (err) {
@@ -199,7 +220,7 @@ const RegisteredCars = () => {
     }
   };
 
-  const deleteCarLicensePlate = async (event, id) => {
+  const deleteCarPlateBrand = async (event, id) => {
     // Assuming event is passed from an event listener
     event.preventDefault();
 
@@ -239,7 +260,7 @@ const RegisteredCars = () => {
           damping={1e-1}
         >
           <button
-            onClick={addCarLicensePlate}
+            onClick={addCarPlateBrand}
             className=" relative text-4xl w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]"
             title="Register your car"
           >
@@ -275,12 +296,16 @@ const RegisteredCars = () => {
             <input
               type="text"
               className="placeholder-[#191919] px-4 lg:py-4 lg:px-6 py-2 w-32 min-[500px]:w-48 md:w-64 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
-              placeholder="🔍 Car's license plate"
+              placeholder="🔍 License plate"
+              value={searchPlate}
+              onChange={onChangeSearchPlateHandler}
             />
             <input
               type="text"
               className="placeholder-[#191919] px-4 lg:py-4 lg:px-6 py-2 w-32 min-[500px]:w-48 md:w-64 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
-              placeholder="🔍 Car's brand"
+              placeholder="🔍 Brand"
+              value={searchBrand}
+              onChange={onChangeSearchBrandHandler}
             />
           </div>
         </Fade>
@@ -289,12 +314,13 @@ const RegisteredCars = () => {
             Registered Cars
           </h1>
           <h2 className="mt-4 py-2 w-[270px] xl:w-[336px] text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-            Currently, there are 3 Cars
+            Currently, there {filteredCars.length === 1 ? "is" : "are"}{" "}
+            {filteredCars.length} {filteredCars.length === 1 ? "Car" : "Cars"}
           </h2>
         </Fade>
 
         <div className="flex flex-col flex-grow px-5 mb-6 md:px-12 min-[600px]:flex-row min-[600px]:flex-wrap min-[600px]:justify-start">
-          {cars.map((car) => {
+          {filteredCars.map((car) => {
             let parsedPlateBrand = JSON.parse(car.plate_brand);
             return (
               <a
@@ -305,7 +331,7 @@ const RegisteredCars = () => {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl">
-                      {parsedPlateBrand[1]}
+                      {parsedPlateBrand[0]}
                     </h1>
                     <h1 className="text-[#191919]">{parsedPlateBrand[1]}</h1>
                   </div>
@@ -329,7 +355,7 @@ const RegisteredCars = () => {
                   </a>
                   <button
                     className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
-                    onClick={(e) => editCarLicensePlate(e, car._id)}
+                    onClick={(e) => editCarPlateBrand(e, car._id)}
                   >
                     <FontAwesomeIcon
                       icon={faPenToSquare}
@@ -338,7 +364,7 @@ const RegisteredCars = () => {
                   </button>
                   <button
                     className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
-                    onClick={(e) => deleteCarLicensePlate(e, car._id)}
+                    onClick={(e) => deleteCarPlateBrand(e, car._id)}
                   >
                     <FontAwesomeIcon
                       icon={faTrash}
