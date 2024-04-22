@@ -185,6 +185,7 @@ const descFuelSystemStatusHandler = () => {
     loop.
   </b>
   <br />
+  <br />
   <h2>
     <b>Open Loop</b> : In open loop,
     the brain of the vehicle&apos;s engine management system, ECU
