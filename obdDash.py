@@ -190,6 +190,7 @@ def emitTelemetry():
                     out_of_range_counts[param] = 0
 
                 if out_of_range_counts[param] >= 10:  # Check if out of range for 10 consecutive times
+                    
                     # Notify that the parameter is out of optimal range
                     notification_message = f"{param.replace('_', ' ').title()} is out of optimal range"
 

@@ -196,11 +196,14 @@ const App = () => {
         const parsedData = JSON.parse(e.data);
         if (parsedData.kind === "insert_one") {
           const d = parsedData.data;
-          setNotificationsResponse({
-            v_car_id: d.car_id,
-            v_notifications: d.notifications,
-            v_timestamp: d.timestamp,
-          });
+          setNotificationsResponse((prevState) => [
+            {
+              v_car_id: d.car_id,
+              v_notifications: d.notifications,
+              v_timestamp: d.timestamp,
+            },
+            ...prevState,
+          ]);
         }
       },
     });

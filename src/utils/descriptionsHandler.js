@@ -400,6 +400,42 @@ const descWhyIsMyDTCEmpty = () => {
   });
 };
 
+const descHowDoesTheNotificationWorkHandler = () => {
+  Swal.fire({
+    color: "#FFF",
+    background: "rgba(25,25,25,0.95)",
+    backdrop: `rgba(7,193,250,0.1)`,
+    confirmButtonColor: "#16db3d",
+    title: "<strong>Detection's Workflow</strong>",
+    icon: "info",
+    html: `
+    <h2>
+    <b>Detection</b> takes place by seeing whether the value is <b>consistently not in the optimal value range for 10 times in a row</b>.
+    <br />
+    <br />
+    There are 3 parameters to be detected:
+    <br />
+    <b>Short Term Fuel Trim</b>
+    <br />
+    (-10 % to +10 %)<br />
+    <b>Long Term Fuel Trim</b>
+    <br />
+    (-10 % to +10 %)<br />
+    <b>Oxygen Sensor Bank 1 Sensor 2</b>
+    <br />
+    (0.1 V to 0.9 V)
+    <br />
+    <br />
+    <b>If there is non-optimal parameter,</b> system will throw notifications to the Notifications Page.
+            </h2>
+          `,
+    focusConfirm: false,
+    confirmButtonText: `
+           Okay
+          `,
+  });
+};
+
 export {
   descEngineRPMHandler,
   descVehicleSpeedHandler,
@@ -415,4 +451,5 @@ export {
   descShortTermFuelTrimHandler,
   descWhatIsDTCHandler,
   descWhyIsMyDTCEmpty,
+  descHowDoesTheNotificationWorkHandler,
 };

@@ -5,13 +5,32 @@ import { Fade } from "react-awesome-reveal";
 import { useParams } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import collections from "../utils/hyperbase/hyperbaseCollections.json";
-import { HyperbaseContext } from "../App";
+import { HyperbaseContext, NotificationsContext } from "../App";
+import { v4 as uuidv4 } from "uuid";
+import { showFormattedDate } from "../utils/additionalFunctions";
+import { FaBell } from "react-icons/fa";
+import { descHowDoesTheNotificationWorkHandler } from "../utils/descriptionsHandler";
 
 const Notifications = () => {
+  const notificationsResponse = useContext(NotificationsContext);
   const { car_id } = useParams();
   const hyperbase = useContext(HyperbaseContext);
   const [carsCollection, setCarsCollection] = useState();
   const [cars, setCars] = useState([]);
+
+  let notificationsResponseDummy = [
+    {
+      v_car_id: 456,
+      v_notifications: "Short Term Fuel Trim is out of optimal range",
+      v_timestamp: "2024-04-25 16:30:47.154876Z",
+    },
+    {
+      v_car_id: 228,
+      v_notifications:
+        "Oxygen Sensor Bank 1 Sensor 2 Voltage is out of optimal range",
+      v_timestamp: "2024-04-20 16:30:47.154876Z",
+    },
+  ];
 
   useEffect(() => {
     if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
@@ -106,48 +125,76 @@ const Notifications = () => {
               Car - {plate} - {brand}
             </h1>
           </div>
+
+          <div className="ml-5 min-[600px]:ml-10 flex mb-6 items-center">
+            <button
+              onClick={descHowDoesTheNotificationWorkHandler}
+              className="mr-4 flex items-center px-4 py-2 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
+            >
+              <FaBell className="min-w-6 text-[#191919] text-2xl" />
+              <h1 className="text-[#191919] ml-3 font-medium">
+                How do we detect?
+              </h1>
+            </button>
+            <h1 className="text-lg xl:text-xl xl:w-36 px-4 py-2 w-32 text-center font-medium  backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+              Example:
+            </h1>
+          </div>
         </Fade>
-        <h1 className="mt-6 ml-5 text-2xl font-bold sm:ml-10 md:text-3xl xl:text-4xl">
-          Example:
-        </h1>
-        <div className="mx-4 sm:mx-10 ">
-          <div className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-start items-center">
-            <FaWrench className="text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-2 lg:mx-6" />
-            <div>
-              <h2 className="text-sm font-medium md:text-base lg:text-lg">
-                Engine Coolant Temperature is out of optimal range
-              </h2>
-              <p className="mt-2 text-xs md:text-sm lg:text-base">
-                19 April 2024 08:35:21
-              </p>
-            </div>
+        <Fade delay={1e1} duration={2000} triggerOnce={true} damping={1e-1}>
+          <div className="mx-4 sm:mx-10 ">
+            {notificationsResponseDummy.map((notif) => {
+              return (
+                <div
+                  key={uuidv4()}
+                  className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-start items-center"
+                >
+                  <FaWrench className="text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-2 lg:mx-6" />
+                  <div>
+                    <h2 className="text-sm font-medium md:text-base lg:text-lg">
+                      {notif.v_notifications}
+                    </h2>
+                    <p className="mt-2 text-xs md:text-sm lg:text-base">
+                      {showFormattedDate(notif.v_timestamp)}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          <div className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6  flex justify-start items-center">
-            <FaHeart className="text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-2 lg:mx-6" />
-            <div>
-              <h2 className="text-sm font-medium md:text-base lg:text-lg">
-                Short Term Fuel Trim problem has been fixed
-              </h2>
-              <p className="mt-2 text-xs md:text-sm lg:text-base">
-                17 April 2024 12:32:12
-              </p>
-            </div>
+        </Fade>
+
+        <Fade
+          delay={1e1}
+          duration={2000}
+          direction={"up"}
+          triggerOnce={true}
+          damping={1e-1}
+        >
+          <h1 className="mt-6 text-lg xl:text-xl xl:w-64 px-4 py-2 w-56 text-center font-medium ml-5 sm:ml-10 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            Real Notifications:
+          </h1>
+          <div className="mx-4 sm:mx-10 ">
+            {notificationsResponse.map((notif) => {
+              return (
+                <div
+                  key={uuidv4()}
+                  className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-start items-center"
+                >
+                  <FaWrench className="text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-2 lg:mx-6" />
+                  <div>
+                    <h2 className="text-sm font-medium md:text-base lg:text-lg">
+                      {notif.v_notifications}
+                    </h2>
+                    <p className="mt-2 text-xs md:text-sm lg:text-base">
+                      {showFormattedDate(notif.v_timestamp)}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          <div className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-start items-center">
-            <FaWrench className="text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-2 lg:mx-6" />
-            <div>
-              <h2 className="text-sm font-medium md:text-base lg:text-lg">
-                Short Term Fuel Trim is out of optimal range
-              </h2>
-              <p className="mt-2 text-xs md:text-sm lg:text-base">
-                17 April 2024 08:35:21
-              </p>
-            </div>
-          </div>
-        </div>
-        <h1 className="mt-6 ml-5 text-2xl font-bold lg:mt-10 sm:ml-10 md:text-3xl xl:text-4xl">
-          Real Notifications:
-        </h1>
+        </Fade>
       </div>
     </div>
   );
