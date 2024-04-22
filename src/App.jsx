@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import "./App.css";
 
-import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import ParametersList from "./pages/ParametersList";
 import Diagnostics from "./pages/Diagnostics";
@@ -21,10 +20,13 @@ import Notifications from "./pages/Notifications";
 export const HyperbaseContext = createContext();
 export const AppContext = createContext();
 export const DtcContext = createContext();
+export const NotificationsContext = createContext();
 
 const App = () => {
   const [variablesInObject, setVariablesInObject] = useState({});
   const [dtcResponse, setDtcResponse] = useState(null);
+  const [notificationsResponse, setNotificationsResponse] = useState([]);
+
   const hyperbase = useHyperbase();
 
   useEffect(() => {
@@ -72,9 +74,31 @@ const App = () => {
   }, [hyperbase.isLoading, hyperbase.isSignedIn]);
 
   useEffect(() => {
-    console.log("This is variablesInObject");
-    console.log(variablesInObject);
-  }, [variablesInObject]);
+    if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
+
+    let unsubscribe;
+
+    (async () => {
+      try {
+        const notificationsDataCollection = await hyperbase.setCollection(
+          collections.notifications_data
+        );
+
+        unsubscribe = subscribeNotificationsData(notificationsDataCollection);
+      } catch (err) {
+        alert(`${err.status}\n${err.message}`);
+      }
+    })();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [hyperbase.isLoading, hyperbase.isSignedIn]);
+
+  // useEffect(() => {
+  //   console.log("This is variablesInObject");
+  //   console.log(variablesInObject);
+  // }, [variablesInObject]);
 
   const subscribeObdData = (obdDataCollection) => {
     obdDataCollection.subscribe({
@@ -152,40 +176,78 @@ const App = () => {
     return () => dtcDataCollection.unsubscribe(1000);
   };
 
+  const subscribeNotificationsData = (notificationsDataCollection) => {
+    notificationsDataCollection.subscribe({
+      onOpenCallback: (e) => {
+        console.log("Subscribe notificationsData status open:", e);
+      },
+      onErrorCallback: (e) => {
+        console.log("Subscribe notificationsData status error:", e);
+      },
+      onCloseCallback: (e) => {
+        console.log("Subscribe notificationsData status close:", e);
+        if (e.status !== 1000) {
+          setTimeout(() => {
+            subscribeNotificationsData(notificationsDataCollection);
+          }, 5000);
+        }
+      },
+      onMessageCallback: (e) => {
+        const parsedData = JSON.parse(e.data);
+        if (parsedData.kind === "insert_one") {
+          const d = parsedData.data;
+          setNotificationsResponse({
+            v_car_id: d.car_id,
+            v_notifications: d.notifications,
+            v_timestamp: d.timestamp,
+          });
+        }
+      },
+    });
+
+    return () => notificationsDataCollection.unsubscribe(1000);
+  };
+
   return (
     <HyperbaseContext.Provider value={hyperbase}>
       <AppContext.Provider value={variablesInObject}>
         <DtcContext.Provider value={dtcResponse}>
-          <Router>
-            <Routes>
-              <Route path="/" exact element={<Navigate to="/app" replace />} />
-              <Route path="/signin" exact element={<SignIn />} />
-              <Route element={<ProtectedRoute />}>
-                <Route path="/app" exact element={<RegisteredCars />} />
-                <Route path="/app/:car_id/" exact element={<Dashboard />} />
+          <NotificationsContext.Provider value={notificationsResponse}>
+            <Router>
+              <Routes>
                 <Route
-                  path="/app/:car_id/dashboard"
+                  path="/"
                   exact
-                  element={<Dashboard />}
+                  element={<Navigate to="/app" replace />}
                 />
-                <Route
-                  path="/app/:car_id/parametersList"
-                  exact
-                  element={<ParametersList />}
-                />
-                <Route
-                  path="/app/:car_id/diagnostics"
-                  exact
-                  element={<Diagnostics />}
-                />
-                <Route
-                  path="/app/:car_id/notifications"
-                  exact
-                  element={<Notifications />}
-                />
-              </Route>
-            </Routes>
-          </Router>
+                <Route path="/signin" exact element={<SignIn />} />
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/app" exact element={<RegisteredCars />} />
+                  <Route path="/app/:car_id/" exact element={<Dashboard />} />
+                  <Route
+                    path="/app/:car_id/dashboard"
+                    exact
+                    element={<Dashboard />}
+                  />
+                  <Route
+                    path="/app/:car_id/parametersList"
+                    exact
+                    element={<ParametersList />}
+                  />
+                  <Route
+                    path="/app/:car_id/diagnostics"
+                    exact
+                    element={<Diagnostics />}
+                  />
+                  <Route
+                    path="/app/:car_id/notifications"
+                    exact
+                    element={<Notifications />}
+                  />
+                </Route>
+              </Routes>
+            </Router>
+          </NotificationsContext.Provider>
         </DtcContext.Provider>
       </AppContext.Provider>
     </HyperbaseContext.Provider>

@@ -72,6 +72,16 @@ def emitDtcCodes():
 # emitTelemetry function to emit the obd data
 def emitTelemetry():
     global idleTime
+
+    # Define the optimal ranges for each parameter
+    optimal_ranges = {
+        "short_term_fuel_trim": (-10, 10),
+        "long_term_fuel_trim": (-10, 10),
+        "oxygen_sensor": (0.1, 0.9)
+    }
+
+    # Track consecutive out-of-range occurrences for each parameter
+    out_of_range_counts = {param: 0 for param in optimal_ranges.keys()}
     
     while True:
         try:
@@ -136,7 +146,6 @@ def emitTelemetry():
             oxygenSensorBank1Sensor2Resp = connection.query(oxygenSensorBank1Sensor2Cmd)
             varOxygenSensorBank1Sensor2 = oxygenSensorBank1Sensor2Resp.value.magnitude 
 
-                       
             # Get the current date and time in UTC timezone
             current_time_utc = datetime.datetime.now()
 
@@ -173,6 +182,23 @@ def emitTelemetry():
                 "timestamp": timestamp_str
             }
 
+            for param, (min_val, max_val) in optimal_ranges.items():
+                value = locals().get(f"var{param.capitalize()}")
+                if value is not None and (value < min_val or value > max_val):
+                    out_of_range_counts[param] += 1
+                else:
+                    out_of_range_counts[param] = 0
+
+                if out_of_range_counts[param] >= 10:  # Check if out of range for 10 consecutive times
+                    # Notify that the parameter is out of optimal range
+                    notification_message = f"{param.replace('_', ' ').title()} is out of optimal range"
+
+                    notifications_data = {
+                        "notifications": notification_message
+                    }
+                    # Add logic to send notification to Notifications Page
+                    hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
+
             #publish data to hyperbase collection OBD Data
             hyperbase.publish(os.getenv("OBD_DATA_COLLECTION_ID"), data)
 
@@ -188,6 +214,7 @@ def emitTelemetry():
             print(errorLog)
             sio.emit('log', json.dumps(errorLog)) # will only work if exception is unrelated to node server connection
             continue
+
 
 connection = obd.OBD()
 
