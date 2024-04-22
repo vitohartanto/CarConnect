@@ -18,6 +18,7 @@ import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
 import { useParams } from "react-router-dom";
 import carBackground from "../pageParametersList.png";
 import { BsFillQuestionCircleFill } from "react-icons/bs";
+import { Fade } from "react-awesome-reveal";
 
 import {
   descEngineRPMHandler,
@@ -46,144 +47,148 @@ const ParametersList = () => {
       />
       <Sidebar />
       <div className="ml-12 pt-8 pr-8 lg:ml-[72px]">
-        <div className="flex items-center justify-between flex-wrap">
-          <h1 className="py-2 mb-4 w-64 xl:w-72 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-            Parameters List
+        <Fade delay={1e1} direction={"down"} triggerOnce={true} damping={1e-1}>
+          <div className="flex items-center justify-between flex-wrap">
+            <h1 className="py-2 mb-4 w-64 xl:w-72 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+              Parameters List
+            </h1>
+            <h1 className="py-2 mb-4 w-[280px] xl:w-[420px] text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+              Car - AB 1911 TE - Mazda
+            </h1>
+          </div>
+        </Fade>
+
+        <Fade delay={1e1} triggerOnce={false} damping={1e-1} duration={1500}>
+          <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            Basic Engine Parameters
           </h1>
-          <h1 className="py-2 mb-4 w-[280px] xl:w-[420px] text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-            Car - AB 1911 TE - Mazda
+
+          {/* engine rpm */}
+
+          <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
+            <EngineRPM carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descEngineRPMHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </EngineRPM>
+            <VehicleSpeed carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descVehicleSpeedHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </VehicleSpeed>
+            <EngineCoolantTemperature carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descEngineCoolantTemperatureHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </EngineCoolantTemperature>
+            <ThrottlePosition carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descThrottlePositionHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </ThrottlePosition>
+            <IntakeAirTemperature carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descIntakeAirTemperatureHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </IntakeAirTemperature>
+            <IntakeManifoldPressure carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descIntakeManifoldPressureHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </IntakeManifoldPressure>
+          </div>
+
+          <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            Fuel System Parameters
           </h1>
-        </div>
 
-        <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-          Basic Engine Parameters
-        </h1>
+          <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
+            <FuelSystemStatus carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descFuelSystemStatusHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </FuelSystemStatus>
+            <ShortTermFuelTrim carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descShortTermFuelTrimHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </ShortTermFuelTrim>
+            <LongTermFuelTrim carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descLongTermFuelTrimHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </LongTermFuelTrim>
+          </div>
 
-        {/* engine rpm */}
+          <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            Oxygen Sensor
+          </h1>
+          <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
+            <OxygenSensorBank1Sensor2 carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descOxygenSensorBank1Sensor2Handler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </OxygenSensorBank1Sensor2>
+          </div>
 
-        <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
-          <EngineRPM carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descEngineRPMHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </EngineRPM>
-          <VehicleSpeed carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descVehicleSpeedHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </VehicleSpeed>
-          <EngineCoolantTemperature carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descEngineCoolantTemperatureHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </EngineCoolantTemperature>
-          <ThrottlePosition carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descThrottlePositionHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </ThrottlePosition>
-          <IntakeAirTemperature carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descIntakeAirTemperatureHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </IntakeAirTemperature>
-          <IntakeManifoldPressure carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descIntakeManifoldPressureHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </IntakeManifoldPressure>
-        </div>
+          <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            Catalyst Parameter
+          </h1>
+          <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
+            <CatalystTemperature carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descCatalystTemperatureHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </CatalystTemperature>
+          </div>
 
-        <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-          Fuel System Parameters
-        </h1>
-
-        <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
-          <FuelSystemStatus carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descFuelSystemStatusHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </FuelSystemStatus>
-          <ShortTermFuelTrim carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descShortTermFuelTrimHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </ShortTermFuelTrim>
-          <LongTermFuelTrim carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descLongTermFuelTrimHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </LongTermFuelTrim>
-        </div>
-
-        <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-          Oxygen Sensor
-        </h1>
-        <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
-          <OxygenSensorBank1Sensor2 carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descOxygenSensorBank1Sensor2Handler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </OxygenSensorBank1Sensor2>
-        </div>
-
-        <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-          Catalyst Parameter
-        </h1>
-        <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
-          <CatalystTemperature carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descCatalystTemperatureHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </CatalystTemperature>
-        </div>
-
-        <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-          Miscellaneous Parameter
-        </h1>
-        <div className="mb-6 ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
-          <MassAirFlow carId={car_id}>
-            <button
-              className="text-white absolute top-3.5 right-3.5"
-              onClick={descMassAirFlowHandler}
-            >
-              <BsFillQuestionCircleFill className="text-2xl" />
-            </button>
-          </MassAirFlow>
-        </div>
+          <h1 className="py-2 mb-4 mt-4 w-72 xl:w-72 min-[600px]:ml-10 text-center px-4 ml-5 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            Miscellaneous Parameter
+          </h1>
+          <div className="mb-6 ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 ">
+            <MassAirFlow carId={car_id}>
+              <button
+                className="text-white absolute top-3.5 right-3.5"
+                onClick={descMassAirFlowHandler}
+              >
+                <BsFillQuestionCircleFill className="text-2xl" />
+              </button>
+            </MassAirFlow>
+          </div>
+        </Fade>
 
         {/* <div className="mx-6 my-4 text-base text-justify md:text-lg xl:text-xl sm:mx-10 md:ml-3 md:mr-10">
             <h2>

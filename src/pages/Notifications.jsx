@@ -1,6 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import { FaWrench, FaHeart } from "react-icons/fa";
 import carBackground from "../pageNotifications.png";
+import { Fade } from "react-awesome-reveal";
 
 const Notifications = () => {
   return (
@@ -12,14 +13,22 @@ const Notifications = () => {
       />
       <Sidebar />
       <div className="ml-12 pt-8 pr-8 lg:ml-[72px]">
-        <div className="flex items-center justify-between flex-wrap">
-          <h1 className="py-2 mb-4 w-64 xl:w-72 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-            Notifications
-          </h1>
-          <h1 className="py-2 mb-4 w-[280px] xl:w-[420px] text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-            Car - AB 1911 TE - Mazda
-          </h1>
-        </div>
+        <Fade
+          delay={1e1}
+          duration={2000}
+          direction={"down"}
+          triggerOnce={true}
+          damping={1e-1}
+        >
+          <div className="flex items-center justify-between flex-wrap">
+            <h1 className="py-2 mb-4 w-64 xl:w-72 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+              Notifications
+            </h1>
+            <h1 className="py-2 mb-4 w-[280px] xl:w-[420px] text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+              Car - AB 1911 TE - Mazda
+            </h1>
+          </div>
+        </Fade>
         <h1 className="mt-6 ml-5 text-2xl font-bold sm:ml-10 md:text-3xl xl:text-4xl">
           Example:
         </h1>
