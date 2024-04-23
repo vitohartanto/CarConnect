@@ -22,15 +22,7 @@ const Notifications = () => {
       v_fixed: false,
       v_update_at: "2024-04-25 16:30:47.154876Z",
     },
-    {
-      v_car_id: 228,
-      v_id: uuidv4(),
-      v_notifications:
-        "Oxygen Sensor Bank 1 Sensor 2 Voltage is out of optimal range",
-      v_fixed: false,
-      v_timestamp: "2024-04-20 16:30:47.154876Z",
-      v_update_at: "2024-04-20 16:30:47.154876Z",
-    },
+
     {
       v_car_id: 268,
       v_id: uuidv4(),
@@ -45,6 +37,8 @@ const Notifications = () => {
   const [notificationsDummy, setNotificationsDummy] = useState(
     notificationsResponseDummy
   );
+  const [notificationsCollection, setNotificationsCollection] = useState();
+  const [notificationsReal, setNotificationsReal] = useState([]);
 
   const { car_id } = useParams();
   const hyperbase = useContext(HyperbaseContext);
@@ -76,6 +70,7 @@ const Notifications = () => {
     if (!carsCollection) return;
     fetchAllCars();
   }, [carsCollection]);
+
   const fetchAllCars = async () => {
     try {
       const cars = await carsCollection.findMany({
@@ -116,11 +111,79 @@ const Notifications = () => {
     return () => carsCollection.unsubscribe(1000);
   };
 
+  useEffect(() => {
+    if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
+
+    let unsubscribe;
+
+    (async () => {
+      try {
+        const notificationCollection = await hyperbase.setCollection(
+          collections.notifications
+        );
+        unsubscribe = subscribeNotifications(notificationCollection);
+
+        setNotificationsCollection(notificationCollection);
+      } catch (err) {
+        alert(`${err.status}\n${err.message}`);
+      }
+    })();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [hyperbase, hyperbase.isLoading]);
+
+  useEffect(() => {
+    if (!notificationsCollection) return;
+    fetchAllNotifications();
+  }, [notificationsCollection]);
+
+  const fetchAllNotifications = async () => {
+    try {
+      const notifications = await notificationsCollection.findMany({
+        orders: [
+          {
+            field: "_id",
+            kind: "asc",
+          },
+        ],
+      });
+      setNotificationsReal(notifications.data);
+    } catch (err) {
+      alert(`${err.status}\n${err.message}`);
+    }
+  };
+
+  const subscribeNotifications = (notificationsCollection) => {
+    notificationsCollection.subscribe({
+      onOpenCallback: (e) => {
+        console.log("Subscribe notifications status open:", e);
+      },
+      onErrorCallback: (e) => {
+        console.log("Subscribe notifications status error:", e);
+      },
+      onCloseCallback: (e) => {
+        console.log("Subscribe notifications status close:", e);
+        if (e.status !== 1000) {
+          setTimeout(() => {
+            subscribeNotifications(notificationsCollection);
+          }, 5000);
+        }
+      },
+      onMessageCallback: (e) => {
+        console.log("Subscribe notifications status message:", e);
+      },
+    });
+
+    return () => notificationsCollection.unsubscribe(1000);
+  };
+
   let foundedCar = cars.find((car) => car._id === car_id);
   const plate = foundedCar ? JSON.parse(foundedCar.plate_brand)[0] : "";
   const brand = foundedCar ? JSON.parse(foundedCar.plate_brand)[1] : "";
 
-  const handleFixedToggle = (id) => {
+  const alreadyFixedDummyHandler = (id) => {
     const currentDate = new Date();
     // Toggle the fixed status of the notification with the given id
     const updatedNotifications = notificationsDummy.map((notif) => {
@@ -131,6 +194,19 @@ const Notifications = () => {
       return notif;
     });
     setNotificationsDummy(updatedNotifications);
+  };
+
+  const alreadyFixedRealHandler = async (id) => {
+    const currentDate = new Date();
+    try {
+      await notificationsCollection.updateOne(id, {
+        fixed: true,
+        fixed_at: currentDate,
+      });
+      await fetchAllCars();
+    } catch (err) {
+      alert(`${err.status}\n${err.message}`);
+    }
   };
 
   useEffect(() => {
@@ -202,7 +278,7 @@ const Notifications = () => {
                     <div className="px-4 py-2 basis-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]">
                       <button
                         className="flex items-center flex-col justify-center sm:flex-row"
-                        onClick={() => handleFixedToggle(notif.v_id)}
+                        onClick={() => alreadyFixedDummyHandler(notif.v_id)}
                       >
                         <FaCheckCircle className="text-[#191919] text-4xl sm:mr-2" />
                         <h1 className="text-[#191919] text-xs sm:text-sm md:text-base">
@@ -256,13 +332,50 @@ const Notifications = () => {
           <h1 className="mt-6 text-lg xl:text-xl xl:w-64 px-4 py-2 w-56 text-center font-medium ml-5 sm:ml-10 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
             Real Active Issues:
           </h1>
+          <div className="mx-4 sm:mx-10 mb-6">
+            {notificationsReal.map((notif) => {
+              return (
+                <div
+                  key={notif.v_id}
+                  className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-between items-center"
+                >
+                  <div className="flex items-center">
+                    <FaWrench className="basis-12 text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-4 lg:mx-6" />
+                    <div className="px-2">
+                      <h2 className="text-sm font-medium md:text-base lg:text-lg">
+                        {notif.v_notifications}
+                      </h2>
+                      <p className="mt-2 text-xs md:text-sm lg:text-base">
+                        {showFormattedDate(notif.v_timestamp)}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="px-4 py-2 basis-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]">
+                    <button
+                      className="flex items-center flex-col justify-center sm:flex-row"
+                      onClick={() => alreadyFixedRealHandler(notif.v_id)}
+                    >
+                      <FaCheckCircle className="text-[#191919] text-4xl sm:mr-2" />
+                      <h1 className="text-[#191919] text-xs sm:text-sm md:text-base">
+                        Already Fixed
+                      </h1>
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <h1 className="mt-6 text-lg xl:text-xl xl:w-72 px-4 py-2 w-48 min-[532px]:w-64  text-center font-medium ml-5 sm:ml-10 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            Real Inactive Issues:
+          </h1>
           <div className="mx-4 sm:mx-10 ">
             {notificationsResponse
-              .filter((notif) => !notif.v_fixed)
+              .filter((notif) => notif.v_fixed)
               .map((notif) => {
                 return (
                   <div
-                    key={notif.v_id}
+                    key={uuidv4()}
                     className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-between items-center"
                   >
                     <div className="flex items-center">
@@ -274,18 +387,10 @@ const Notifications = () => {
                         <p className="mt-2 text-xs md:text-sm lg:text-base">
                           {showFormattedDate(notif.v_timestamp)}
                         </p>
+                        <p className="mt-2 text-xs font-medium md:text-sm lg:text-base">
+                          Fixed at {showFormattedDate(notif.v_updated_at)}
+                        </p>
                       </div>
-                    </div>
-                    <div className="px-4 py-2 basis-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]">
-                      <button
-                        className="flex items-center flex-col justify-center sm:flex-row"
-                        onClick={() => handleFixedToggle(notif.v_id)}
-                      >
-                        <FaCheckCircle className="text-[#191919] text-4xl sm:mr-2" />
-                        <h1 className="text-[#191919] text-xs sm:text-sm md:text-base">
-                          Already Fixed
-                        </h1>
-                      </button>
                     </div>
                   </div>
                 );
