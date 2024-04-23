@@ -319,63 +319,65 @@ const RegisteredCars = () => {
           </h2>
         </Fade>
 
-        <div className="flex flex-col flex-grow px-5 mb-6 md:px-12 min-[600px]:flex-row min-[600px]:flex-wrap min-[600px]:justify-start">
-          {filteredCars.map((car) => {
-            let parsedPlateBrand = JSON.parse(car.plate_brand);
-            return (
-              <a
-                key={car._id}
-                href={`/app/${car._id}`}
-                className="mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl">
-                      {parsedPlateBrand[0]}
-                    </h1>
-                    <h1 className="text-[#191919]">{parsedPlateBrand[1]}</h1>
-                  </div>
-
-                  <div>
-                    <FaCircle className="text-[#20F95D]" />
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-center">
-                  <a
-                    href={`/app/${car._id}/notifications`}
-                    className="relative"
-                  >
-                    <FaBell className="text-[#191919] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
-                    <div className="absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]">
-                      <p className="absolute top-[-1px] left-[6px] text-sm">
-                        3
-                      </p>
+        <Fade delay={1e1} triggerOnce={false} damping={1e-1} duration={2000}>
+          <div className="flex flex-col flex-grow px-5 mb-6 md:px-12 min-[600px]:flex-row min-[600px]:flex-wrap min-[600px]:justify-start">
+            {filteredCars.map((car) => {
+              let parsedPlateBrand = JSON.parse(car.plate_brand);
+              return (
+                <a
+                  key={car._id}
+                  href={`/app/${car._id}`}
+                  className="mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl">
+                        {parsedPlateBrand[0]}
+                      </h1>
+                      <h1 className="text-[#191919]">{parsedPlateBrand[1]}</h1>
                     </div>
-                  </a>
-                  <button
-                    className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
-                    onClick={(e) => editCarPlateBrand(e, car._id)}
-                  >
-                    <FontAwesomeIcon
-                      icon={faPenToSquare}
-                      style={{ color: "#191919" }}
-                    />
-                  </button>
-                  <button
-                    className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
-                    onClick={(e) => deleteCarPlateBrand(e, car._id)}
-                  >
-                    <FontAwesomeIcon
-                      icon={faTrash}
-                      style={{ color: "#191919" }}
-                    />
-                  </button>
-                </div>
-              </a>
-            );
-          })}
-        </div>
+
+                    <div>
+                      <FaCircle className="text-[#20F95D]" />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-center">
+                    <a
+                      href={`/app/${car._id}/notifications`}
+                      className="relative"
+                    >
+                      <FaBell className="text-[#191919] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
+                      <div className="absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]">
+                        <p className="absolute top-[-1px] left-[6px] text-sm">
+                          3
+                        </p>
+                      </div>
+                    </a>
+                    <button
+                      className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
+                      onClick={(e) => editCarPlateBrand(e, car._id)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faPenToSquare}
+                        style={{ color: "#191919" }}
+                      />
+                    </button>
+                    <button
+                      className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
+                      onClick={(e) => deleteCarPlateBrand(e, car._id)}
+                    >
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        style={{ color: "#191919" }}
+                      />
+                    </button>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </Fade>
       </div>
     </div>
   );

@@ -118,6 +118,11 @@ const Sidebar = () => {
           <Link to={`/app/${car_id}/notifications`} title="Notifications Page">
             <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]">
               <FaBell className="text-[#191919] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl" />
+              <div className="absolute top-0 left-4 sm:top-1 sm:left-5 text-[#191919] w-5 h-5  lg:w-7 lg:h-7 lg:top-0 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]">
+                <p className="absolute top-[-1px] left-[6px] text-sm lg:text-base lg:left-[9px] lg:top-[2px]">
+                  3
+                </p>
+              </div>
             </div>
           </Link>
         </div>

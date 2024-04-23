@@ -10,27 +10,47 @@ import { v4 as uuidv4 } from "uuid";
 import { showFormattedDate } from "../utils/additionalFunctions";
 import { FaBell } from "react-icons/fa";
 import { descHowDoesTheNotificationWorkHandler } from "../utils/descriptionsHandler";
+import { FaCheckCircle } from "react-icons/fa";
 
 const Notifications = () => {
+  let notificationsResponseDummy = [
+    {
+      v_car_id: 456,
+      v_id: uuidv4(),
+      v_notifications: "Short Term Fuel Trim is out of optimal range",
+      v_timestamp: "2024-04-25 16:30:47.154876Z",
+      v_fixed: false,
+      v_update_at: "2024-04-25 16:30:47.154876Z",
+    },
+    {
+      v_car_id: 228,
+      v_id: uuidv4(),
+      v_notifications:
+        "Oxygen Sensor Bank 1 Sensor 2 Voltage is out of optimal range",
+      v_fixed: false,
+      v_timestamp: "2024-04-20 16:30:47.154876Z",
+      v_update_at: "2024-04-20 16:30:47.154876Z",
+    },
+    {
+      v_car_id: 268,
+      v_id: uuidv4(),
+      v_notifications: "Long Term Fuel Trim is out of optimal range",
+      v_fixed: true,
+      v_timestamp: "2024-04-19 16:30:47.154876Z",
+      v_updated_at: "2024-04-21 16:30:47.154876Z",
+    },
+  ];
+
   const notificationsResponse = useContext(NotificationsContext);
+  const [notificationsDummy, setNotificationsDummy] = useState(
+    notificationsResponseDummy
+  );
+
+  const [notificationsReal, setNotificationsReal] = useState();
   const { car_id } = useParams();
   const hyperbase = useContext(HyperbaseContext);
   const [carsCollection, setCarsCollection] = useState();
   const [cars, setCars] = useState([]);
-
-  let notificationsResponseDummy = [
-    {
-      v_car_id: 456,
-      v_notifications: "Short Term Fuel Trim is out of optimal range",
-      v_timestamp: "2024-04-25 16:30:47.154876Z",
-    },
-    {
-      v_car_id: 228,
-      v_notifications:
-        "Oxygen Sensor Bank 1 Sensor 2 Voltage is out of optimal range",
-      v_timestamp: "2024-04-20 16:30:47.154876Z",
-    },
-  ];
 
   useEffect(() => {
     if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
@@ -101,6 +121,24 @@ const Notifications = () => {
   const plate = foundedCar ? JSON.parse(foundedCar.plate_brand)[0] : "";
   const brand = foundedCar ? JSON.parse(foundedCar.plate_brand)[1] : "";
 
+  const handleFixedToggle = (id) => {
+    const currentDate = new Date();
+    // Toggle the fixed status of the notification with the given id
+    const updatedNotifications = notificationsDummy.map((notif) => {
+      if (notif.v_id === id) {
+        console.log("YOI");
+        return { ...notif, v_fixed: !notif.v_fixed, v_updated_at: currentDate };
+      }
+      return notif;
+    });
+    setNotificationsDummy(updatedNotifications);
+  };
+
+  useEffect(() => {
+    console.log("BENER");
+    console.log(notificationsDummy);
+  }, [notificationsDummy]);
+
   return (
     <div>
       <img
@@ -136,31 +174,76 @@ const Notifications = () => {
                 How do we detect?
               </h1>
             </button>
-            <h1 className="text-lg xl:text-xl xl:w-36 px-4 py-2 w-32 text-center font-medium  backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-              Example:
+            <h1 className="text-lg xl:text-xl xl:w-72 px-4 py-2 w-48 min-[532px]:w-64 text-center font-medium  backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+              Active Issues: (Sample)
             </h1>
           </div>
         </Fade>
         <Fade delay={1e1} duration={2000} triggerOnce={true} damping={1e-1}>
           <div className="mx-4 sm:mx-10 ">
-            {notificationsResponseDummy.map((notif) => {
-              return (
-                <div
-                  key={uuidv4()}
-                  className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-start items-center"
-                >
-                  <FaWrench className="text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-2 lg:mx-6" />
-                  <div>
-                    <h2 className="text-sm font-medium md:text-base lg:text-lg">
-                      {notif.v_notifications}
-                    </h2>
-                    <p className="mt-2 text-xs md:text-sm lg:text-base">
-                      {showFormattedDate(notif.v_timestamp)}
-                    </p>
+            {notificationsDummy
+              .filter((notif) => !notif.v_fixed)
+              .map((notif) => {
+                return (
+                  <div
+                    key={notif.v_id}
+                    className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-between items-center"
+                  >
+                    <div className="flex items-center">
+                      <FaWrench className="basis-12 text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-4 lg:mx-6" />
+                      <div className="px-2">
+                        <h2 className="text-sm font-medium md:text-base lg:text-lg">
+                          {notif.v_notifications}
+                        </h2>
+                        <p className="mt-2 text-xs md:text-sm lg:text-base">
+                          {showFormattedDate(notif.v_timestamp)}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="px-4 py-2 basis-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]">
+                      <button
+                        className="flex items-center flex-col justify-center sm:flex-row"
+                        onClick={() => handleFixedToggle(notif.v_id)}
+                      >
+                        <FaCheckCircle className="text-[#191919] text-4xl sm:mr-2" />
+                        <h1 className="text-[#191919] text-xs sm:text-sm md:text-base">
+                          Already Fixed
+                        </h1>
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
+          <h1 className="mt-6 text-lg xl:text-xl xl:w-72 px-4 py-2 w-48 min-[532px]:w-64  text-center font-medium ml-5 sm:ml-10 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            Inactive Issues: (Sample)
+          </h1>
+          <div className="mx-4 sm:mx-10 ">
+            {notificationsDummy
+              .filter((notif) => notif.v_fixed)
+              .map((notif) => {
+                return (
+                  <div
+                    key={uuidv4()}
+                    className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-between items-center"
+                  >
+                    <div className="flex items-center">
+                      <FaWrench className="basis-12 text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-4 lg:mx-6" />
+                      <div className="px-2">
+                        <h2 className="text-sm font-medium md:text-base lg:text-lg">
+                          {notif.v_notifications}
+                        </h2>
+                        <p className="mt-2 text-xs md:text-sm lg:text-base">
+                          {showFormattedDate(notif.v_timestamp)}
+                        </p>
+                        <p className="mt-2 text-xs font-medium md:text-sm lg:text-base">
+                          Fixed at {showFormattedDate(notif.v_updated_at)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         </Fade>
 

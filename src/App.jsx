@@ -200,7 +200,10 @@ const App = () => {
             {
               v_car_id: d.car_id,
               v_notifications: d.notifications,
+              v_updated_at: d._updated_at,
+              v_fixed: d.fixed,
               v_timestamp: d.timestamp,
+              v_fixed_at: d.fixed_at,
             },
             ...prevState,
           ]);

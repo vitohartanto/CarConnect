@@ -193,9 +193,23 @@ def emitTelemetry():
                     
                     # Notify that the parameter is out of optimal range
                     notification_message = f"{param.replace('_', ' ').title()} is out of optimal range"
+                    
+                    # Get the current date and time in UTC timezone
+                    current_time_utc = datetime.datetime.now()
+
+                    # Convert the current time to your timezone (GMT+7)
+                    gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
+                    current_time_gmt7 = current_time_utc + gmt_offset
+
+                    # Convert the datetime object to the desired string format
+                    timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
                     notifications_data = {
-                        "notifications": notification_message
+                        "car_id": os.getenv("CAR_ID"),
+                        "notifications": notification_message,
+                        "fixed_at": timestamp_str,
+                        "fixed": false,
+                        "timestamp": timestamp_str
                     }
                     # Add logic to send notification to Notifications Page
                     hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
