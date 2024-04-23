@@ -46,7 +46,6 @@ const Notifications = () => {
     notificationsResponseDummy
   );
 
-  const [notificationsReal, setNotificationsReal] = useState();
   const { car_id } = useParams();
   const hyperbase = useContext(HyperbaseContext);
   const [carsCollection, setCarsCollection] = useState();
@@ -255,27 +254,42 @@ const Notifications = () => {
           damping={1e-1}
         >
           <h1 className="mt-6 text-lg xl:text-xl xl:w-64 px-4 py-2 w-56 text-center font-medium ml-5 sm:ml-10 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-            Real Notifications:
+            Real Active Issues:
           </h1>
           <div className="mx-4 sm:mx-10 ">
-            {notificationsResponse.map((notif) => {
-              return (
-                <div
-                  key={uuidv4()}
-                  className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-start items-center"
-                >
-                  <FaWrench className="text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-2 lg:mx-6" />
-                  <div>
-                    <h2 className="text-sm font-medium md:text-base lg:text-lg">
-                      {notif.v_notifications}
-                    </h2>
-                    <p className="mt-2 text-xs md:text-sm lg:text-base">
-                      {showFormattedDate(notif.v_timestamp)}
-                    </p>
+            {notificationsResponse
+              .filter((notif) => !notif.v_fixed)
+              .map((notif) => {
+                return (
+                  <div
+                    key={notif.v_id}
+                    className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-between items-center"
+                  >
+                    <div className="flex items-center">
+                      <FaWrench className="basis-12 text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-4 lg:mx-6" />
+                      <div className="px-2">
+                        <h2 className="text-sm font-medium md:text-base lg:text-lg">
+                          {notif.v_notifications}
+                        </h2>
+                        <p className="mt-2 text-xs md:text-sm lg:text-base">
+                          {showFormattedDate(notif.v_timestamp)}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="px-4 py-2 basis-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]">
+                      <button
+                        className="flex items-center flex-col justify-center sm:flex-row"
+                        onClick={() => handleFixedToggle(notif.v_id)}
+                      >
+                        <FaCheckCircle className="text-[#191919] text-4xl sm:mr-2" />
+                        <h1 className="text-[#191919] text-xs sm:text-sm md:text-base">
+                          Already Fixed
+                        </h1>
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </Fade>
       </div>
