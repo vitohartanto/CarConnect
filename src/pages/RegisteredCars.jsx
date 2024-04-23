@@ -12,6 +12,7 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import carBackground from "../pageRegisteredCars.png";
 import { Fade } from "react-awesome-reveal";
+import { v4 as uuidv4 } from "uuid";
 
 const RegisteredCars = () => {
   const hyperbase = useContext(HyperbaseContext);
@@ -325,7 +326,7 @@ const RegisteredCars = () => {
               let parsedPlateBrand = JSON.parse(car.plate_brand);
               return (
                 <a
-                  key={car._id}
+                  key={uuidv4()}
                   href={`/app/${car._id}`}
                   className="mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
                 >

@@ -81,7 +81,7 @@ const App = () => {
     (async () => {
       try {
         const notificationsDataCollection = await hyperbase.setCollection(
-          collections.notifications_data
+          collections.notifications
         );
 
         unsubscribe = subscribeNotificationsData(notificationsDataCollection);

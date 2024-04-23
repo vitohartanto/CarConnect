@@ -145,10 +145,11 @@ const Notifications = () => {
         orders: [
           {
             field: "_id",
-            kind: "asc",
+            kind: "desc",
           },
         ],
       });
+      console.log(notifications);
       setNotificationsReal(notifications.data);
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
@@ -188,7 +189,6 @@ const Notifications = () => {
     // Toggle the fixed status of the notification with the given id
     const updatedNotifications = notificationsDummy.map((notif) => {
       if (notif.v_id === id) {
-        console.log("YOI");
         return { ...notif, v_fixed: !notif.v_fixed, v_updated_at: currentDate };
       }
       return notif;
@@ -203,7 +203,7 @@ const Notifications = () => {
         fixed: true,
         fixed_at: currentDate,
       });
-      await fetchAllCars();
+      await fetchAllNotifications();
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
     }
@@ -333,45 +333,47 @@ const Notifications = () => {
             Real Active Issues:
           </h1>
           <div className="mx-4 sm:mx-10 mb-6">
-            {notificationsReal.map((notif) => {
-              return (
-                <div
-                  key={notif.v_id}
-                  className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-between items-center"
-                >
-                  <div className="flex items-center">
-                    <FaWrench className="basis-12 text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-4 lg:mx-6" />
-                    <div className="px-2">
-                      <h2 className="text-sm font-medium md:text-base lg:text-lg">
-                        {notif.v_notifications}
-                      </h2>
-                      <p className="mt-2 text-xs md:text-sm lg:text-base">
-                        {showFormattedDate(notif.v_timestamp)}
-                      </p>
+            {notificationsReal
+              .filter((notif) => !notif.fixed)
+              .map((notif) => {
+                return (
+                  <div
+                    key={notif._id}
+                    className="mt-4 lg:mt-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] px-4 py-4 md:py-6 flex justify-between items-center"
+                  >
+                    <div className="flex items-center">
+                      <FaWrench className="basis-12 text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-4 lg:mx-6" />
+                      <div className="px-2">
+                        <h2 className="text-sm font-medium md:text-base lg:text-lg">
+                          {notif.notifications}
+                        </h2>
+                        <p className="mt-2 text-xs md:text-sm lg:text-base">
+                          {showFormattedDate(notif.timestamp)}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="px-4 py-2 basis-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]">
+                      <button
+                        className="flex items-center flex-col justify-center sm:flex-row"
+                        onClick={() => alreadyFixedRealHandler(notif._id)}
+                      >
+                        <FaCheckCircle className="text-[#191919] text-4xl sm:mr-2" />
+                        <h1 className="text-[#191919] text-xs sm:text-sm md:text-base">
+                          Already Fixed
+                        </h1>
+                      </button>
                     </div>
                   </div>
-                  <div className="px-4 py-2 basis-6 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]">
-                    <button
-                      className="flex items-center flex-col justify-center sm:flex-row"
-                      onClick={() => alreadyFixedRealHandler(notif.v_id)}
-                    >
-                      <FaCheckCircle className="text-[#191919] text-4xl sm:mr-2" />
-                      <h1 className="text-[#191919] text-xs sm:text-sm md:text-base">
-                        Already Fixed
-                      </h1>
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
 
           <h1 className="mt-6 text-lg xl:text-xl xl:w-72 px-4 py-2 w-48 min-[532px]:w-64  text-center font-medium ml-5 sm:ml-10 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
             Real Inactive Issues:
           </h1>
-          <div className="mx-4 sm:mx-10 ">
-            {notificationsResponse
-              .filter((notif) => notif.v_fixed)
+          <div className="mx-4 sm:mx-10 mb-6">
+            {notificationsReal
+              .filter((notif) => notif.fixed)
               .map((notif) => {
                 return (
                   <div
@@ -382,13 +384,13 @@ const Notifications = () => {
                       <FaWrench className="basis-12 text-[#FFF] text-3xl md:text-4xl lg:text-5xl w-16 mr-4 lg:mx-6" />
                       <div className="px-2">
                         <h2 className="text-sm font-medium md:text-base lg:text-lg">
-                          {notif.v_notifications}
+                          {notif.notifications}
                         </h2>
                         <p className="mt-2 text-xs md:text-sm lg:text-base">
-                          {showFormattedDate(notif.v_timestamp)}
+                          {showFormattedDate(notif.timestamp)}
                         </p>
                         <p className="mt-2 text-xs font-medium md:text-sm lg:text-base">
-                          Fixed at {showFormattedDate(notif.v_updated_at)}
+                          Fixed at {showFormattedDate(notif.fixed_at)}
                         </p>
                       </div>
                     </div>

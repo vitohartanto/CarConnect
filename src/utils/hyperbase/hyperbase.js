@@ -74,13 +74,6 @@ export default class Hyperbase {
   }
 
   async setCollection(collectionId) {
-    this.#api(`/project/${this.#_projectId}/collection/${collectionId}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${this.#_authToken}`,
-      },
-    });
-
     return new HyperbaseCollection(this, collectionId);
   }
 
