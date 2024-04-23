@@ -148,6 +148,13 @@ const Notifications = () => {
             kind: "desc",
           },
         ],
+        filters: [
+          {
+            field: "car_id",
+            op: "=",
+            value: car_id,
+          },
+        ],
       });
       console.log(notifications);
       setNotificationsReal(notifications.data);

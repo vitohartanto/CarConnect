@@ -16,11 +16,12 @@ import { v4 as uuidv4 } from "uuid";
 
 const RegisteredCars = () => {
   const hyperbase = useContext(HyperbaseContext);
-
+  const [notificationsCollection, setNotificationsCollection] = useState();
   const [carsCollection, setCarsCollection] = useState();
   const [cars, setCars] = useState([]);
   const [searchPlate, setSearchPlate] = useState("");
   const [searchBrand, setSearchBrand] = useState("");
+  const [notificationsCount, setNotificationsCount] = useState();
 
   const onChangeSearchPlateHandler = (event) => {
     setSearchPlate(event.target.value);
@@ -248,6 +249,74 @@ const RegisteredCars = () => {
     }
   };
 
+  useEffect(() => {
+    if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
+
+    let unsubscribe;
+
+    (async () => {
+      try {
+        const notificationCollection = await hyperbase.setCollection(
+          collections.notifications
+        );
+        unsubscribe = subscribeNotifications(notificationCollection);
+
+        setNotificationsCollection(notificationCollection);
+      } catch (err) {
+        alert(`${err.status}\n${err.message}`);
+      }
+    })();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [hyperbase, hyperbase.isLoading]);
+
+  useEffect(() => {
+    if (!notificationsCollection) return;
+    fetchAllNotifications();
+  }, [notificationsCollection]);
+
+  const fetchAllNotifications = async () => {
+    try {
+      const notifications = await notificationsCollection.findMany({
+        fields: ["car_id", "fixed"],
+      });
+      console.log(notifications);
+      // setNotificationsCount(notifications.pagination.total);
+    } catch (err) {
+      alert(`${err.status}\n${err.message}`);
+    }
+  };
+
+  const subscribeNotifications = (notificationsCollection) => {
+    notificationsCollection.subscribe({
+      onOpenCallback: (e) => {
+        console.log("Subscribe notifications status open:", e);
+      },
+      onErrorCallback: (e) => {
+        console.log("Subscribe notifications status error:", e);
+      },
+      onCloseCallback: (e) => {
+        console.log("Subscribe notifications status close:", e);
+        if (e.status !== 1000) {
+          setTimeout(() => {
+            subscribeNotifications(notificationsCollection);
+          }, 5000);
+        }
+      },
+      onMessageCallback: (e) => {
+        console.log("Subscribe notifications status message:", e);
+      },
+    });
+
+    return () => notificationsCollection.unsubscribe(1000);
+  };
+
+  useEffect(() => {
+    console.log(notificationsCount);
+  }, [notificationsCount]);
+
   return (
     <div>
       <img src={carBackground} alt="" className="fixed w-screen h-screen" />
@@ -304,7 +373,7 @@ const RegisteredCars = () => {
             <input
               type="text"
               className="placeholder-[#191919] px-4 lg:py-4 lg:px-6 py-2 w-32 min-[500px]:w-48 md:w-64 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
-              placeholder="🔍 Brand"
+              placeholder="🔍 Car's Brand"
               value={searchBrand}
               onChange={onChangeSearchBrandHandler}
             />
@@ -351,7 +420,7 @@ const RegisteredCars = () => {
                       <FaBell className="text-[#191919] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
                       <div className="absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]">
                         <p className="absolute top-[-1px] left-[6px] text-sm">
-                          3
+                          {notificationsCount}
                         </p>
                       </div>
                     </a>
