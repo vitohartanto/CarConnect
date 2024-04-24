@@ -21,7 +21,6 @@ const RegisteredCars = () => {
   const [cars, setCars] = useState([]);
   const [searchPlate, setSearchPlate] = useState("");
   const [searchBrand, setSearchBrand] = useState("");
-  const [notificationsCount, setNotificationsCount] = useState();
   const [wholeNotifications, setWholeNotifications] = useState();
 
   const onChangeSearchPlateHandler = (event) => {
@@ -281,16 +280,9 @@ const RegisteredCars = () => {
   }, [notificationsCollection]);
 
   const displayCountIfFixedFalse = (informationsArray, carId) => {
-    // informationsArray.forEach((info) => {
-    //   if (info.car_id == carData._id && !info.fixed) {
-    //     console.log(info.$COUNT);
-    //     return info.$COUNT;
-    //   }
-    // });
-
     let carInfo = informationsArray.filter((info) => info.car_id === carId);
     let carInfoFixedFalse = carInfo.find((info) => info.fixed === false);
-    // If carInfo is found, display the false_count property
+    // If carInfoFixedFalse is found, display the false_count property
     if (carInfoFixedFalse) {
       console.log(carInfoFixedFalse.$COUNT);
       return carInfoFixedFalse.$COUNT;
@@ -304,15 +296,7 @@ const RegisteredCars = () => {
         groups: ["car_id", "fixed"],
       });
       console.log(notifications);
-      console.log(notifications.data);
       setWholeNotifications(notifications.data);
-
-      // setNotificationsCount();
-      // setNotificationsCount(notifications.pagination.total);
-      // const desiredArray = groupAndCountFalse(notifications.data);
-      // console.log(desiredArray);
-
-      // setNotificationsCount(desiredArray);
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
     }
@@ -341,10 +325,6 @@ const RegisteredCars = () => {
 
     return () => notificationsCollection.unsubscribe(1000);
   };
-
-  // useEffect(() => {
-  //   console.log(notificationsCount);
-  // }, [notificationsCount]);
 
   return (
     <div>
@@ -449,7 +429,6 @@ const RegisteredCars = () => {
                       <FaBell className="text-[#191919] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
                       <div className="absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]">
                         <p className="absolute top-[-1px] left-[6px] text-sm">
-                          {/* {console.log(car._id)} */}
                           {displayCountIfFixedFalse(
                             wholeNotifications,
                             car._id
