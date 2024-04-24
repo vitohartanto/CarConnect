@@ -280,42 +280,39 @@ const RegisteredCars = () => {
     fetchAllNotifications();
   }, [notificationsCollection]);
 
-  const groupAndCountFalse = (data) => {
-    // Create an object to hold the counts for each car_id
-    const countMap = {};
+  const displayCountIfFixedFalse = (informationsArray, carId) => {
+    // informationsArray.forEach((info) => {
+    //   if (info.car_id == carData._id && !info.fixed) {
+    //     console.log(info.$COUNT);
+    //     return info.$COUNT;
+    //   }
+    // });
 
-    // Iterate through the data array
-    data.forEach((item) => {
-      // If the car_id is not in the count map, initialize it with a count of 0
-      if (!countMap[item.car_id]) {
-        countMap[item.car_id] = 0;
-      }
-      // If fixed is false, increment the count for the car_id
-      if (!item.fixed) {
-        countMap[item.car_id]++;
-      }
-    });
-
-    // Convert the countMap object into an array of objects with car_id and false_count
-    const resultArray = Object.keys(countMap).map((car_id) => ({
-      car_id,
-      false_count: countMap[car_id],
-    }));
-
-    return resultArray;
+    let carInfo = informationsArray.filter((info) => info.car_id === carId);
+    let carInfoFixedFalse = carInfo.find((info) => info.fixed === false);
+    // If carInfo is found, display the false_count property
+    if (carInfoFixedFalse) {
+      console.log(carInfoFixedFalse.$COUNT);
+      return carInfoFixedFalse.$COUNT;
+    }
   };
 
   const fetchAllNotifications = async () => {
     try {
       const notifications = await notificationsCollection.findMany({
-        fields: ["car_id", "fixed"],
+        fields: ["fixed", "car_id", "$COUNT"],
+        groups: ["car_id", "fixed"],
       });
       console.log(notifications);
-      // setNotificationsCount(notifications.pagination.total);
-      const desiredArray = groupAndCountFalse(notifications.data);
-      console.log(desiredArray);
+      console.log(notifications.data);
       setWholeNotifications(notifications.data);
-      setNotificationsCount(desiredArray);
+
+      // setNotificationsCount();
+      // setNotificationsCount(notifications.pagination.total);
+      // const desiredArray = groupAndCountFalse(notifications.data);
+      // console.log(desiredArray);
+
+      // setNotificationsCount(desiredArray);
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
     }
@@ -348,17 +345,6 @@ const RegisteredCars = () => {
   // useEffect(() => {
   //   console.log(notificationsCount);
   // }, [notificationsCount]);
-
-  function displayFalseCount(carId, informationsArray) {
-    // Find the object in informationsArray with the given carId
-    let carInfo = informationsArray.find((info) => info.car_id === carId);
-
-    // If carInfo is found, display the false_count property
-    if (carInfo) {
-      console.log(carInfo.false_count);
-      return carInfo.false_count;
-    }
-  }
 
   return (
     <div>
@@ -463,7 +449,11 @@ const RegisteredCars = () => {
                       <FaBell className="text-[#191919] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
                       <div className="absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]">
                         <p className="absolute top-[-1px] left-[6px] text-sm">
-                          {displayFalseCount(car._id, notificationsCount)}
+                          {/* {console.log(car._id)} */}
+                          {displayCountIfFixedFalse(
+                            wholeNotifications,
+                            car._id
+                          )}
                         </p>
                       </div>
                     </a>
