@@ -1,27 +1,26 @@
-import Sidebar from "../components/Sidebar";
+import Sidebar from '../components/Sidebar';
 
-import ThrottlePosition from "../parameters/ThrottlePosition";
-import EngineCoolantTemperature from "../parameters/EngineCoolantTemperature";
-import EngineRPM from "../parameters/EngineRPM";
-import FuelSystemStatus from "../parameters/FuelSystemStatus";
-import VehicleSpeed from "../parameters/VehicleSpeed";
-import ShortTermFuelTrim from "../parameters/ShortTermFuelTrim";
-import LongTermFuelTrim from "../parameters/LongTermFuelTrim";
-import IntakeAirTemperature from "../parameters/IntakeAirTemperature";
-import OxygenSensorBank1Sensor2 from "../parameters/OxygenSensorBank1Sensor2";
-// import OxygenSensorBank2Sensor2 from "../parameters/OxygenSensorBank2Sensor2";
-import MassAirFlow from "../parameters/MassAirFlow";
-import CatalystTemperature from "../parameters/CatalystTemperature";
-// import FuelType from "../parameters/FuelType";
-// import EngineOilTemperature from "../parameters/EngineOilTemperature";
-import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
-import { useParams } from "react-router-dom";
-import carBackground from "../pageParametersList.png";
-import { BsFillQuestionCircleFill } from "react-icons/bs";
-import { Fade } from "react-awesome-reveal";
-import { useContext, useState, useEffect } from "react";
-import { HyperbaseContext } from "../App";
-import collections from "../utils/hyperbase/hyperbaseCollections.json";
+import ThrottlePosition from '../parameters/ThrottlePosition';
+import EngineCoolantTemperature from '../parameters/EngineCoolantTemperature';
+import EngineRPM from '../parameters/EngineRPM';
+import FuelSystemStatus from '../parameters/FuelSystemStatus';
+import VehicleSpeed from '../parameters/VehicleSpeed';
+import ShortTermFuelTrim from '../parameters/ShortTermFuelTrim';
+import LongTermFuelTrim from '../parameters/LongTermFuelTrim';
+import IntakeAirTemperature from '../parameters/IntakeAirTemperature';
+import OxygenSensorBank1Sensor2 from '../parameters/OxygenSensorBank1Sensor2';
+
+import MassAirFlow from '../parameters/MassAirFlow';
+import CatalystTemperature from '../parameters/CatalystTemperature';
+
+import IntakeManifoldPressure from '../parameters/IntakeManifoldPressure';
+import { useParams } from 'react-router-dom';
+import carBackground from '../pageParametersList.png';
+import { BsFillQuestionCircleFill } from 'react-icons/bs';
+import { Fade } from 'react-awesome-reveal';
+import { useContext, useState, useEffect } from 'react';
+import { HyperbaseContext } from '../App';
+import collections from '../utils/hyperbase/hyperbaseCollections.json';
 
 import {
   descEngineRPMHandler,
@@ -36,7 +35,7 @@ import {
   descOxygenSensorBank1Sensor2Handler,
   descCatalystTemperatureHandler,
   descMassAirFlowHandler,
-} from "../utils/descriptionsHandler";
+} from '../utils/descriptionsHandler';
 
 const ParametersList = () => {
   const { car_id } = useParams();
@@ -75,8 +74,8 @@ const ParametersList = () => {
       const cars = await carsCollection.findMany({
         orders: [
           {
-            field: "_id",
-            kind: "asc",
+            field: '_id',
+            kind: 'asc',
           },
         ],
       });
@@ -89,13 +88,13 @@ const ParametersList = () => {
   const subscribe = (carsCollection) => {
     carsCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe cars status open:", e);
+        console.log('Subscribe cars status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe cars status error:", e);
+        console.log('Subscribe cars status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe cars status close:", e);
+        console.log('Subscribe cars status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribe(carsCollection);
@@ -103,7 +102,7 @@ const ParametersList = () => {
         }
       },
       onMessageCallback: (e) => {
-        console.log("Subscribe cars status message:", e);
+        console.log('Subscribe cars status message:', e);
       },
     });
 
@@ -111,8 +110,8 @@ const ParametersList = () => {
   };
 
   let foundedCar = cars.find((car) => car._id === car_id);
-  const plate = foundedCar ? JSON.parse(foundedCar.plate_brand)[0] : "";
-  const brand = foundedCar ? JSON.parse(foundedCar.plate_brand)[1] : "";
+  const plate = foundedCar ? JSON.parse(foundedCar.plate_brand)[0] : '';
+  const brand = foundedCar ? JSON.parse(foundedCar.plate_brand)[1] : '';
 
   return (
     <div>
@@ -123,7 +122,7 @@ const ParametersList = () => {
       />
       <Sidebar />
       <div className="ml-12 pt-8 pr-8 lg:ml-[72px]">
-        <Fade delay={1e1} direction={"down"} triggerOnce={true} damping={1e-1}>
+        <Fade delay={1e1} direction={'down'} triggerOnce={true} damping={1e-1}>
           <div className="flex items-center justify-between flex-wrap">
             <h1 className="py-2 mb-4 w-64 xl:w-72 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
               Parameters List
