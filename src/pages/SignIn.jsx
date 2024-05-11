@@ -59,10 +59,10 @@ function SignIn() {
       <Fade delay={1e2} direction={'up'} triggerOnce={true} damping={1e-1}>
         <form
           action=""
-          className="flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[400px] lg:h-[450px] px-6 lg:px-12"
+          className="flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[435px] lg:h-[470px] px-6 lg:px-12"
           onSubmit={onSubmit}
         >
-          <h1 className="mt-6 mb-4 text-2xl font-bold text-left lg:text-3xl lg:mt-0">
+          <h1 className=" mb-4 text-2xl font-bold text-left lg:text-3xl lg:mt-8">
             Sign In
           </h1>
           <p className="mb-6 font-normal lg:text-lg">
@@ -81,10 +81,10 @@ function SignIn() {
               className="rounded-[18px] text-[#191919] p-4 bg-[rgba(255,255,255,0.50)] placeholder-[#191919] backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] mb-4 shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]"
               onChange={onPasswordChangeEvent}
             />
-            <button className="mb-8 lg:mb-0 bg-[rgba(255,255,255,0.70)] hover:bg-[rgba(255,255,255,0.80)] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] lg:text-lg text-[#191919] rounded-[18px] p-4 ">
+            <button className=" bg-[rgba(255,255,255,0.70)] hover:bg-[rgba(255,255,255,0.80)] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] lg:text-lg text-[#191919] rounded-[18px] p-4 ">
               Sign In
             </button>
-            <p className="mt-4 text-center">
+            <p className="mt-4 text-center lg:mb-8">
               Not registered yet?{' '}
               <Link to="/register" className="text-[#2a9df2]">
                 Register here
