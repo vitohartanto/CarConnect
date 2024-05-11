@@ -1,18 +1,19 @@
-import Sidebar from "../components/Sidebar";
-import { DtcContext } from "../App";
-import { useContext, useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
-import carBackground from "../pageDiagnostics.png";
-import { FaCode } from "react-icons/fa";
-import { BsFillQuestionCircleFill } from "react-icons/bs";
+import Sidebar from '../components/Sidebar';
+import { DtcContext } from '../App';
+import { useContext, useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import carBackground from '../pageDiagnostics.png';
+import { FaCode } from 'react-icons/fa';
+import { BsFillQuestionCircleFill } from 'react-icons/bs';
 import {
   descWhatIsDTCHandler,
   descWhyIsMyDTCEmpty,
-} from "../utils/descriptionsHandler";
-import { Fade } from "react-awesome-reveal";
-import { HyperbaseContext } from "../App";
-import collections from "../utils/hyperbase/hyperbaseCollections.json";
-import { useParams } from "react-router-dom";
+} from '../utils/descriptionsHandler';
+import { Fade } from 'react-awesome-reveal';
+import { HyperbaseContext } from '../App';
+import collections from '../utils/hyperbase/hyperbaseCollections.json';
+import { useParams } from 'react-router-dom';
+import ImageBackground from '../components/ImageBackground';
 
 function Diagnostics() {
   const dtcResponse = useContext(DtcContext);
@@ -62,8 +63,8 @@ function Diagnostics() {
       const cars = await carsCollection.findMany({
         orders: [
           {
-            field: "_id",
-            kind: "asc",
+            field: '_id',
+            kind: 'asc',
           },
         ],
       });
@@ -76,13 +77,13 @@ function Diagnostics() {
   const subscribe = (carsCollection) => {
     carsCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe cars status open:", e);
+        console.log('Subscribe cars status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe cars status error:", e);
+        console.log('Subscribe cars status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe cars status close:", e);
+        console.log('Subscribe cars status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribe(carsCollection);
@@ -90,7 +91,7 @@ function Diagnostics() {
         }
       },
       onMessageCallback: (e) => {
-        console.log("Subscribe cars status message:", e);
+        console.log('Subscribe cars status message:', e);
       },
     });
 
@@ -98,22 +99,21 @@ function Diagnostics() {
   };
 
   let foundedCar = cars.find((car) => car._id === car_id);
-  const plate = foundedCar ? JSON.parse(foundedCar.plate_brand)[0] : "";
-  const brand = foundedCar ? JSON.parse(foundedCar.plate_brand)[1] : "";
+  const plate = foundedCar ? JSON.parse(foundedCar.plate_brand)[0] : '';
+  const brand = foundedCar ? JSON.parse(foundedCar.plate_brand)[1] : '';
 
   return (
     <div>
-      <img
+      <ImageBackground
         src={carBackground}
-        alt=""
-        className="fixed w-screen h-screen z-[-100]"
+        hash="[IDb,2M[IxTF9jou-US#9[$*o~WA~2s?NHt8A0oa-Ot9r:tPNur^xoV[bJR.obade-s.RjbbxVsC"
       />
       <Sidebar />
       <div className="ml-12  pt-8 pr-8 lg:ml-[72px]">
         <Fade
           delay={1e1}
           duration={2000}
-          direction={"down"}
+          direction={'down'}
           triggerOnce={true}
           damping={1e-1}
         >
@@ -149,7 +149,7 @@ function Diagnostics() {
         <Fade
           delay={1e1}
           duration={2000}
-          direction={"up"}
+          direction={'up'}
           triggerOnce={true}
           damping={1e-1}
         >

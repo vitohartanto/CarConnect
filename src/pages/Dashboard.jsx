@@ -1,14 +1,15 @@
-import Sidebar from "../components/Sidebar";
-import AddModal from "../components/AddModal";
-import UpdateModal from "../components/UpdateModal";
-import RemoveModal from "../components/RemoveModal";
-import { useParams } from "react-router-dom";
-import carBackground from "../pageDashboard.png";
-import { Fade } from "react-awesome-reveal";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
-import { HyperbaseContext } from "../App";
-import collections from "../utils/hyperbase/hyperbaseCollections.json";
+import Sidebar from '../components/Sidebar';
+import AddModal from '../components/AddModal';
+import UpdateModal from '../components/UpdateModal';
+import RemoveModal from '../components/RemoveModal';
+import { useParams } from 'react-router-dom';
+import carBackground from '../pageDashboard.png';
+import { Fade } from 'react-awesome-reveal';
+import { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { HyperbaseContext } from '../App';
+import collections from '../utils/hyperbase/hyperbaseCollections.json';
+import ImageBackground from '../components/ImageBackground';
 
 const Dashboard = () => {
   const hyperbase = useContext(HyperbaseContext);
@@ -57,8 +58,8 @@ const Dashboard = () => {
       const cars = await carsCollection.findMany({
         orders: [
           {
-            field: "_id",
-            kind: "asc",
+            field: '_id',
+            kind: 'asc',
           },
         ],
       });
@@ -71,13 +72,13 @@ const Dashboard = () => {
   const subscribe = (carsCollection) => {
     carsCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe cars status open:", e);
+        console.log('Subscribe cars status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe cars status error:", e);
+        console.log('Subscribe cars status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe cars status close:", e);
+        console.log('Subscribe cars status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribe(carsCollection);
@@ -85,7 +86,7 @@ const Dashboard = () => {
         }
       },
       onMessageCallback: (e) => {
-        console.log("Subscribe cars status message:", e);
+        console.log('Subscribe cars status message:', e);
       },
     });
 
@@ -113,22 +114,21 @@ const Dashboard = () => {
   };
 
   let foundedCar = cars.find((car) => car._id === car_id);
-  const plate = foundedCar ? JSON.parse(foundedCar.plate_brand)[0] : "";
-  const brand = foundedCar ? JSON.parse(foundedCar.plate_brand)[1] : "";
+  const plate = foundedCar ? JSON.parse(foundedCar.plate_brand)[0] : '';
+  const brand = foundedCar ? JSON.parse(foundedCar.plate_brand)[1] : '';
 
   return (
     <div className="">
-      <img
+      <ImageBackground
         src={carBackground}
-        alt=""
-        className="fixed w-screen h-screen z-[-100]"
+        hash="[B9R*AD3TLvg#YM_Zzbw8wWTxbY6-=Kit,n3?II9wIibMJjDsXX.r_X,Rkoe%iI.nNZ$NGVsxaS~"
       />
       <Sidebar />
       <div className="ml-12 pt-8 pr-8 lg:ml-[72px]">
         <Fade
           delay={1e1}
           duration={2000}
-          direction={"down"}
+          direction={'down'}
           triggerOnce={true}
           damping={1e-1}
         >
