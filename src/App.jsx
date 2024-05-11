@@ -1,21 +1,21 @@
-import { useEffect, createContext, useState } from "react";
+import { useEffect, createContext, useState } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
-} from "react-router-dom";
-import "./App.css";
+} from 'react-router-dom';
+import './App.css';
 
-import Dashboard from "./pages/Dashboard";
-import ParametersList from "./pages/ParametersList";
-import Diagnostics from "./pages/Diagnostics";
-import SignIn from "./pages/SignIn";
-import useHyperbase from "./hooks/useHyperbase";
-import ProtectedRoute from "./ProtectedRoute";
-import RegisteredCars from "./pages/RegisteredCars";
-import collections from "./utils/hyperbase/hyperbaseCollections.json";
-import Notifications from "./pages/Notifications";
+import Dashboard from './pages/Dashboard';
+import ParametersList from './pages/ParametersList';
+import Diagnostics from './pages/Diagnostics';
+import SignIn from './pages/SignIn';
+import useHyperbase from './hooks/useHyperbase';
+import ProtectedRoute from './ProtectedRoute';
+import RegisteredCars from './pages/RegisteredCars';
+import collections from './utils/hyperbase/hyperbaseCollections.json';
+import Notifications from './pages/Notifications';
 
 export const HyperbaseContext = createContext();
 export const AppContext = createContext();
@@ -95,21 +95,16 @@ const App = () => {
     };
   }, [hyperbase.isLoading, hyperbase.isSignedIn]);
 
-  // useEffect(() => {
-  //   console.log("This is variablesInObject");
-  //   console.log(variablesInObject);
-  // }, [variablesInObject]);
-
   const subscribeObdData = (obdDataCollection) => {
     obdDataCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe obdData status open:", e);
+        console.log('Subscribe obdData status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe obdData status error:", e);
+        console.log('Subscribe obdData status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe obdData status close:", e);
+        console.log('Subscribe obdData status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribeObdData(obdDataCollection);
@@ -118,7 +113,7 @@ const App = () => {
       },
       onMessageCallback: (e) => {
         const parsedData = JSON.parse(e.data);
-        if (parsedData.kind === "insert_one") {
+        if (parsedData.kind === 'insert_one') {
           const d = parsedData.data;
           setVariablesInObject({
             [d.car_id]: {
@@ -147,13 +142,13 @@ const App = () => {
   const subscribeDtcData = (dtcDataCollection) => {
     dtcDataCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe dtcData status open:", e);
+        console.log('Subscribe dtcData status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe dtcData status error:", e);
+        console.log('Subscribe dtcData status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe dtcData status close:", e);
+        console.log('Subscribe dtcData status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribeDtcData(dtcDataCollection);
@@ -162,7 +157,7 @@ const App = () => {
       },
       onMessageCallback: (e) => {
         const parsedData = JSON.parse(e.data);
-        if (parsedData.kind === "insert_one") {
+        if (parsedData.kind === 'insert_one') {
           const d = parsedData.data;
           setDtcResponse({
             v_car_id: d.car_id,
@@ -179,13 +174,13 @@ const App = () => {
   const subscribeNotificationsData = (notificationsDataCollection) => {
     notificationsDataCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe notificationsData status open:", e);
+        console.log('Subscribe notificationsData status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe notificationsData status error:", e);
+        console.log('Subscribe notificationsData status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe notificationsData status close:", e);
+        console.log('Subscribe notificationsData status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribeNotificationsData(notificationsDataCollection);
@@ -194,7 +189,7 @@ const App = () => {
       },
       onMessageCallback: (e) => {
         const parsedData = JSON.parse(e.data);
-        if (parsedData.kind === "insert_one") {
+        if (parsedData.kind === 'insert_one') {
           const d = parsedData.data;
           setNotificationsResponse((prevState) => [
             {

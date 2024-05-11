@@ -1,35 +1,36 @@
-import Sidebar from "../components/Sidebar";
-import { FaWrench, FaHeart } from "react-icons/fa";
-import carBackground from "../pageNotifications.png";
-import { Fade } from "react-awesome-reveal";
-import { useParams } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
-import collections from "../utils/hyperbase/hyperbaseCollections.json";
-import { HyperbaseContext, NotificationsContext } from "../App";
-import { v4 as uuidv4 } from "uuid";
-import { showFormattedDate } from "../utils/additionalFunctions";
-import { FaBell } from "react-icons/fa";
-import { descHowDoesTheNotificationWorkHandler } from "../utils/descriptionsHandler";
-import { FaCheckCircle } from "react-icons/fa";
+import Sidebar from '../components/Sidebar';
+import { FaWrench, FaHeart } from 'react-icons/fa';
+import carBackground from '../pageNotifications.png';
+import { Fade } from 'react-awesome-reveal';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import collections from '../utils/hyperbase/hyperbaseCollections.json';
+import { HyperbaseContext, NotificationsContext } from '../App';
+import { v4 as uuidv4 } from 'uuid';
+import { showFormattedDate } from '../utils/additionalFunctions';
+import { FaBell } from 'react-icons/fa';
+import { descHowDoesTheNotificationWorkHandler } from '../utils/descriptionsHandler';
+import { FaCheckCircle } from 'react-icons/fa';
+import ImageBackground from '../components/ImageBackground';
 
 const Notifications = () => {
   let notificationsResponseDummy = [
     {
       v_car_id: 456,
       v_id: uuidv4(),
-      v_notifications: "Short Term Fuel Trim is out of optimal range",
-      v_timestamp: "2024-04-25 16:30:47.154876Z",
+      v_notifications: 'Short Term Fuel Trim is out of optimal range',
+      v_timestamp: '2024-04-25 16:30:47.154876Z',
       v_fixed: false,
-      v_update_at: "2024-04-25 16:30:47.154876Z",
+      v_update_at: '2024-04-25 16:30:47.154876Z',
     },
 
     {
       v_car_id: 268,
       v_id: uuidv4(),
-      v_notifications: "Long Term Fuel Trim is out of optimal range",
+      v_notifications: 'Long Term Fuel Trim is out of optimal range',
       v_fixed: true,
-      v_timestamp: "2024-04-19 16:30:47.154876Z",
-      v_updated_at: "2024-04-21 16:30:47.154876Z",
+      v_timestamp: '2024-04-19 16:30:47.154876Z',
+      v_updated_at: '2024-04-21 16:30:47.154876Z',
     },
   ];
 
@@ -76,8 +77,8 @@ const Notifications = () => {
       const cars = await carsCollection.findMany({
         orders: [
           {
-            field: "_id",
-            kind: "asc",
+            field: '_id',
+            kind: 'asc',
           },
         ],
       });
@@ -90,13 +91,13 @@ const Notifications = () => {
   const subscribe = (carsCollection) => {
     carsCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe cars status open:", e);
+        console.log('Subscribe cars status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe cars status error:", e);
+        console.log('Subscribe cars status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe cars status close:", e);
+        console.log('Subscribe cars status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribe(carsCollection);
@@ -104,7 +105,7 @@ const Notifications = () => {
         }
       },
       onMessageCallback: (e) => {
-        console.log("Subscribe cars status message:", e);
+        console.log('Subscribe cars status message:', e);
       },
     });
 
@@ -144,14 +145,14 @@ const Notifications = () => {
       const notifications = await notificationsCollection.findMany({
         orders: [
           {
-            field: "_id",
-            kind: "desc",
+            field: '_id',
+            kind: 'desc',
           },
         ],
         filters: [
           {
-            field: "car_id",
-            op: "=",
+            field: 'car_id',
+            op: '=',
             value: car_id,
           },
         ],
@@ -166,13 +167,13 @@ const Notifications = () => {
   const subscribeNotifications = (notificationsCollection) => {
     notificationsCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe notifications status open:", e);
+        console.log('Subscribe notifications status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe notifications status error:", e);
+        console.log('Subscribe notifications status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe notifications status close:", e);
+        console.log('Subscribe notifications status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribeNotifications(notificationsCollection);
@@ -180,7 +181,7 @@ const Notifications = () => {
         }
       },
       onMessageCallback: (e) => {
-        console.log("Subscribe notifications status message:", e);
+        console.log('Subscribe notifications status message:', e);
       },
     });
 
@@ -188,8 +189,8 @@ const Notifications = () => {
   };
 
   let foundedCar = cars.find((car) => car._id === car_id);
-  const plate = foundedCar ? JSON.parse(foundedCar.plate_brand)[0] : "";
-  const brand = foundedCar ? JSON.parse(foundedCar.plate_brand)[1] : "";
+  const plate = foundedCar ? JSON.parse(foundedCar.plate_brand)[0] : '';
+  const brand = foundedCar ? JSON.parse(foundedCar.plate_brand)[1] : '';
 
   const alreadyFixedDummyHandler = (id) => {
     const currentDate = new Date();
@@ -217,23 +218,22 @@ const Notifications = () => {
   };
 
   useEffect(() => {
-    console.log("BENER");
+    console.log('BENER');
     console.log(notificationsDummy);
   }, [notificationsDummy]);
 
   return (
     <div>
-      <img
+      <ImageBackground
         src={carBackground}
-        alt=""
-        className="fixed w-screen h-screen z-[-100]"
+        hash="[F9j}|NxE1kCE2jZxWkC5AxatmX9}@WYNbjFcaR+rqt6I.xDR+W=xao#ozWqZ~NGtls.tRofV@Rj"
       />
       <Sidebar />
       <div className="ml-12 pt-8 pr-8 lg:ml-[72px]">
         <Fade
           delay={1e1}
           duration={2000}
-          direction={"down"}
+          direction={'down'}
           triggerOnce={true}
           damping={1e-1}
         >
@@ -332,7 +332,7 @@ const Notifications = () => {
         <Fade
           delay={1e1}
           duration={2000}
-          direction={"up"}
+          direction={'up'}
           triggerOnce={true}
           damping={1e-1}
         >

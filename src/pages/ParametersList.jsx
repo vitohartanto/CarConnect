@@ -37,6 +37,8 @@ import {
   descMassAirFlowHandler,
 } from '../utils/descriptionsHandler';
 
+import ImageBackground from '../components/ImageBackground';
+
 const ParametersList = () => {
   const { car_id } = useParams();
   const hyperbase = useContext(HyperbaseContext);
@@ -115,10 +117,9 @@ const ParametersList = () => {
 
   return (
     <div>
-      <img
+      <ImageBackground
         src={carBackground}
-        alt=""
-        className="fixed w-screen h-screen z-[-100] bg-center"
+        hash="[A7x,{V@qZ-C9WWBO,V@DOsn$-Jjt+s9MvpIv0R+pysqX:j[iuVsNDbbjGWA#FS2b_jFcDoLVXso"
       />
       <Sidebar />
       <div className="ml-12 pt-8 pr-8 lg:ml-[72px]">

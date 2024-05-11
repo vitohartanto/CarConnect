@@ -1,26 +1,27 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faRightFromBracket,
   faPenToSquare,
   faTrash,
-} from "@fortawesome/free-solid-svg-icons";
-import { FaBell, FaCircle } from "react-icons/fa";
-import { useContext, useEffect, useState } from "react";
-import { HyperbaseContext } from "../App";
-import collections from "../utils/hyperbase/hyperbaseCollections.json";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
-import carBackground from "../pageRegisteredCars.png";
-import { Fade } from "react-awesome-reveal";
-import { v4 as uuidv4 } from "uuid";
+} from '@fortawesome/free-solid-svg-icons';
+import { FaBell, FaCircle } from 'react-icons/fa';
+import { useContext, useEffect, useState } from 'react';
+import { HyperbaseContext } from '../App';
+import collections from '../utils/hyperbase/hyperbaseCollections.json';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import carBackground from '../pageRegisteredCars.png';
+import { Fade } from 'react-awesome-reveal';
+import { v4 as uuidv4 } from 'uuid';
+import ImageBackground from '../components/ImageBackground';
 
 const RegisteredCars = () => {
   const hyperbase = useContext(HyperbaseContext);
   const [notificationsCollection, setNotificationsCollection] = useState();
   const [carsCollection, setCarsCollection] = useState();
   const [cars, setCars] = useState([]);
-  const [searchPlate, setSearchPlate] = useState("");
-  const [searchBrand, setSearchBrand] = useState("");
+  const [searchPlate, setSearchPlate] = useState('');
+  const [searchBrand, setSearchBrand] = useState('');
   const [wholeNotifications, setWholeNotifications] = useState();
 
   const onChangeSearchPlateHandler = (event) => {
@@ -72,15 +73,15 @@ const RegisteredCars = () => {
     event.preventDefault();
 
     const { value: removed } = await Swal.fire({
-      title: "Do you want to Sign Out?",
-      background: "rgba(25,25,25,0.90)",
+      title: 'Do you want to Sign Out?',
+      background: 'rgba(25,25,25,0.90)',
       backdrop: `rgba(7,193,250,0.1)`,
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#16db3d",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sign Out",
-      color: "#fff",
+      confirmButtonColor: '#16db3d',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sign Out',
+      color: '#fff',
     });
 
     // Your remaining code
@@ -99,12 +100,12 @@ const RegisteredCars = () => {
       const cars = await carsCollection.findMany({
         orders: [
           {
-            field: "_id",
-            kind: "asc",
+            field: '_id',
+            kind: 'asc',
           },
         ],
       });
-      console.log("PAGINATION CARS");
+      console.log('PAGINATION CARS');
       console.log(cars);
       setCars(cars.data);
     } catch (err) {
@@ -115,13 +116,13 @@ const RegisteredCars = () => {
   const subscribe = (carsCollection) => {
     carsCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe cars status open:", e);
+        console.log('Subscribe cars status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe cars status error:", e);
+        console.log('Subscribe cars status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe cars status close:", e);
+        console.log('Subscribe cars status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribe(carsCollection);
@@ -129,7 +130,7 @@ const RegisteredCars = () => {
         }
       },
       onMessageCallback: (e) => {
-        console.log("Subscribe cars status message:", e);
+        console.log('Subscribe cars status message:', e);
       },
     });
 
@@ -147,23 +148,23 @@ const RegisteredCars = () => {
 
       preConfirm: () => {
         if (
-          document.getElementById("swal-input1").value == "" ||
-          document.getElementById("swal-input2").value == ""
+          document.getElementById('swal-input1').value == '' ||
+          document.getElementById('swal-input2').value == ''
         ) {
-          return Swal.showValidationMessage("Please complete both inputs");
+          return Swal.showValidationMessage('Please complete both inputs');
         }
 
         return JSON.stringify([
-          document.getElementById("swal-input1").value,
-          document.getElementById("swal-input2").value,
+          document.getElementById('swal-input1').value,
+          document.getElementById('swal-input2').value,
         ]);
       },
 
-      color: "#fff",
-      background: "rgba(25,25,25,0.90)",
+      color: '#fff',
+      background: 'rgba(25,25,25,0.90)',
       backdrop: `rgba(7,193,250,0.1)`,
-      cancelButtonColor: "#d33",
-      confirmButtonColor: "#16db3d",
+      cancelButtonColor: '#d33',
+      confirmButtonColor: '#16db3d',
       showCancelButton: true,
     });
 
@@ -192,23 +193,23 @@ const RegisteredCars = () => {
 
       preConfirm: () => {
         if (
-          document.getElementById("swal-input3").value == "" ||
-          document.getElementById("swal-input4").value == ""
+          document.getElementById('swal-input3').value == '' ||
+          document.getElementById('swal-input4').value == ''
         ) {
-          return Swal.showValidationMessage("Please complete both inputs");
+          return Swal.showValidationMessage('Please complete both inputs');
         }
 
         return JSON.stringify([
-          document.getElementById("swal-input3").value,
-          document.getElementById("swal-input4").value,
+          document.getElementById('swal-input3').value,
+          document.getElementById('swal-input4').value,
         ]);
       },
 
-      color: "#fff",
-      background: "rgba(25,25,25,0.90)",
+      color: '#fff',
+      background: 'rgba(25,25,25,0.90)',
       backdrop: `rgba(7,193,250,0.1)`,
-      cancelButtonColor: "#d33",
-      confirmButtonColor: "#16db3d",
+      cancelButtonColor: '#d33',
+      confirmButtonColor: '#16db3d',
       showCancelButton: true,
     });
 
@@ -229,15 +230,15 @@ const RegisteredCars = () => {
     event.preventDefault();
 
     const { value: removed } = await Swal.fire({
-      title: "Delete this?",
-      background: "rgba(25,25,25,0.90)",
+      title: 'Delete this?',
+      background: 'rgba(25,25,25,0.90)',
       backdrop: `rgba(7,193,250,0.1)`,
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#16db3d",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-      color: "#fff",
+      confirmButtonColor: '#16db3d',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      color: '#fff',
     });
 
     // Your remaining code
@@ -292,8 +293,8 @@ const RegisteredCars = () => {
   const fetchAllNotifications = async () => {
     try {
       const notifications = await notificationsCollection.findMany({
-        fields: ["fixed", "car_id", "$COUNT"],
-        groups: ["car_id", "fixed"],
+        fields: ['fixed', 'car_id', '$COUNT'],
+        groups: ['car_id', 'fixed'],
       });
       console.log(notifications);
       setWholeNotifications(notifications.data);
@@ -305,13 +306,13 @@ const RegisteredCars = () => {
   const subscribeNotifications = (notificationsCollection) => {
     notificationsCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe notifications status open:", e);
+        console.log('Subscribe notifications status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe notifications status error:", e);
+        console.log('Subscribe notifications status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe notifications status close:", e);
+        console.log('Subscribe notifications status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribeNotifications(notificationsCollection);
@@ -319,7 +320,7 @@ const RegisteredCars = () => {
         }
       },
       onMessageCallback: (e) => {
-        console.log("Subscribe notifications status message:", e);
+        console.log('Subscribe notifications status message:', e);
       },
     });
 
@@ -328,13 +329,16 @@ const RegisteredCars = () => {
 
   return (
     <div>
-      <img src={carBackground} alt="" className="fixed w-screen h-screen" />
+      <ImageBackground
+        src={carBackground}
+        hash="[D6APKW-hha^XeX8u%jbhfjFp{WUVse:YPoMv#n,R3a{O9jFtTn+nijaWAa{cEa{Z$j[tRbHbFbH"
+      />
 
       <div className="w-12 sm:w-16 lg:w-20 fixed h-screen backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(25,25,25,0.90)] flex items-center justify-between flex-col py-10">
         <Fade
           delay={1e1}
           duration={2000}
-          direction={"left"}
+          direction={'left'}
           triggerOnce={true}
           damping={1e-1}
         >
@@ -356,7 +360,7 @@ const RegisteredCars = () => {
               <FontAwesomeIcon
                 className="text-base"
                 icon={faRightFromBracket}
-                style={{ color: "#191919" }}
+                style={{ color: '#191919' }}
               />
             </p>
           </button>
@@ -367,7 +371,7 @@ const RegisteredCars = () => {
         <Fade
           delay={1e1}
           duration={2000}
-          direction={"down"}
+          direction={'down'}
           triggerOnce={true}
           damping={1e-1}
         >
@@ -388,13 +392,13 @@ const RegisteredCars = () => {
             />
           </div>
         </Fade>
-        <Fade delay={1e1} direction={"down"} triggerOnce={true} damping={1e-1}>
+        <Fade delay={1e1} direction={'down'} triggerOnce={true} damping={1e-1}>
           <h1 className="py-2 w-64 xl:w-96 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
             Registered Cars
           </h1>
           <h2 className="mt-4 py-2 w-[270px] xl:w-[336px] text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-            Currently, there {filteredCars.length === 1 ? "is" : "are"}{" "}
-            {filteredCars.length} {filteredCars.length === 1 ? "Car" : "Cars"}
+            Currently, there {filteredCars.length === 1 ? 'is' : 'are'}{' '}
+            {filteredCars.length} {filteredCars.length === 1 ? 'Car' : 'Cars'}
           </h2>
         </Fade>
 
@@ -442,7 +446,7 @@ const RegisteredCars = () => {
                     >
                       <FontAwesomeIcon
                         icon={faPenToSquare}
-                        style={{ color: "#191919" }}
+                        style={{ color: '#191919' }}
                       />
                     </button>
                     <button
@@ -451,7 +455,7 @@ const RegisteredCars = () => {
                     >
                       <FontAwesomeIcon
                         icon={faTrash}
-                        style={{ color: "#191919" }}
+                        style={{ color: '#191919' }}
                       />
                     </button>
                   </div>

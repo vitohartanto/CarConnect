@@ -1,9 +1,10 @@
-import CarConnectLogo from "../LogoCarConnect.png";
-import { useContext, useEffect, useState } from "react";
-import { HyperbaseContext } from "../App";
-import { useNavigate } from "react-router-dom";
-import { Fade } from "react-awesome-reveal";
-import carBackground from "../Car_BG.png";
+import CarConnectLogo from '../LogoCarConnect.png';
+import { useContext, useEffect, useState } from 'react';
+import { HyperbaseContext } from '../App';
+import { useNavigate } from 'react-router-dom';
+import { Fade } from 'react-awesome-reveal';
+import carBackground from '../Car_BG.png';
+import ImageBackground from '../components/ImageBackground';
 
 // backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]
 // backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(25,25,25,0.90)]
@@ -12,12 +13,12 @@ function SignIn() {
   const hyperbase = useContext(HyperbaseContext);
 
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     if (!hyperbase.isLoading && hyperbase.isSignedIn) {
-      navigate("/app", { replace: true });
+      navigate('/app', { replace: true });
     }
   }, [hyperbase.isLoading, hyperbase.isSignedIn, navigate]);
 
@@ -37,14 +38,15 @@ function SignIn() {
       alert(`${err.status}\n${err.message}`);
       return;
     }
-    navigate("/app");
+    navigate('/app');
   };
 
   return (
-    <div
-      className="flex items-center justify-center h-screen px-6 sm:px-12 bg-[#7cadee] bg-cover bg-center"
-      style={{ backgroundImage: `url(${carBackground})` }}
-    >
+    <div className="flex items-center justify-center h-screen px-6 sm:px-12  bg-cover bg-center">
+      <ImageBackground
+        src={carBackground}
+        hash="[KBglb@[ZiJ8G^Osd;xGMdpI$*wy=f#8cZRjcYaKfloyS~kVVEXRXRSdV@V@NbV@o}jZj]a#babv"
+      />
       <Fade delay={1e1} triggerOnce={true} damping={1e-1}>
         <img
           src={CarConnectLogo}
@@ -53,7 +55,7 @@ function SignIn() {
         />
       </Fade>
 
-      <Fade delay={1e2} direction={"up"} triggerOnce={true} damping={1e-1}>
+      <Fade delay={1e2} direction={'up'} triggerOnce={true} damping={1e-1}>
         <form
           action=""
           className="flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[400px] lg:h-[450px] px-6 lg:px-12"
