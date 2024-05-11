@@ -16,6 +16,7 @@ import ProtectedRoute from './ProtectedRoute';
 import RegisteredCars from './pages/RegisteredCars';
 import collections from './utils/hyperbase/hyperbaseCollections.json';
 import Notifications from './pages/Notifications';
+import Register from './pages/Register';
 
 export const HyperbaseContext = createContext();
 export const AppContext = createContext();
@@ -222,6 +223,7 @@ const App = () => {
                   element={<Navigate to="/app" replace />}
                 />
                 <Route path="/signin" exact element={<SignIn />} />
+                <Route path="/register" exact element={<Register />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path="/app" exact element={<RegisteredCars />} />
                   <Route path="/app/:car_id/" exact element={<Dashboard />} />
