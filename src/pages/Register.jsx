@@ -6,22 +6,83 @@ import { Fade } from 'react-awesome-reveal';
 import carBackground from '../pageRegister.png';
 import ImageBackground from '../components/ImageBackground';
 import { Link } from 'react-router-dom';
-
-// backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]
-// backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(25,25,25,0.90)]
+import collections from '../utils/hyperbase/hyperbaseCollections.json';
+import toast from 'react-hot-toast';
 
 function Register() {
   const hyperbase = useContext(HyperbaseContext);
 
+  const [usersCollection, setUsersCollection] = useState();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    if (!hyperbase.isLoading && hyperbase.isSignedIn) {
-      navigate('/app', { replace: true });
+    if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
+
+    let unsubscribe;
+
+    (async () => {
+      try {
+        const userCollection = await hyperbase.setCollection(collections.users);
+        unsubscribe = subscribe(userCollection);
+        console.log('Hello');
+        setUsersCollection(userCollection);
+      } catch (err) {
+        toast.error(`${err.status}\n${err.message}`);
+      }
+    })();
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, [hyperbase, hyperbase.isLoading]);
+
+  useEffect(() => {
+    if (!usersCollection) return;
+    fetchAllUsers();
+  }, [usersCollection]);
+
+  const fetchAllUsers = async () => {
+    try {
+      const users = await usersCollection.findMany({
+        orders: [
+          {
+            field: '_id',
+            kind: 'asc',
+          },
+        ],
+      });
+      console.log(users);
+      // setCars(cars.data);
+    } catch (err) {
+      toast.error(`${err.status}\n${err.message}`);
     }
-  }, [hyperbase.isLoading, hyperbase.isSignedIn, navigate]);
+  };
+
+  const subscribe = (usersCollection) => {
+    usersCollection.subscribe({
+      onOpenCallback: (e) => {
+        console.log('Subscribe users status open:', e);
+      },
+      onErrorCallback: (e) => {
+        console.log('Subscribe users status error:', e);
+      },
+      onCloseCallback: (e) => {
+        console.log('Subscribe users status close:', e);
+        if (e.status !== 1000) {
+          setTimeout(() => {
+            subscribe(usersCollection);
+          }, 5000);
+        }
+      },
+      onMessageCallback: (e) => {
+        console.log('Subscribe users status message:', e);
+      },
+    });
+
+    return () => usersCollection.unsubscribe(1000);
+  };
 
   const onEmailChangeEvent = (event) => {
     setEmail(event.target.value);
@@ -31,15 +92,18 @@ function Register() {
     setPassword(event.target.value);
   };
 
-  const onSubmit = async (e) => {
+  const onRegisterSubmit = async (e) => {
     e.preventDefault();
     try {
-      await hyperbase.signIn(email, password);
+      await usersCollection.insertOne({
+        email,
+        password,
+      });
+      toast.success('Register successful!');
     } catch (err) {
-      alert(`${err.status}\n${err.message}`);
-      return;
+      toast.error(`${err.status}\n${err.message}`);
     }
-    navigate('/app');
+    navigate('/signin');
   };
 
   return (
@@ -60,7 +124,7 @@ function Register() {
         <form
           action=""
           className="flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[435px] lg:h-[470px] px-6 lg:px-12"
-          onSubmit={onSubmit}
+          onSubmit={onRegisterSubmit}
         >
           <h1 className="mb-4 text-2xl font-bold text-left lg:text-3xl lg:mt-8">
             Register
