@@ -4,7 +4,17 @@ import hyperbaseCollections from "../utils/hyperbase/hyperbaseCollections.json";
 import Hyperbase from "../utils/hyperbase/hyperbase";
 
 function useHyperbase() {
-  const hyperbase = useMemo(() => new Hyperbase(hyperbaseConfig), []);
+  const hyperbase = useMemo(
+    () =>
+      new Hyperbase(
+        hyperbaseConfig.base_url,
+        hyperbaseConfig.base_ws_url,
+        hyperbaseConfig.project_id,
+        hyperbaseConfig.token_id,
+        hyperbaseConfig.token
+      ),
+    []
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [user, setUser] = useState();
