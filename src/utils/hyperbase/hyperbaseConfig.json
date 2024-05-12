@@ -3,6 +3,8 @@
   "base_ws_url": "wss://api.carconnect.my.id",
   "project_id": "018e6934-7654-76de-a31c-af58e02d464d",
   "token_id": "018e693c-cd99-7105-a9f6-b3f2b3c79292",
-  "token": "Z4OE5jCKVlCek8UXx5sKkBWjIVnylmXnlkSZ81fT"
+  "token": "Z4OE5jCKVlCek8UXx5sKkBWjIVnylmXnlkSZ81fT",
+  "token_signup_id": "018f6c09-8473-74bf-bdb3-490c8e8208d3",
+  "token_signup": "fdZWQQH1UkKSU9UBz63vQ34PlKQRAl9ZUtbu6UWl"
 }
 

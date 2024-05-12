@@ -22,12 +22,12 @@ export default class Hyperbase {
     return this.#_authToken;
   }
 
-  constructor(config) {
-    this.#_baseUrl = config.base_url;
-    this.#_baseWsUrl = config.base_ws_url;
-    this.#_projectId = config.project_id;
-    this.#_tokenId = config.token_id;
-    this.#_token = config.token;
+  constructor(base_url, base_ws_url, project_id, token_id, token) {
+    this.#_baseUrl = base_url;
+    this.#_baseWsUrl = base_ws_url;
+    this.#_projectId = project_id;
+    this.#_tokenId = token_id;
+    this.#_token = token;
   }
 
   async setAuthToken(authToken) {

@@ -1,88 +1,42 @@
-import CarConnectLogo from '../LogoCarConnect.png';
-import { useContext, useEffect, useState } from 'react';
-import { HyperbaseContext } from '../App';
-import { useNavigate } from 'react-router-dom';
-import { Fade } from 'react-awesome-reveal';
-import carBackground from '../pageRegister.png';
-import ImageBackground from '../components/ImageBackground';
-import { Link } from 'react-router-dom';
-import collections from '../utils/hyperbase/hyperbaseCollections.json';
-import toast from 'react-hot-toast';
+import CarConnectLogo from "../LogoCarConnect.png";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Fade } from "react-awesome-reveal";
+import carBackground from "../pageRegister.png";
+import ImageBackground from "../components/ImageBackground";
+import { Link } from "react-router-dom";
+import collections from "../utils/hyperbase/hyperbaseCollections.json";
+import toast from "react-hot-toast";
+import Hyperbase from "../utils/hyperbase/hyperbase";
+import hyperbaseConfig from "../utils/hyperbase/hyperbaseConfig.json";
 
 function Register() {
-  const hyperbase = useContext(HyperbaseContext);
+  const hyperbase = new Hyperbase(
+    hyperbaseConfig.base_url,
+    hyperbaseConfig.base_ws_url,
+    hyperbaseConfig.project_id,
+    hyperbaseConfig.token_signup_id,
+    hyperbaseConfig.token_signup
+  );
 
   const [usersCollection, setUsersCollection] = useState();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
-
-    let unsubscribe;
+    if (hyperbase.isLoading) return;
 
     (async () => {
       try {
+        await hyperbase.signIn();
         const userCollection = await hyperbase.setCollection(collections.users);
-        unsubscribe = subscribe(userCollection);
-        console.log('Hello');
         setUsersCollection(userCollection);
       } catch (err) {
         toast.error(`${err.status}\n${err.message}`);
       }
     })();
-
-    return () => {
-      if (unsubscribe) unsubscribe();
-    };
-  }, [hyperbase, hyperbase.isLoading]);
-
-  useEffect(() => {
-    if (!usersCollection) return;
-    fetchAllUsers();
-  }, [usersCollection]);
-
-  const fetchAllUsers = async () => {
-    try {
-      const users = await usersCollection.findMany({
-        orders: [
-          {
-            field: '_id',
-            kind: 'asc',
-          },
-        ],
-      });
-      console.log(users);
-      // setCars(cars.data);
-    } catch (err) {
-      toast.error(`${err.status}\n${err.message}`);
-    }
-  };
-
-  const subscribe = (usersCollection) => {
-    usersCollection.subscribe({
-      onOpenCallback: (e) => {
-        console.log('Subscribe users status open:', e);
-      },
-      onErrorCallback: (e) => {
-        console.log('Subscribe users status error:', e);
-      },
-      onCloseCallback: (e) => {
-        console.log('Subscribe users status close:', e);
-        if (e.status !== 1000) {
-          setTimeout(() => {
-            subscribe(usersCollection);
-          }, 5000);
-        }
-      },
-      onMessageCallback: (e) => {
-        console.log('Subscribe users status message:', e);
-      },
-    });
-
-    return () => usersCollection.unsubscribe(1000);
-  };
+  }, [hyperbase.isLoading]);
 
   const onEmailChangeEvent = (event) => {
     setEmail(event.target.value);
@@ -99,11 +53,11 @@ function Register() {
         email,
         password,
       });
-      toast.success('Register successful!');
+      toast.success("Register successful!");
+      navigate("/signin");
     } catch (err) {
       toast.error(`${err.status}\n${err.message}`);
     }
-    navigate('/signin');
   };
 
   return (
@@ -120,7 +74,7 @@ function Register() {
         />
       </Fade>
 
-      <Fade delay={1e2} direction={'up'} triggerOnce={true} damping={1e-1}>
+      <Fade delay={1e2} direction={"up"} triggerOnce={true} damping={1e-1}>
         <form
           action=""
           className="flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[435px] lg:h-[470px] px-6 lg:px-12"
@@ -149,7 +103,7 @@ function Register() {
               Register
             </button>
             <p className="mt-4 text-center">
-              Already registered?{' '}
+              Already registered?{" "}
               <Link to="/signin" className="text-[#2a9df2]">
                 Sign In here
               </Link>
