@@ -393,9 +393,17 @@ const RegisteredCars = () => {
           </div>
         </Fade>
         <Fade delay={1e1} direction={'down'} triggerOnce={true} damping={1e-1}>
-          <h1 className="py-2 w-64 xl:w-96 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-            Registered Cars
-          </h1>
+          <div className="flex justify-start flex-col md:justify-between md:flex-row">
+            <h1 className="py-2  mb-4 w-64 lg:w-96 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+              Registered Cars
+            </h1>
+            <div className="mb-4 ml-5 w-64 min-[600px]:ml-10 lg:w-96 flex items-center sm:mr-8 py-2 px-4 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+              <input type="checkbox" className="mr-2" />
+              <h2 className="text-lg font-medium inline">
+                Show issued cars only
+              </h2>
+            </div>
+          </div>
           <h2 className="mt-4 py-2 w-[270px] xl:w-[336px] text-center px-4 ml-5 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
             Currently, there {filteredCars.length === 1 ? 'is' : 'are'}{' '}
             {filteredCars.length} {filteredCars.length === 1 ? 'Car' : 'Cars'}
