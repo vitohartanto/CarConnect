@@ -23,6 +23,7 @@ const RegisteredCars = () => {
   const [searchPlate, setSearchPlate] = useState('');
   const [searchBrand, setSearchBrand] = useState('');
   const [wholeNotifications, setWholeNotifications] = useState();
+  const [showIssuedOnly, setShowIssuedOnly] = useState(false);
 
   const onChangeSearchPlateHandler = (event) => {
     setSearchPlate(event.target.value);
@@ -32,15 +33,9 @@ const RegisteredCars = () => {
     setSearchBrand(event.target.value);
   };
 
-  const filteredCars = cars.filter(
-    (car) =>
-      JSON.parse(car.plate_brand)[0]
-        .toLowerCase()
-        .includes(searchPlate.toLowerCase()) &&
-      JSON.parse(car.plate_brand)[1]
-        .toLowerCase()
-        .includes(searchBrand.toLowerCase())
-  );
+  const onChangeCheckboxHandler = (event) => {
+    setShowIssuedOnly(event.target.checked);
+  };
 
   useEffect(() => {
     if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
@@ -329,6 +324,26 @@ const RegisteredCars = () => {
     return () => notificationsCollection.unsubscribe(1000);
   };
 
+  const filteredCars = cars.filter((car) => {
+    const includesSearchPlate = JSON.parse(car.plate_brand)[0]
+      .toLowerCase()
+      .includes(searchPlate.toLowerCase());
+    const includesSearchBrand = JSON.parse(car.plate_brand)[1]
+      .toLowerCase()
+      .includes(searchBrand.toLowerCase());
+
+    // Step 2: Filter based on the checkbox state
+    if (showIssuedOnly) {
+      return (
+        includesSearchPlate &&
+        includesSearchBrand &&
+        displayCountIfFixedFalse(wholeNotifications, car._id) >= 1
+      );
+    } else {
+      return includesSearchPlate && includesSearchBrand;
+    }
+  });
+
   return (
     <div>
       <ImageBackground
@@ -399,10 +414,15 @@ const RegisteredCars = () => {
             <h1 className="py-2  mb-4 w-64 lg:w-96 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
               Registered Cars
             </h1>
-            <div className="mb-4 ml-5 w-64 min-[600px]:ml-10 lg:w-96 flex items-center sm:mr-8 py-2 px-4 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-              <input type="checkbox" className="mr-2" />
-              <h2 className="text-lg font-medium inline">
-                Show issued cars only
+            <div className="mb-4 ml-5 w-64 min-[600px]:ml-10 lg:w-96 flex justify-center items-center sm:mr-8 py-2 px-4 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+              <input
+                type="checkbox"
+                className="mr-2"
+                checked={showIssuedOnly}
+                onChange={onChangeCheckboxHandler}
+              />
+              <h2 className="text-lg font-medium inline text-center xl:text-xl">
+                Show Issued Cars Only
               </h2>
             </div>
           </div>
