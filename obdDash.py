@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 import datetime;
 from hyperbase import Hyperbase
+from hyperbase import HyperbaseREST
 
 load_dotenv(dotenv_path=Path("./.env.obd-dash"))
 
@@ -24,6 +25,22 @@ hyperbase = Hyperbase(
     os.getenv("TOKEN"),
     os.getenv("USER_COLLECTION_ID"),
     os.getenv("USER_ID")
+)
+hyperbase_rest = HyperbaseREST(
+    os.getenv("HYPERBASE_BASE"),
+    os.getenv("PROJECT_ID"),
+    os.getenv("TOKEN_ID"),
+    os.getenv("TOKEN"),
+)
+hyperbase_rest.signIn(
+    os.getenv("USER_COLLECTION_ID"),
+    {
+        "email": os.getenv("USER_EMAIL"),
+        "password": os.getenv("USER_PASSWORD")
+    }
+)
+hyperbase_rest_car = hyperbase_rest.setCollection(
+    os.getenv("CAR_COLLECTION_ID")
 )
 
 SENSOR_TYPE = 'OBD'
@@ -216,6 +233,14 @@ def emitTelemetry():
 
             #publish data to hyperbase collection OBD Data
             hyperbase.publish(os.getenv("OBD_DATA_COLLECTION_ID"), data)
+
+            #set car status to active
+            hyperbase_rest_car.updateOne(
+                os.getenv("CAR_ID"),
+                {
+                    "is_active": True
+                }
+            )
 
             print("===OBD DATA===")
             print(json.dumps(data))

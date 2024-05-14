@@ -1,6 +1,7 @@
 import os
 from paho.mqtt import client as mqtt_client
 import json
+import requests
 
 class Hyperbase:
     def __init__(self, broker, port, client_id, topic, project_id, token_id, token, user_collection_id, user_id):
@@ -49,3 +50,51 @@ class Hyperbase:
                 print("Hyperbase MQTT Client failed to sent message")
         else:
             print("Hyperbase MQTT Client is not ready")
+
+class HyperbaseREST:
+    def __init__(self, base_url, project_id, token_id, token):
+        self.base_url = base_url
+        self.project_id = project_id
+        self.token_id = token_id
+        self.token = token
+
+    def signIn(self, collection_id, data):
+        body = json.dumps({
+            "token_id": self.token_id,
+            "token": self.token,
+            "collection_id": collection_id,
+            "data": data
+        })
+        headers = {"content-type": "application/json"}
+        res = requests.post(
+            self.base_url+"/api/rest/auth/token-based",
+            data=body,
+            headers=headers,
+        )
+        if res.status_code == 200:
+            res = res.json()
+            self.auth_token = res["data"]["token"]
+        else:
+            print("HyperbaseREST Client: login failed")
+    
+    def setCollection(self, collection_id):
+        return HyperbaseRESTCollection(self, collection_id)
+
+class HyperbaseRESTCollection:
+    def __init__(self, hyperbase, collection_id):
+        self.hyperbase = hyperbase
+        self.collection_id = collection_id
+    
+    def updateOne(self, id, obj):
+        body = json.dumps(obj)
+        headers = {
+            "content-type": "application/json",
+            "authorization": "Bearer "+self.hyperbase.auth_token
+        }
+        res = requests.patch(
+            self.hyperbase.base_url+"/api/rest/project/"+self.hyperbase.project_id+"/collection/"+self.collection_id+"/record/"+id,
+            data=body,
+            headers=headers
+        )
+        if res.status_code != 200:
+            print("HyperbaseREST Client: update data in collection "+id+" failed: ", res.json())
