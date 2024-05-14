@@ -1,18 +1,18 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { useContext } from "react";
-import { HyperbaseContext } from "../App";
-import { IoIosArrowRoundBack } from "react-icons/io";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
-import { PiGaugeBold } from "react-icons/pi";
-import { IoMdInformationCircleOutline } from "react-icons/io";
-import { MdTroubleshoot } from "react-icons/md";
-import { FaBell } from "react-icons/fa";
-import { Fade } from "react-awesome-reveal";
-import { useState, useEffect } from "react";
-import collections from "../utils/hyperbase/hyperbaseCollections.json";
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useContext } from 'react';
+import { HyperbaseContext } from '../App';
+import { IoIosArrowRoundBack } from 'react-icons/io';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import { PiGaugeBold } from 'react-icons/pi';
+import { IoMdInformationCircleOutline } from 'react-icons/io';
+import { MdTroubleshoot } from 'react-icons/md';
+import { FaBell } from 'react-icons/fa';
+import { Fade } from 'react-awesome-reveal';
+import { useState, useEffect } from 'react';
+import collections from '../utils/hyperbase/hyperbaseCollections.json';
 
 const Sidebar = () => {
   const hyperbase = useContext(HyperbaseContext);
@@ -68,18 +68,20 @@ const Sidebar = () => {
     if (carInfoFixedFalse) {
       console.log(carInfoFixedFalse.$COUNT);
       return carInfoFixedFalse.$COUNT;
+    } else {
+      return null;
     }
   };
 
   const fetchTheNotification = async () => {
     try {
       const notifications = await notificationsCollection.findMany({
-        fields: ["fixed", "car_id", "$COUNT"],
-        groups: ["car_id", "fixed"],
+        fields: ['fixed', 'car_id', '$COUNT'],
+        groups: ['car_id', 'fixed'],
         filters: [
           {
-            field: "car_id",
-            op: "=",
+            field: 'car_id',
+            op: '=',
             value: car_id,
           },
         ],
@@ -100,13 +102,13 @@ const Sidebar = () => {
   const subscribeNotifications = (notificationsCollection) => {
     notificationsCollection.subscribe({
       onOpenCallback: (e) => {
-        console.log("Subscribe notifications status open:", e);
+        console.log('Subscribe notifications status open:', e);
       },
       onErrorCallback: (e) => {
-        console.log("Subscribe notifications status error:", e);
+        console.log('Subscribe notifications status error:', e);
       },
       onCloseCallback: (e) => {
-        console.log("Subscribe notifications status close:", e);
+        console.log('Subscribe notifications status close:', e);
         if (e.status !== 1000) {
           setTimeout(() => {
             subscribeNotifications(notificationsCollection);
@@ -114,7 +116,7 @@ const Sidebar = () => {
         }
       },
       onMessageCallback: (e) => {
-        console.log("Subscribe notifications status message:", e);
+        console.log('Subscribe notifications status message:', e);
       },
     });
 
@@ -126,22 +128,22 @@ const Sidebar = () => {
     event.preventDefault();
 
     const { value: back } = await Swal.fire({
-      title: "Back to Registered Cars List?",
-      background: "rgba(25,25,25,0.90)",
+      title: 'Back to Registered Cars List?',
+      background: 'rgba(25,25,25,0.90)',
       backdrop: `rgba(7,193,250,0.1)`,
-      icon: "question",
+      icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: "#16db3d",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, bring me back!",
-      color: "#fff",
+      confirmButtonColor: '#16db3d',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, bring me back!',
+      color: '#fff',
     });
 
     // Your remaining code
     if (back) {
       try {
         event.stopPropagation();
-        navigate("/app/");
+        navigate('/app/');
       } catch (err) {
         alert(`${err.status}\n${err.message}`);
       }
@@ -153,15 +155,15 @@ const Sidebar = () => {
     event.preventDefault();
 
     const { value: removed } = await Swal.fire({
-      title: "Do you want to Sign Out?",
-      background: "rgba(25,25,25,0.90)",
+      title: 'Do you want to Sign Out?',
+      background: 'rgba(25,25,25,0.90)',
       backdrop: `rgba(7,193,250,0.1)`,
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#16db3d",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sign Out",
-      color: "#fff",
+      confirmButtonColor: '#16db3d',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sign Out',
+      color: '#fff',
     });
 
     // Your remaining code
@@ -180,7 +182,7 @@ const Sidebar = () => {
       <Fade
         delay={1e1}
         duration={2000}
-        direction={"left"}
+        direction={'left'}
         triggerOnce={true}
         damping={1e-1}
       >
@@ -222,7 +224,13 @@ const Sidebar = () => {
           <Link to={`/app/${car_id}/notifications`} title="Notifications Page">
             <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]">
               <FaBell className="text-[#191919] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl" />
-              <div className="absolute top-0 left-4 sm:top-1 sm:left-5 text-[#191919] w-5 h-5  lg:w-7 lg:h-7 lg:top-0 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]">
+              <div
+                className={
+                  displayFixedFalseCount(theNotification) === null
+                    ? 'absolute top-0 left-4 sm:top-1 sm:left-5 text-[#191919] w-5 h-5  lg:w-7 lg:h-7 lg:top-0 rounded-full  border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-transparent'
+                    : 'absolute top-0 left-4 sm:top-1 sm:left-5 text-[#191919] w-5 h-5  lg:w-7 lg:h-7 lg:top-0 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]'
+                }
+              >
                 <p className="absolute top-[-1px] left-[6px] text-sm lg:text-base lg:left-[9px] lg:top-[2px]">
                   {displayFixedFalseCount(theNotification)}
                 </p>
@@ -239,7 +247,7 @@ const Sidebar = () => {
             <FontAwesomeIcon
               className="text-base"
               icon={faRightFromBracket}
-              style={{ color: "#191919" }}
+              style={{ color: '#191919' }}
             />
           </p>
         </button>

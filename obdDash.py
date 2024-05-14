@@ -234,13 +234,25 @@ def emitTelemetry():
             #publish data to hyperbase collection OBD Data
             hyperbase.publish(os.getenv("OBD_DATA_COLLECTION_ID"), data)
 
-            #set car status to active
-            hyperbase_rest_car.updateOne(
-                os.getenv("CAR_ID"),
-                {
-                    "is_active": True
-                }
-            )
+
+            if connection.is_connected():
+                #set car status to active
+                hyperbase_rest_car.updateOne(
+                    os.getenv("CAR_ID"),
+                    {
+                        "is_active": True
+                    }
+                )
+            else:
+                #set car status to inactive
+                hyperbase_rest_car.updateOne(
+                    os.getenv("CAR_ID"),
+                    {
+                        "is_active": False
+                    }
+                )
+            
+            
 
             print("===OBD DATA===")
             print(json.dumps(data))

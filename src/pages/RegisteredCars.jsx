@@ -287,6 +287,8 @@ const RegisteredCars = () => {
     if (carInfoFixedFalse) {
       console.log(carInfoFixedFalse.$COUNT);
       return carInfoFixedFalse.$COUNT;
+    } else {
+      return null;
     }
   };
 
@@ -427,9 +429,14 @@ const RegisteredCars = () => {
                       </h1>
                       <h1 className="text-[#191919]">{parsedPlateBrand[1]}</h1>
                     </div>
-                    {/* text-[#20F95D] */}
+
                     <div>
-                      <FaCircle className="text-[#e64040]" title="isActive" />
+                      <FaCircle
+                        className={
+                          car.is_active ? 'text-[#20F95D]' : 'text-[#e64040]'
+                        }
+                        title="isActive"
+                      />
                     </div>
                   </div>
 
@@ -445,7 +452,7 @@ const RegisteredCars = () => {
                             wholeNotifications,
                             car._id
                           ) === null
-                            ? 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-transparent'
+                            ? 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full  border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-transparent'
                             : 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]'
                         }
                       >
