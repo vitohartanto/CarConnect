@@ -419,9 +419,9 @@ const RegisteredCars = () => {
                       </h1>
                       <h1 className="text-[#191919]">{parsedPlateBrand[1]}</h1>
                     </div>
-
+                    {/* text-[#20F95D] */}
                     <div>
-                      <FaCircle className="text-[#20F95D]" />
+                      <FaCircle className="text-[#e64040]" title="isActive" />
                     </div>
                   </div>
 
