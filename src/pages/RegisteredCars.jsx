@@ -64,7 +64,6 @@ const RegisteredCars = () => {
   }, [carsCollection]);
 
   const signOutHandler = async (event) => {
-    // Assuming event is passed from an event listener
     event.preventDefault();
 
     const { value: removed } = await Swal.fire({
