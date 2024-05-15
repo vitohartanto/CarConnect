@@ -78,7 +78,6 @@ const RegisteredCars = () => {
       color: '#fff',
     });
 
-    // Your remaining code
     if (removed) {
       try {
         event.stopPropagation();
