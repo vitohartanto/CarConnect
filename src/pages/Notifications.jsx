@@ -1,11 +1,11 @@
 import Sidebar from '../components/Sidebar';
-import { FaWrench, FaHeart } from 'react-icons/fa';
+import { FaWrench } from 'react-icons/fa';
 import carBackground from '../pageNotifications.png';
 import { Fade } from 'react-awesome-reveal';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import collections from '../utils/hyperbase/hyperbaseCollections.json';
-import { HyperbaseContext, NotificationsContext } from '../App';
+import { HyperbaseContext } from '../App';
 import { v4 as uuidv4 } from 'uuid';
 import { showFormattedDate } from '../utils/additionalFunctions';
 import { FaBell } from 'react-icons/fa';
@@ -34,7 +34,7 @@ const Notifications = () => {
     },
   ];
 
-  const notificationsResponse = useContext(NotificationsContext);
+  // const notificationsResponse = useContext(NotificationsContext);
   const [notificationsDummy, setNotificationsDummy] = useState(
     notificationsResponseDummy
   );
