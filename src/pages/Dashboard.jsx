@@ -38,11 +38,13 @@ const Dashboard = () => {
     return () => {
       if (unsubscribe) unsubscribe();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hyperbase, hyperbase.isLoading]);
 
   useEffect(() => {
     if (!carsCollection) return;
     fetchAllCars();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carsCollection]);
 
   useEffect(() => {
