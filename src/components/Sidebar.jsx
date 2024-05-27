@@ -20,7 +20,6 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const [notificationsCollection, setNotificationsCollection] = useState();
   const [theNotification, setTheNotification] = useState([]);
-  const [notificationsCount, setNotificationsCount] = useState();
 
   useEffect(() => {
     if (hyperbase.isLoading || !hyperbase.isSignedIn) return;
@@ -43,11 +42,13 @@ const Sidebar = () => {
     return () => {
       if (unsubscribe) unsubscribe();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hyperbase, hyperbase.isLoading]);
 
   useEffect(() => {
     if (!notificationsCollection) return;
     fetchTheNotification();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notificationsCollection]);
 
   const displayFixedFalseCount = (informationsArray) => {

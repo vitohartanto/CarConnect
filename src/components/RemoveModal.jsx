@@ -1,8 +1,8 @@
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 
 const RemoveModal = ({
   componentObject,
@@ -17,15 +17,15 @@ const RemoveModal = ({
 
   const handleClick = async () => {
     const { value: removed } = await Swal.fire({
-      title: "Delete this?",
-      icon: "warning",
+      title: 'Delete this?',
+      icon: 'warning',
       showCancelButton: true,
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-      color: "#FFF",
-      background: "rgba(25,25,25,0.95)",
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      color: '#FFF',
+      background: 'rgba(25,25,25,0.95)',
       backdrop: `rgba(7,193,250,0.1)`,
-      confirmButtonColor: "#16db3d",
+      confirmButtonColor: '#16db3d',
     });
     console.log(removed);
     console.log(componentObject.id);
@@ -40,11 +40,17 @@ const RemoveModal = ({
         <FontAwesomeIcon
           className="text-lg"
           icon={faTrash}
-          style={{ color: "#FFF" }}
+          style={{ color: '#FFF' }}
         />
       </button>
     </div>
   );
+};
+
+RemoveModal.propTypes = {
+  componentObject: PropTypes.object,
+  setSelectedComponents: PropTypes.func,
+  selectedComponents: PropTypes.array,
 };
 
 export default RemoveModal;

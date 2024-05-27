@@ -1,5 +1,6 @@
-import Select from "react-select";
-import { parameterOptions } from "./parameterOptions";
+import Select from 'react-select';
+import { parameterOptions } from './parameterOptions';
+import PropTypes from 'prop-types';
 
 const SelectParameter = ({ selectedParameter, setSelectedParameter }) => {
   // Function handleChange
@@ -18,6 +19,11 @@ const SelectParameter = ({ selectedParameter, setSelectedParameter }) => {
       />
     </div>
   );
+};
+
+SelectParameter.propTypes = {
+  selectedParameter: PropTypes.array,
+  setSelectedParameter: PropTypes.func,
 };
 
 export default SelectParameter;

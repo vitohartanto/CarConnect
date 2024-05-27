@@ -1,21 +1,21 @@
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-
-import ThrottlePosition from "../parameters/ThrottlePosition";
-import EngineCoolantTemperature from "../parameters/EngineCoolantTemperature";
-import EngineRPM from "../parameters/EngineRPM";
-import FuelSystemStatus from "../parameters/FuelSystemStatus";
-import VehicleSpeed from "../parameters/VehicleSpeed";
-import ShortTermFuelTrim from "../parameters/ShortTermFuelTrim";
-import LongTermFuelTrim from "../parameters/LongTermFuelTrim";
-import IntakeAirTemperature from "../parameters/IntakeAirTemperature";
-import OxygenSensorBank1Sensor2 from "../parameters/OxygenSensorBank1Sensor2";
-import MassAirFlow from "../parameters/MassAirFlow";
-import CatalystTemperature from "../parameters/CatalystTemperature";
-import IntakeManifoldPressure from "../parameters/IntakeManifoldPressure";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import ThrottlePosition from '../parameters/ThrottlePosition';
+import EngineCoolantTemperature from '../parameters/EngineCoolantTemperature';
+import EngineRPM from '../parameters/EngineRPM';
+import FuelSystemStatus from '../parameters/FuelSystemStatus';
+import VehicleSpeed from '../parameters/VehicleSpeed';
+import ShortTermFuelTrim from '../parameters/ShortTermFuelTrim';
+import LongTermFuelTrim from '../parameters/LongTermFuelTrim';
+import IntakeAirTemperature from '../parameters/IntakeAirTemperature';
+import OxygenSensorBank1Sensor2 from '../parameters/OxygenSensorBank1Sensor2';
+import MassAirFlow from '../parameters/MassAirFlow';
+import CatalystTemperature from '../parameters/CatalystTemperature';
+import IntakeManifoldPressure from '../parameters/IntakeManifoldPressure';
+import PropTypes from 'prop-types';
 
 const UpdateModal = ({
   setSelectedComponents,
@@ -51,40 +51,40 @@ const UpdateModal = ({
 
   const handleClick = async () => {
     const { value: parameter } = await Swal.fire({
-      title: "Update Dashboard",
-      position: "bottom",
-      icon: "info",
-      confirmButtonText: "Update",
-      denyButtonText: "Remove",
-      color: "#191919",
-      background: "rgba(255,255,255,0.90)",
+      title: 'Update Dashboard',
+      position: 'bottom',
+      icon: 'info',
+      confirmButtonText: 'Update',
+      denyButtonText: 'Remove',
+      color: '#191919',
+      background: 'rgba(255,255,255,0.90)',
       backdrop: `rgba(7,193,250,0.1)`,
-      cancelButtonColor: "#d33",
-      confirmButtonColor: "#16db3d",
-      input: "select",
+      cancelButtonColor: '#d33',
+      confirmButtonColor: '#16db3d',
+      input: 'select',
 
       inputOptions: {
         Strings: {
-          fuelsystemstatus: "Fuel System Status",
+          fuelsystemstatus: 'Fuel System Status',
         },
         Gauges: {
-          vehiclespeed: "Vehicle Speed",
-          enginecoolanttemperature: "Engine Coolant Temperature",
-          throttleposition: "Throttle Position",
-          catalysttemperature: "Catalyst Temperature",
+          vehiclespeed: 'Vehicle Speed',
+          enginecoolanttemperature: 'Engine Coolant Temperature',
+          throttleposition: 'Throttle Position',
+          catalysttemperature: 'Catalyst Temperature',
         },
 
         Numerics: {
-          enginerpm: "Engine RPM",
-          intakeairtemperature: "Intake Air Temperature",
-          intakemaniholdpressure: "Intake Manihold Pressure",
-          shorttermfueltrim: "Short Term Fuel Trim",
-          longtermfueltrim: "Long Term Fuel Trim",
-          oxygensensorbank1sensor2: "Oxygen Sensor Bank 1 Sensor 2 Voltage",
-          massairflow: "Mass Air Flow",
+          enginerpm: 'Engine RPM',
+          intakeairtemperature: 'Intake Air Temperature',
+          intakemaniholdpressure: 'Intake Manihold Pressure',
+          shorttermfueltrim: 'Short Term Fuel Trim',
+          longtermfueltrim: 'Long Term Fuel Trim',
+          oxygensensorbank1sensor2: 'Oxygen Sensor Bank 1 Sensor 2 Voltage',
+          massairflow: 'Mass Air Flow',
         },
       },
-      inputPlaceholder: "Select a parameter",
+      inputPlaceholder: 'Select a parameter',
 
       showCancelButton: true,
     });
@@ -106,11 +106,17 @@ const UpdateModal = ({
         <FontAwesomeIcon
           className="text-lg"
           icon={faPenToSquare}
-          style={{ color: "#FFF" }}
+          style={{ color: '#FFF' }}
         />
       </button>
     </>
   );
+};
+
+UpdateModal.propTypes = {
+  componentObject: PropTypes.object,
+  setSelectedComponents: PropTypes.func,
+  generateId: PropTypes.func,
 };
 
 export default UpdateModal;
