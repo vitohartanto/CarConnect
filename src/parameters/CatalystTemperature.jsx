@@ -1,6 +1,7 @@
-import GaugeComponent from "react-gauge-component";
-import { useContext } from "react";
-import { AppContext } from "../App";
+import GaugeComponent from 'react-gauge-component';
+import { useContext } from 'react';
+import { AppContext } from '../App';
+import PropTypes from 'prop-types';
 
 const CatalystTemperature = ({ carId, children }) => {
   const variablesInObject = useContext(AppContext);
@@ -22,56 +23,56 @@ const CatalystTemperature = ({ carId, children }) => {
           subArcs: [
             {
               limit: 200,
-              color: "#EA4228",
+              color: '#EA4228',
               showTick: true,
               tooltip: {
-                text: "Low temperature!",
+                text: 'Low temperature!',
               },
             },
             {
               limit: 400,
-              color: "#F5CD19",
+              color: '#F5CD19',
               showTick: true,
               tooltip: {
-                text: "OK temperature!",
+                text: 'OK temperature!',
               },
             },
             {
               limit: 600,
-              color: "#5BE12C",
+              color: '#5BE12C',
               showTick: true,
               tooltip: {
-                text: "Optimal temperature!",
+                text: 'Optimal temperature!',
               },
             },
             {
               limit: 800,
-              color: "#F5CD19",
+              color: '#F5CD19',
               showTick: true,
               tooltip: {
-                text: "OK temperature!",
+                text: 'OK temperature!',
               },
             },
             {
-              color: "#EA4228",
+              color: '#EA4228',
               tooltip: {
-                text: "High temperature!",
+                text: 'High temperature!',
               },
             },
           ],
         }}
         pointer={{
-          color: "#345243",
+          color: '#345243',
           length: 0.8,
           width: 15,
           // elastic: true,
         }}
         labels={{
-          valueLabel: { formatTextValue: (value) => value + "ºC" },
+          valueLabel: { formatTextValue: (value) => value + 'ºC' },
           tickLabels: {
-            type: "outer",
+            type: 'outer',
             valueConfig: {
-              formatTextValue: (value) => value + "ºC",
+              formatTextValue: (value) => value + 'ºC',
               fontSize: 10,
             },
           },
@@ -82,6 +83,11 @@ const CatalystTemperature = ({ carId, children }) => {
       />
     </div>
   );
+};
+
+CatalystTemperature.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default CatalystTemperature;

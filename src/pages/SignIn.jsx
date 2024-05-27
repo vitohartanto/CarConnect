@@ -7,9 +7,6 @@ import carBackground from '../Car_BG.png';
 import ImageBackground from '../components/ImageBackground';
 import { Link } from 'react-router-dom';
 
-// backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]
-// backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(25,25,25,0.90)]
-
 function SignIn() {
   const hyperbase = useContext(HyperbaseContext);
 
