@@ -19,4 +19,9 @@ const IntakeAirTemperature = ({ carId, children }) => {
   );
 };
 
+IntakeAirTemperature.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
+};
+
 export default IntakeAirTemperature;

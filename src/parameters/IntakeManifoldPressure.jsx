@@ -19,4 +19,9 @@ const IntakeManifoldPressure = ({ carId, children }) => {
   );
 };
 
+IntakeManifoldPressure.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
+};
+
 export default IntakeManifoldPressure;

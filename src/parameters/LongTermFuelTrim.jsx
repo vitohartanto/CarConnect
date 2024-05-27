@@ -20,4 +20,9 @@ const LongTermFuelTrim = ({ carId, children }) => {
   );
 };
 
+LongTermFuelTrim.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
+};
+
 export default LongTermFuelTrim;
