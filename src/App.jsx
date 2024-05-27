@@ -12,7 +12,7 @@ import ParametersList from './pages/ParametersList';
 import Diagnostics from './pages/Diagnostics';
 import SignIn from './pages/SignIn';
 import useHyperbase from './hooks/useHyperbase';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './pages/ProtectedRoute';
 import RegisteredCars from './pages/RegisteredCars';
 import collections from './utils/hyperbase/hyperbaseCollections.json';
 import Notifications from './pages/Notifications';

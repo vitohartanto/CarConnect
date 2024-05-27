@@ -1,6 +1,6 @@
-import { useContext, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import { HyperbaseContext } from "./App";
+import { useContext, useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { HyperbaseContext } from '../App';
 
 function ProtectedRoute() {
   const hyperbase = useContext(HyperbaseContext);
@@ -8,7 +8,7 @@ function ProtectedRoute() {
 
   useEffect(() => {
     if (!hyperbase.isLoading && !hyperbase.isSignedIn) {
-      navigate("/signin", { replace: true });
+      navigate('/signin', { replace: true });
     }
   }, [hyperbase.isLoading, hyperbase.isSignedIn, navigate]);
 
