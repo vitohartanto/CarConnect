@@ -34,7 +34,6 @@ const Notifications = () => {
     },
   ];
 
-  // const notificationsResponse = useContext(NotificationsContext);
   const [notificationsDummy, setNotificationsDummy] = useState(
     notificationsResponseDummy
   );
@@ -208,6 +207,11 @@ const Notifications = () => {
     setNotificationsDummy(updatedNotifications);
   };
 
+  const handleRefresh = () => {
+    // eslint-disable-next-line no-self-assign
+    window.location.href = window.location.href;
+  };
+
   const alreadyFixedRealHandler = async (id) => {
     const currentDate = new Date();
     try {
@@ -216,6 +220,7 @@ const Notifications = () => {
         fixed_at: currentDate,
       });
       await fetchAllNotifications();
+      handleRefresh();
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
     }

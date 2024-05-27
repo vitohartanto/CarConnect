@@ -478,12 +478,14 @@ const RegisteredCars = () => {
                             : 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]'
                         }
                       >
-                        <p className="absolute top-[-1px] left-[6px] text-sm">
-                          {displayCountIfFixedFalse(
-                            wholeNotifications,
-                            car._id
-                          )}
-                        </p>
+                        <div className="relative">
+                          <p className="absolute top-[-1px]  lg:top-0 left-1/2 transform -translate-x-1/2 text-sm">
+                            {displayCountIfFixedFalse(
+                              wholeNotifications,
+                              car._id
+                            )}
+                          </p>
+                        </div>
                       </div>
                     </a>
                     <button

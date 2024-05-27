@@ -78,7 +78,6 @@ const Sidebar = () => {
       });
 
       setTheNotification(notifications.data);
-      // setWholeNotifications(notifications.data);
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
     }
@@ -216,9 +215,11 @@ const Sidebar = () => {
                     : 'absolute top-0 left-4 sm:top-1 sm:left-5 text-[#191919] w-5 h-5  lg:w-7 lg:h-7 lg:top-0 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]'
                 }
               >
-                <p className="absolute top-[-1px] left-[6px] text-sm lg:text-base lg:left-[9px] lg:top-[2px]">
-                  {displayFixedFalseCount(theNotification)}
-                </p>
+                <div className="relative">
+                  <p className="absolute top-[-1px] sm:top-0 lg:top-[2px] left-1/2 transform -translate-x-1/2  text-sm lg:text-base ">
+                    {displayFixedFalseCount(theNotification)}
+                  </p>
+                </div>
               </div>
             </div>
           </Link>
