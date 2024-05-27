@@ -1,9 +1,9 @@
-import CarConnectLogo from '../LogoCarConnect.png';
+import CarConnectLogo from '../img/LogoCarConnect.png';
 import { useContext, useEffect, useState } from 'react';
 import { HyperbaseContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import { Fade } from 'react-awesome-reveal';
-import carBackground from '../Car_BG.png';
+import carBackground from '../img/Car_BG.png';
 import ImageBackground from '../components/ImageBackground';
 import { Link } from 'react-router-dom';
 

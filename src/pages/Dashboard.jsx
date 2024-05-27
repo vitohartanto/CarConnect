@@ -3,7 +3,7 @@ import AddModal from '../components/AddModal';
 import UpdateModal from '../components/UpdateModal';
 import RemoveModal from '../components/RemoveModal';
 import { useParams } from 'react-router-dom';
-import carBackground from '../pageDashboard.png';
+import carBackground from '../img/pageDashboard.png';
 import { Fade } from 'react-awesome-reveal';
 import { useState, useEffect } from 'react';
 import { useContext } from 'react';

@@ -2,7 +2,7 @@ import Sidebar from '../components/Sidebar';
 import { DtcContext } from '../App';
 import { useContext, useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import carBackground from '../pageDiagnostics.png';
+import carBackground from '../img/pageDiagnostics.png';
 import { FaCode } from 'react-icons/fa';
 import { BsFillQuestionCircleFill } from 'react-icons/bs';
 import {

@@ -5,12 +5,13 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FaBell, FaCircle } from 'react-icons/fa';
+import { FaPenToSquare } from 'react-icons/fa6';
 import { useContext, useEffect, useState } from 'react';
 import { HyperbaseContext } from '../App';
 import collections from '../utils/hyperbase/hyperbaseCollections.json';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
-import carBackground from '../pageRegisteredCars.png';
+import carBackground from '../img/pageRegisteredCars.png';
 import { Fade } from 'react-awesome-reveal';
 import { v4 as uuidv4 } from 'uuid';
 import ImageBackground from '../components/ImageBackground';
@@ -167,6 +168,7 @@ const RegisteredCars = () => {
         await carsCollection.insertOne({
           user_id: hyperbase.user._id,
           plate_brand,
+          is_active: false,
         });
         await fetchAllCars();
       } catch (err) {
@@ -177,6 +179,7 @@ const RegisteredCars = () => {
 
   const editCarPlateBrand = async (event, id) => {
     event.preventDefault();
+    event.stopPropagation();
     const { value: plate_brand_corrected } = await Swal.fire({
       title: "Edit Car's License Plate and Car's Brand",
       html: `
@@ -222,7 +225,7 @@ const RegisteredCars = () => {
   const deleteCarPlateBrand = async (event, id) => {
     // Assuming event is passed from an event listener
     event.preventDefault();
-
+    event.stopPropagation();
     const { value: removed } = await Swal.fire({
       title: 'Delete this?',
       background: 'rgba(25,25,25,0.90)',
@@ -411,7 +414,7 @@ const RegisteredCars = () => {
         </Fade>
         <Fade delay={1e1} direction={'down'} triggerOnce={true} damping={1e-1}>
           <div className="flex justify-start flex-col md:justify-between md:flex-row">
-            <h1 className="py-2  mb-4 w-64 lg:w-96 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            <h1 className="py-2 flex items-center justify-center mb-4 w-64 lg:w-96 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
               Registered Cars
             </h1>
             <div className="mb-4 ml-5 w-64 min-[600px]:ml-10 lg:w-96 flex justify-center items-center sm:mr-8 py-2 px-4 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
@@ -439,75 +442,63 @@ const RegisteredCars = () => {
               return (
                 <div
                   key={uuidv4()}
-                  className="mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
+                  onClick={() => (window.location.href = `/app/${car._id}`)}
+                  className="hover:cursor-pointer mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
                 >
-                  <div
-                    onClick={() => (window.location.href = `/app/${car._id}`)}
-                    className=""
-                  >
-                    <div className="flex items-center justify-between mb-4">
-                      <div>
-                        <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl">
-                          {parsedPlateBrand[0]}
-                        </h1>
-                        <h1 className="text-[#191919]">
-                          {parsedPlateBrand[1]}
-                        </h1>
-                      </div>
-
-                      <div>
-                        <FaCircle
-                          className={
-                            car.is_active ? 'text-[#20F95D]' : 'text-[#e64040]'
-                          }
-                          title="isActive"
-                        />
-                      </div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl">
+                        {parsedPlateBrand[0]}
+                      </h1>
+                      <h1 className="text-[#191919]">{parsedPlateBrand[1]}</h1>
                     </div>
 
-                    <div className="flex items-center justify-center">
-                      <a
-                        href={`/app/${car._id}/notifications`}
-                        className="relative"
-                      >
-                        <FaBell className="text-[#191919] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
-                        <div
-                          className={
-                            displayCountIfFixedFalse(
-                              wholeNotifications,
-                              car._id
-                            ) === null
-                              ? 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full  border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-transparent'
-                              : 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]'
-                          }
-                        >
-                          <p className="absolute top-[-1px] left-[6px] text-sm">
-                            {displayCountIfFixedFalse(
-                              wholeNotifications,
-                              car._id
-                            )}
-                          </p>
-                        </div>
-                      </a>
-                      <button
-                        className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
-                        onClick={(e) => editCarPlateBrand(e, car._id)}
-                      >
-                        <FontAwesomeIcon
-                          icon={faPenToSquare}
-                          style={{ color: '#191919' }}
-                        />
-                      </button>
-                      <button
-                        className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
-                        onClick={(e) => deleteCarPlateBrand(e, car._id)}
-                      >
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          style={{ color: '#191919' }}
-                        />
-                      </button>
+                    <div>
+                      <FaCircle
+                        className={
+                          car.is_active ? 'text-[#20F95D]' : 'text-[#e64040]'
+                        }
+                        title="isActive"
+                      />
                     </div>
+                  </div>
+
+                  <div className="flex items-center justify-center">
+                    <a
+                      href={`/app/${car._id}/notifications`}
+                      className="relative"
+                    >
+                      <FaBell className="text-[#191919] hover:text-white hover:bg-[rgba(25,25,25,0.90)] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
+                      <div
+                        className={
+                          displayCountIfFixedFalse(
+                            wholeNotifications,
+                            car._id
+                          ) === null
+                            ? 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full  border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-transparent'
+                            : 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]'
+                        }
+                      >
+                        <p className="absolute top-[-1px] left-[6px] text-sm">
+                          {displayCountIfFixedFalse(
+                            wholeNotifications,
+                            car._id
+                          )}
+                        </p>
+                      </div>
+                    </a>
+                    <button
+                      className=" hover:bg-[rgba(25,25,25,0.90)] text-[#191919] hover:text-white ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
+                      onClick={(e) => editCarPlateBrand(e, car._id)}
+                    >
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
+                    <button
+                      className="hover:bg-[rgba(25,25,25,0.90)] text-[#191919] hover:text-white ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
+                      onClick={(e) => deleteCarPlateBrand(e, car._id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
                   </div>
                 </div>
               );

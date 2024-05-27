@@ -1,6 +1,6 @@
 import Sidebar from '../components/Sidebar';
 import { FaWrench } from 'react-icons/fa';
-import carBackground from '../pageNotifications.png';
+import carBackground from '../img/pageNotifications.png';
 import { Fade } from 'react-awesome-reveal';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';

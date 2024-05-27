@@ -12,7 +12,7 @@ import MassAirFlow from '../parameters/MassAirFlow';
 import CatalystTemperature from '../parameters/CatalystTemperature';
 import IntakeManifoldPressure from '../parameters/IntakeManifoldPressure';
 import { useParams } from 'react-router-dom';
-import carBackground from '../pageParametersList.png';
+import carBackground from '../img/pageParametersList.png';
 import { BsFillQuestionCircleFill } from 'react-icons/bs';
 import { Fade } from 'react-awesome-reveal';
 import { useContext, useState, useEffect } from 'react';
