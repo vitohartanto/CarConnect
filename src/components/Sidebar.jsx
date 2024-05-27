@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHouse, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import { HyperbaseContext } from '../App';
 import { IoIosArrowRoundBack } from 'react-icons/io';
@@ -49,16 +49,6 @@ const Sidebar = () => {
     if (!notificationsCollection) return;
     fetchTheNotification();
   }, [notificationsCollection]);
-
-  // const displayCountIfFixedFalse = (informationsArray, carId) => {
-  //   let carInfo = informationsArray.filter((info) => info.car_id === carId);
-  //   let carInfoFixedFalse = carInfo.find((info) => info.fixed === false);
-  //   // If carInfoFixedFalse is found, display the false_count property
-  //   if (carInfoFixedFalse) {
-  //     console.log(carInfoFixedFalse.$COUNT);
-  //     return carInfoFixedFalse.$COUNT;
-  //   }
-  // };
 
   const displayFixedFalseCount = (informationsArray) => {
     let carInfoFixedFalse = informationsArray.find(
