@@ -13,7 +13,7 @@ const EngineRPM = ({ carId, children }) => {
       </h1>
 
       <h1 className="px-2 pt-[20px] text-5xl font-semibold text-center">
-        {variablesInObject[carId]?.v_engineRpm}650 RPM
+        {variablesInObject[carId]?.v_engineRpm} RPM
       </h1>
     </div>
   );

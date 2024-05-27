@@ -5,7 +5,6 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FaBell, FaCircle } from 'react-icons/fa';
-import { FaPenToSquare } from 'react-icons/fa6';
 import { useContext, useEffect, useState } from 'react';
 import { HyperbaseContext } from '../App';
 import collections from '../utils/hyperbase/hyperbaseCollections.json';
@@ -414,10 +413,10 @@ const RegisteredCars = () => {
         </Fade>
         <Fade delay={1e1} direction={'down'} triggerOnce={true} damping={1e-1}>
           <div className="flex justify-start flex-col md:justify-between md:flex-row">
-            <h1 className="py-2 flex items-center justify-center mb-4 w-64 lg:w-96 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            <h1 className="py-2 flex items-center justify-center mb-4 w-64 lg:w-[240px] xl:w-[320px] text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
               Registered Cars
             </h1>
-            <div className="mb-4 ml-5 w-64 min-[600px]:ml-10 lg:w-96 flex justify-center items-center sm:mr-8 py-2 px-4 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+            <div className="mb-4 ml-5 w-64 min-[600px]:ml-10 lg:w-[320px]  flex justify-center items-center sm:mr-8 py-2 px-4 backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
               <input
                 type="checkbox"
                 className="mr-2"
