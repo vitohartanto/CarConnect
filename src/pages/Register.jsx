@@ -1,14 +1,14 @@
-import CarConnectLogo from "../LogoCarConnect.png";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Fade } from "react-awesome-reveal";
-import carBackground from "../pageRegister.png";
-import ImageBackground from "../components/ImageBackground";
-import { Link } from "react-router-dom";
-import collections from "../utils/hyperbase/hyperbaseCollections.json";
-import toast from "react-hot-toast";
-import Hyperbase from "../utils/hyperbase/hyperbase";
-import hyperbaseConfig from "../utils/hyperbase/hyperbaseConfig.json";
+import CarConnectLogo from '../LogoCarConnect.png';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Fade } from 'react-awesome-reveal';
+import carBackground from '../pageRegister.png';
+import ImageBackground from '../components/ImageBackground';
+import { Link } from 'react-router-dom';
+import collections from '../utils/hyperbase/hyperbaseCollections.json';
+import toast from 'react-hot-toast';
+import Hyperbase from '../utils/hyperbase/hyperbase';
+import hyperbaseConfig from '../utils/hyperbase/hyperbaseConfig.json';
 
 function Register() {
   const hyperbase = new Hyperbase(
@@ -21,8 +21,8 @@ function Register() {
 
   const [usersCollection, setUsersCollection] = useState();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     if (hyperbase.isLoading) return;
@@ -36,6 +36,7 @@ function Register() {
         toast.error(`${err.status}\n${err.message}`);
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hyperbase.isLoading]);
 
   const onEmailChangeEvent = (event) => {
@@ -53,8 +54,8 @@ function Register() {
         email,
         password,
       });
-      toast.success("Register successful!");
-      navigate("/signin");
+      toast.success('Register successful!');
+      navigate('/signin');
     } catch (err) {
       toast.error(`${err.status}\n${err.message}`);
     }
@@ -74,7 +75,7 @@ function Register() {
         />
       </Fade>
 
-      <Fade delay={1e2} direction={"up"} triggerOnce={true} damping={1e-1}>
+      <Fade delay={1e2} direction={'up'} triggerOnce={true} damping={1e-1}>
         <form
           action=""
           className="flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[435px] lg:h-[470px] px-6 lg:px-12"
@@ -103,7 +104,7 @@ function Register() {
               Register
             </button>
             <p className="mt-4 text-center">
-              Already registered?{" "}
+              Already registered?{' '}
               <Link to="/signin" className="text-[#2a9df2]">
                 Sign In here
               </Link>
