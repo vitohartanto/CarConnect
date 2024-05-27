@@ -1,6 +1,7 @@
-import GaugeComponent from "react-gauge-component";
-import { useContext } from "react";
-import { AppContext } from "../App";
+import GaugeComponent from 'react-gauge-component';
+import { useContext } from 'react';
+import { AppContext } from '../App';
+import PropTypes from 'prop-types';
 
 const ThrottlePosition = ({ carId, children }) => {
   const variablesInObject = useContext(AppContext);
@@ -16,52 +17,52 @@ const ThrottlePosition = ({ carId, children }) => {
           subArcs: [
             {
               limit: 10,
-              color: "#5BE12C",
+              color: '#5BE12C',
               showTick: true,
             },
             {
               limit: 20,
-              color: "#5BE12C",
+              color: '#5BE12C',
               showTick: true,
             },
             {
               limit: 30,
-              color: "#fcf403",
+              color: '#fcf403',
               showTick: true,
             },
             {
               limit: 40,
-              color: "#fcf403",
+              color: '#fcf403',
               showTick: true,
             },
             {
               limit: 50,
-              color: "#F5CD19",
+              color: '#F5CD19',
               showTick: true,
             },
             {
               limit: 60,
-              color: "#F5CD19",
+              color: '#F5CD19',
               showTick: true,
             },
             {
               limit: 70,
-              color: "#F58B19",
+              color: '#F58B19',
               showTick: true,
             },
             {
               limit: 80,
-              color: "#F58B19",
+              color: '#F58B19',
               showTick: true,
             },
             {
               limit: 90,
-              color: "#EA4228",
+              color: '#EA4228',
               showTick: true,
             },
             {
               limit: 100,
-              color: "#EA4228",
+              color: '#EA4228',
               showTick: true,
             },
           ],
@@ -70,6 +71,11 @@ const ThrottlePosition = ({ carId, children }) => {
       />
     </div>
   );
+};
+
+ThrottlePosition.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default ThrottlePosition;

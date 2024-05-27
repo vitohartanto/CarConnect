@@ -1,6 +1,7 @@
-import GaugeComponent from "react-gauge-component";
-import { useContext } from "react";
-import { AppContext } from "../App";
+import GaugeComponent from 'react-gauge-component';
+import { useContext } from 'react';
+import { AppContext } from '../App';
+import PropTypes from 'prop-types';
 
 const EngineCoolantTemperature = ({ carId, children }) => {
   const variablesInObject = useContext(AppContext);
@@ -23,64 +24,64 @@ const EngineCoolantTemperature = ({ carId, children }) => {
           subArcs: [
             {
               limit: 50,
-              color: "#EA4228",
+              color: '#EA4228',
               showTick: true,
               tooltip: {
-                text: "Too low temperature!",
+                text: 'Too low temperature!',
               },
             },
             {
               limit: 80,
-              color: "#EA4228",
+              color: '#EA4228',
               showTick: true,
               tooltip: {
-                text: "Low temperature!",
+                text: 'Low temperature!',
               },
             },
             {
               limit: 90,
-              color: "#F5CD19",
+              color: '#F5CD19',
               showTick: true,
               tooltip: {
-                text: "OK temperature!",
+                text: 'OK temperature!',
               },
             },
             {
               limit: 104,
-              color: "#5BE12C",
+              color: '#5BE12C',
               showTick: true,
               tooltip: {
-                text: "Optimal temperature!",
+                text: 'Optimal temperature!',
               },
             },
             {
               limit: 114,
-              color: "#F5CD19",
+              color: '#F5CD19',
               showTick: true,
               tooltip: {
-                text: "OK temperature!",
+                text: 'OK temperature!',
               },
             },
             {
-              color: "#EA4228",
+              color: '#EA4228',
               tooltip: {
-                text: "High temperature!",
+                text: 'High temperature!',
               },
             },
           ],
         }}
         pointer={{
-          color: "#345243",
+          color: '#345243',
           length: 0.8,
           width: 15,
           // elastic: true,
         }}
         labels={{
-          valueLabel: { formatTextValue: (value) => value + "ºC" },
+          valueLabel: { formatTextValue: (value) => value + 'ºC' },
           tickLabels: {
-            type: "outer",
+            type: 'outer',
             valueConfig: {
-              formatTextValue: (value) => value + "ºC",
+              formatTextValue: (value) => value + 'ºC',
               fontSize: 10,
             },
           },
@@ -91,6 +92,11 @@ const EngineCoolantTemperature = ({ carId, children }) => {
       />
     </div>
   );
+};
+
+EngineCoolantTemperature.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default EngineCoolantTemperature;

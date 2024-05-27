@@ -1,11 +1,12 @@
-import GaugeComponent from "react-gauge-component";
-import { useContext } from "react";
-import { AppContext } from "../App";
+import GaugeComponent from 'react-gauge-component';
+import { useContext } from 'react';
+import { AppContext } from '../App';
+import PropTypes from 'prop-types';
 
 const VehicleSpeed = ({ carId, children }) => {
   const variablesInObject = useContext(AppContext);
   const renameUnit = (value) => {
-    return value.toFixed(0) + " km/h";
+    return value.toFixed(0) + ' km/h';
   };
 
   return (
@@ -17,7 +18,7 @@ const VehicleSpeed = ({ carId, children }) => {
       <GaugeComponent
         arc={{
           nbSubArcs: 150,
-          colorArray: ["#5BE12C", "#F5CD19", "#EA4228"],
+          colorArray: ['#5BE12C', '#F5CD19', '#EA4228'],
           width: 0.3,
           padding: 0.003,
         }}
@@ -27,7 +28,7 @@ const VehicleSpeed = ({ carId, children }) => {
             formatTextValue: renameUnit,
           },
           tickLabels: {
-            type: "outer",
+            type: 'outer',
             ticks: [
               { value: 10 },
               { value: 20 },
@@ -51,6 +52,11 @@ const VehicleSpeed = ({ carId, children }) => {
       />
     </div>
   );
+};
+
+VehicleSpeed.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default VehicleSpeed;

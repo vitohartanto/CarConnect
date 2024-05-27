@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { AppContext } from "../App";
+import { useContext } from 'react';
+import { AppContext } from '../App';
+import PropTypes from 'prop-types';
 
 const MassAirFlow = ({ carId, children }) => {
   const variablesInObject = useContext(AppContext);
@@ -16,6 +17,11 @@ const MassAirFlow = ({ carId, children }) => {
       </h1>
     </div>
   );
+};
+
+MassAirFlow.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default MassAirFlow;

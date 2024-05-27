@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { AppContext } from "../App";
+import { useContext } from 'react';
+import { AppContext } from '../App';
+import PropTypes from 'prop-types';
 
 const LongTermFuelTrim = ({ carId, children }) => {
   const variablesInObject = useContext(AppContext);

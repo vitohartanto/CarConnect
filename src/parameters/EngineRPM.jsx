@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { AppContext } from "../App";
+import { useContext } from 'react';
+import { AppContext } from '../App';
+import PropTypes from 'prop-types';
 
 const EngineRPM = ({ carId, children }) => {
   const variablesInObject = useContext(AppContext); // Destructuring variablesInObject from the context object
@@ -16,6 +17,11 @@ const EngineRPM = ({ carId, children }) => {
       </h1>
     </div>
   );
+};
+
+EngineRPM.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default EngineRPM;

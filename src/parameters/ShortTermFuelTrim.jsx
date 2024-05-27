@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { AppContext } from "../App";
+import { useContext } from 'react';
+import { AppContext } from '../App';
+import PropTypes from 'prop-types';
 
 const ShortTermFuelTrim = ({ carId, children }) => {
   const variablesInObject = useContext(AppContext);
@@ -17,6 +18,11 @@ const ShortTermFuelTrim = ({ carId, children }) => {
       </h1>
     </div>
   );
+};
+
+ShortTermFuelTrim.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default ShortTermFuelTrim;

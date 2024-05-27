@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { AppContext } from "../App";
+import { useContext } from 'react';
+import { AppContext } from '../App';
+import PropTypes from 'prop-types';
 
 const OxygenSensorBank1Sensor2 = ({ carId, children }) => {
   const variablesInObject = useContext(AppContext); // Destructuring variablesInObject from the context object
@@ -16,6 +17,11 @@ const OxygenSensorBank1Sensor2 = ({ carId, children }) => {
       </h1>
     </div>
   );
+};
+
+OxygenSensorBank1Sensor2.propTypes = {
+  carId: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default OxygenSensorBank1Sensor2;
