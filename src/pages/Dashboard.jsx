@@ -47,13 +47,13 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carsCollection]);
 
-  useEffect(() => {
-    console.log(selectedComponents);
-    // localStorage.setItem(
-    //   "selectedComponents",
-    //   JSON.stringify(selectedComponents)
-    // );
-  }, [selectedComponents]);
+  // useEffect(() => {
+  //   console.log(selectedComponents);
+  //   // localStorage.setItem(
+  //   //   "selectedComponents",
+  //   //   JSON.stringify(selectedComponents)
+  //   // );
+  // }, [selectedComponents]);
 
   const fetchAllCars = async () => {
     try {

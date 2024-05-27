@@ -57,7 +57,6 @@ const Sidebar = () => {
     );
     // If carInfoFixedFalse is found, display the false_count property
     if (carInfoFixedFalse) {
-      console.log(carInfoFixedFalse.$COUNT);
       return carInfoFixedFalse.$COUNT;
     } else {
       return null;
@@ -77,18 +76,13 @@ const Sidebar = () => {
           },
         ],
       });
-      console.log(notifications);
-      console.log(notifications.data);
+
       setTheNotification(notifications.data);
       // setWholeNotifications(notifications.data);
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
     }
   };
-
-  useEffect(() => {
-    console.log(theNotification);
-  }, [theNotification]);
 
   const subscribeNotifications = (notificationsCollection) => {
     notificationsCollection.subscribe({

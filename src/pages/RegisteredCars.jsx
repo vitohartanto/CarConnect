@@ -22,7 +22,7 @@ const RegisteredCars = () => {
   const [cars, setCars] = useState([]);
   const [searchPlate, setSearchPlate] = useState('');
   const [searchBrand, setSearchBrand] = useState('');
-  const [wholeNotifications, setWholeNotifications] = useState();
+  const [wholeNotifications, setWholeNotifications] = useState([]);
   const [showIssuedOnly, setShowIssuedOnly] = useState(false);
 
   const onChangeSearchPlateHandler = (event) => {
@@ -100,8 +100,7 @@ const RegisteredCars = () => {
           },
         ],
       });
-      console.log('PAGINATION CARS');
-      console.log(cars);
+
       setCars(cars.data);
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
@@ -282,7 +281,6 @@ const RegisteredCars = () => {
     let carInfoFixedFalse = carInfo.find((info) => info.fixed === false);
     // If carInfoFixedFalse is found, display the false_count property
     if (carInfoFixedFalse) {
-      console.log(carInfoFixedFalse.$COUNT);
       return carInfoFixedFalse.$COUNT;
     } else {
       return null;
@@ -295,7 +293,7 @@ const RegisteredCars = () => {
         fields: ['fixed', 'car_id', '$COUNT'],
         groups: ['car_id', 'fixed'],
       });
-      console.log(notifications);
+
       setWholeNotifications(notifications.data);
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
@@ -439,73 +437,79 @@ const RegisteredCars = () => {
             {filteredCars.map((car) => {
               let parsedPlateBrand = JSON.parse(car.plate_brand);
               return (
-                <a
+                <div
                   key={uuidv4()}
-                  href={`/app/${car._id}`}
                   className="mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
                 >
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl">
-                        {parsedPlateBrand[0]}
-                      </h1>
-                      <h1 className="text-[#191919]">{parsedPlateBrand[1]}</h1>
-                    </div>
-
-                    <div>
-                      <FaCircle
-                        className={
-                          car.is_active ? 'text-[#20F95D]' : 'text-[#e64040]'
-                        }
-                        title="isActive"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-center">
-                    <a
-                      href={`/app/${car._id}/notifications`}
-                      className="relative"
-                    >
-                      <FaBell className="text-[#191919] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
-                      <div
-                        className={
-                          displayCountIfFixedFalse(
-                            wholeNotifications,
-                            car._id
-                          ) === null
-                            ? 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full  border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-transparent'
-                            : 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]'
-                        }
-                      >
-                        <p className="absolute top-[-1px] left-[6px] text-sm">
-                          {displayCountIfFixedFalse(
-                            wholeNotifications,
-                            car._id
-                          )}
-                        </p>
+                  <div
+                    onClick={() => (window.location.href = `/app/${car._id}`)}
+                    className=""
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <div>
+                        <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl">
+                          {parsedPlateBrand[0]}
+                        </h1>
+                        <h1 className="text-[#191919]">
+                          {parsedPlateBrand[1]}
+                        </h1>
                       </div>
-                    </a>
-                    <button
-                      className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
-                      onClick={(e) => editCarPlateBrand(e, car._id)}
-                    >
-                      <FontAwesomeIcon
-                        icon={faPenToSquare}
-                        style={{ color: '#191919' }}
-                      />
-                    </button>
-                    <button
-                      className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
-                      onClick={(e) => deleteCarPlateBrand(e, car._id)}
-                    >
-                      <FontAwesomeIcon
-                        icon={faTrash}
-                        style={{ color: '#191919' }}
-                      />
-                    </button>
+
+                      <div>
+                        <FaCircle
+                          className={
+                            car.is_active ? 'text-[#20F95D]' : 'text-[#e64040]'
+                          }
+                          title="isActive"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-center">
+                      <a
+                        href={`/app/${car._id}/notifications`}
+                        className="relative"
+                      >
+                        <FaBell className="text-[#191919] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
+                        <div
+                          className={
+                            displayCountIfFixedFalse(
+                              wholeNotifications,
+                              car._id
+                            ) === null
+                              ? 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full  border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-transparent'
+                              : 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]'
+                          }
+                        >
+                          <p className="absolute top-[-1px] left-[6px] text-sm">
+                            {displayCountIfFixedFalse(
+                              wholeNotifications,
+                              car._id
+                            )}
+                          </p>
+                        </div>
+                      </a>
+                      <button
+                        className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
+                        onClick={(e) => editCarPlateBrand(e, car._id)}
+                      >
+                        <FontAwesomeIcon
+                          icon={faPenToSquare}
+                          style={{ color: '#191919' }}
+                        />
+                      </button>
+                      <button
+                        className="ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
+                        onClick={(e) => deleteCarPlateBrand(e, car._id)}
+                      >
+                        <FontAwesomeIcon
+                          icon={faTrash}
+                          style={{ color: '#191919' }}
+                        />
+                      </button>
+                    </div>
                   </div>
-                </a>
+                </div>
               );
             })}
           </div>

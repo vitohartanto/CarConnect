@@ -161,7 +161,7 @@ const Notifications = () => {
           },
         ],
       });
-      console.log(notifications);
+
       setNotificationsReal(notifications.data);
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
@@ -220,11 +220,6 @@ const Notifications = () => {
       alert(`${err.status}\n${err.message}`);
     }
   };
-
-  useEffect(() => {
-    console.log('BENER');
-    console.log(notificationsDummy);
-  }, [notificationsDummy]);
 
   return (
     <div>
