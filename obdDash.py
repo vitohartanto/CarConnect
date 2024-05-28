@@ -153,7 +153,7 @@ def emitTelemetry():
                 out_of_range_counter_SHORTTERMFUELTRIM = 0  # Reset counter if value is back in range
                 
             # Check if the counter has reached the limit
-            if out_of_range_counter == CONSECUTIVE_LIMIT:
+            if out_of_range_counter_SHORTTERMFUELTRIM == CONSECUTIVE_LIMIT:
                 
                 # Prepare notification message
                 notification_message = "Short Term Fuel Trim is out of optimal range"
