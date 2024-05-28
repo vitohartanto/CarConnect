@@ -175,7 +175,7 @@ def emitTelemetry():
                 print("EH BALIK KE 0 KARENA UDH OPTIMAL")
         
             # Check if the counter has reached the limit
-            if out_of_range_counter >= CONSECUTIVE_LIMIT:
+            if out_of_range_counter == CONSECUTIVE_LIMIT:
                 
                 print("TEREKSEKUSI NIH")
                 # Prepare notification message
