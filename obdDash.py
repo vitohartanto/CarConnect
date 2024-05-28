@@ -15,6 +15,8 @@ from hyperbase import HyperbaseREST
 
 load_dotenv(dotenv_path=Path("./.env.obd-dash"))
 
+print()
+
 hyperbase = Hyperbase(
     os.getenv("HYPERBASE_MQTT_HOST"),
     os.getenv("HYPERBASE_MQTT_PORT"),

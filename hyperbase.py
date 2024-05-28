@@ -12,6 +12,9 @@ class Hyperbase:
         client.username_pw_set(username, password)
         # client.connect(broker, int(port))
 
+        print("Halo Gais")
+        print(broker)
+        print(port)
         # Check if port is None before converting to int
         if port is not None:
             client.connect(broker, int(port))
