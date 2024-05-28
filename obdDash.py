@@ -94,9 +94,9 @@ def emitTelemetry():
 
     # Define the optimal ranges for each parameter
     optimal_ranges = {
-        "short_term_fuel_trim": (-10, 10),
-        "long_term_fuel_trim": (-10, 10),
-        "oxygen_sensor": (10, 12)
+        "ShortTermFuelTrim": (-10, 10),
+        "LongTermFuelTrim": (-10, 10),
+        "OxygenSensorBank1Sensor2": (10, 11)
     }
 
     # Track consecutive out-of-range occurrences for each parameter
@@ -202,7 +202,7 @@ def emitTelemetry():
             }
 
             for param, (min_val, max_val) in optimal_ranges.items():
-                value = locals().get(f"var{param.capitalize()}")
+                value = locals().get(f"var{param}")
                 if value is not None and (value < min_val or value > max_val):
                     out_of_range_counts[param] += 1
                 else:
@@ -211,7 +211,7 @@ def emitTelemetry():
                 if out_of_range_counts[param] >= 10:  # Check if out of range for 10 consecutive times
                     
                     # Notify that the parameter is out of optimal range
-                    notification_message = f"{param.replace('_', ' ').title()} is out of optimal range"
+                    notification_message = f"{param} is out of optimal range"
                     
                     # Get the current date and time in UTC timezone
                     current_time_utc = datetime.datetime.now()
