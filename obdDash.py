@@ -1,6 +1,5 @@
 import socketio
 import random 
-import time
 import json
 import obd
 import obdUtils
@@ -93,12 +92,23 @@ def emitTelemetry():
     global idleTime
 
     # Define the optimal ranges for each parameter
-    # Define optimal range
+    # Oxygen Sensor Bank 1 Sensor 2
     OXYGENSENSORBANK1SENSOR2_MIN = 10
     OXYGENSENSORBANK1SENSOR2_MAX = 11
 
+    # Short Term Fuel Trim
+    SHORTTERMFUELTRIM_MIN = -10
+    SHORTTERMFUELTRIM_MAX = 10
+
+    # Long Term Fuel Trim
+    LONGTERMFUELTRIM_MIN = -10
+    LONGTERMFUELTRIM_MAX = 10
+
     # Initialize counter for out-of-range readings
-    out_of_range_counter = 0
+    out_of_range_counter_OXYGENSENSORBANK1SENSOR2 = 0
+    out_of_range_counter_SHORTTERMFUELTRIM = 0
+    out_of_range_counter_LONGTERMFUELTRIM = 0
+
     # Define the number of consecutive readings to check
     CONSECUTIVE_LIMIT = 10
     
@@ -134,11 +144,79 @@ def emitTelemetry():
             shortTermFuelTrimCmd = obd.commands.SHORT_FUEL_TRIM_1
             shortTermFuelTrimResp = connection.query(shortTermFuelTrimCmd)
             varShortTermFuelTrim = shortTermFuelTrimResp.value.magnitude
+
+            # Check if the sensor value is out of the optimal range
+            if varShortTermFuelTrim < SHORTTERMFUELTRIM_MIN or varShortTermFuelTrim > SHORTTERMFUELTRIM_MAX:
+                out_of_range_counter_SHORTTERMFUELTRIM += 1
+                
+            else:
+                out_of_range_counter_SHORTTERMFUELTRIM = 0  # Reset counter if value is back in range
+                
+            # Check if the counter has reached the limit
+            if out_of_range_counter == CONSECUTIVE_LIMIT:
+                
+                # Prepare notification message
+                notification_message = "Short Term Fuel Trim is out of optimal range"
+
+                # Get the current date and time in UTC timezone
+                current_time_utc = datetime.datetime.now()
+
+                # Convert the current time to your timezone (GMT+7)
+                gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
+                current_time_gmt7 = current_time_utc + gmt_offset
+
+                # Convert the datetime object to the desired string format
+                timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+
+                notifications_data = {
+                    "car_id": os.getenv("CAR_ID"),
+                    "notifications": notification_message,
+                    "fixed_at": timestamp_str,
+                    "fixed": False,
+                    "timestamp": timestamp_str
+                }
+                
+                # Add logic to send notification to Notifications Page
+                hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
             
             # long term fuel trim
             longTermFuelTrimCmd = obd.commands.LONG_FUEL_TRIM_1
             longTermFuelTrimResp = connection.query(longTermFuelTrimCmd)
             varLongTermFuelTrim = longTermFuelTrimResp.value.magnitude
+
+            # Check if the sensor value is out of the optimal range
+            if varLongTermFuelTrim < LONGTERMFUELTRIM_MIN or varLongTermFuelTrim > LONGTERMFUELTRIM_MAX:
+                out_of_range_counter_LONGTERMFUELTRIM += 1
+                
+            else:
+                out_of_range_counter_LONGTERMFUELTRIM = 0  # Reset counter if value is back in range
+                
+            # Check if the counter has reached the limit
+            if out_of_range_counter_LONGTERMFUELTRIM == CONSECUTIVE_LIMIT:
+                
+                # Prepare notification message
+                notification_message = "Long Term Fuel Trim is out of optimal range"
+
+                # Get the current date and time in UTC timezone
+                current_time_utc = datetime.datetime.now()
+
+                # Convert the current time to your timezone (GMT+7)
+                gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
+                current_time_gmt7 = current_time_utc + gmt_offset
+
+                # Convert the datetime object to the desired string format
+                timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+
+                notifications_data = {
+                    "car_id": os.getenv("CAR_ID"),
+                    "notifications": notification_message,
+                    "fixed_at": timestamp_str,
+                    "fixed": False,
+                    "timestamp": timestamp_str
+                }
+                
+                # Add logic to send notification to Notifications Page
+                hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
 
             # intake air temperature
             intakeAirTemperatureCmd = obd.commands.INTAKE_TEMP
@@ -168,16 +246,14 @@ def emitTelemetry():
             # Check if the sensor value is out of the optimal range
             if varOxygenSensorBank1Sensor2 < OXYGENSENSORBANK1SENSOR2_MIN or varOxygenSensorBank1Sensor2 > OXYGENSENSORBANK1SENSOR2_MAX:
                 out_of_range_counter += 1
-                print("IYA NIH MASUK")
-                print("berapa kali udah masuk", out_of_range_counter)
+                
             else:
                 out_of_range_counter = 0  # Reset counter if value is back in range
-                print("EH BALIK KE 0 KARENA UDH OPTIMAL")
+                
         
             # Check if the counter has reached the limit
             if out_of_range_counter == CONSECUTIVE_LIMIT:
                 
-                print("TEREKSEKUSI NIH")
                 # Prepare notification message
                 notification_message = "Oxygen Sensor Bank 1 Sensor 2 is out of optimal range"
 
@@ -186,7 +262,7 @@ def emitTelemetry():
 
                 # Convert the current time to your timezone (GMT+7)
                 gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-                current_time_gmt7 = current_time_utc + gmt_offset
+                current_time_gmt7 = current_time_utc - gmt_offset
 
                 # Convert the datetime object to the desired string format
                 timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
