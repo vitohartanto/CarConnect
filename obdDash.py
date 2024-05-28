@@ -168,8 +168,11 @@ def emitTelemetry():
             # Check if the sensor value is out of the optimal range
             if varOxygenSensorBank1Sensor2 < OXYGENSENSORBANK1SENSOR2_MIN or varOxygenSensorBank1Sensor2 > OXYGENSENSORBANK1SENSOR2_MAX:
                 out_of_range_counter += 1
+                print("IYA NIH MASUK")
+                print("berapa kali udah masuk", out_of_range_counter)
             else:
                 out_of_range_counter = 0  # Reset counter if value is back in range
+                print("EH BALIK KE 0 KARENA UDH OPTIMAL")
         
             # Check if the counter has reached the limit
             if out_of_range_counter >= CONSECUTIVE_LIMIT:
