@@ -80,6 +80,7 @@ class HyperbaseREST:
         else:
             print("HyperbaseREST Client: login failed")
             print(res)
+            print(res.json())
     
     def setCollection(self, collection_id):
         return HyperbaseRESTCollection(self, collection_id)
