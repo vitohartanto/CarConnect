@@ -176,7 +176,8 @@ def emitTelemetry():
         
             # Check if the counter has reached the limit
             if out_of_range_counter >= CONSECUTIVE_LIMIT:
-            
+                
+                print("TEREKSEKUSI NIH")
                 # Prepare notification message
                 notification_message = "Oxygen Sensor Bank 1 Sensor 2 is out of optimal range"
 
@@ -200,6 +201,7 @@ def emitTelemetry():
                 
                 # Add logic to send notification to Notifications Page
                 hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
+                print("UDH TERPUBLISH")
             
 
             # Get the current date and time in UTC timezone
