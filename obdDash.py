@@ -93,14 +93,14 @@ def emitTelemetry():
     global idleTime
 
     # Define the optimal ranges for each parameter
-    optimal_ranges = {
-        "ShortTermFuelTrim": (-10, 10),
-        "LongTermFuelTrim": (-10, 10),
-        "OxygenSensorBank1Sensor2": (10, 11)
-    }
+    # Define optimal range
+    OXYGENSENSORBANK1SENSOR2_MIN = 10
+    OXYGENSENSORBANK1SENSOR2_MAX = 11
 
-    # Track consecutive out-of-range occurrences for each parameter
-    out_of_range_counts = {param: 0 for param in optimal_ranges.keys()}
+    # Initialize counter for out-of-range readings
+    out_of_range_counter = 0
+    # Define the number of consecutive readings to check
+    CONSECUTIVE_LIMIT = 10
     
     while True:
         try:
@@ -163,7 +163,41 @@ def emitTelemetry():
             # oxygen sensor bank 1 sensor 2
             oxygenSensorBank1Sensor2Cmd = obd.commands.O2_B1S2
             oxygenSensorBank1Sensor2Resp = connection.query(oxygenSensorBank1Sensor2Cmd)
-            varOxygenSensorBank1Sensor2 = oxygenSensorBank1Sensor2Resp.value.magnitude 
+            varOxygenSensorBank1Sensor2 = oxygenSensorBank1Sensor2Resp.value.magnitude
+            
+            # Check if the sensor value is out of the optimal range
+            if varOxygenSensorBank1Sensor2 < OXYGENSENSORBANK1SENSOR2_MIN or varOxygenSensorBank1Sensor2 > OXYGENSENSORBANK1SENSOR2_MAX:
+                out_of_range_counter += 1
+            else:
+                out_of_range_counter = 0  # Reset counter if value is back in range
+        
+            # Check if the counter has reached the limit
+            if out_of_range_counter >= CONSECUTIVE_LIMIT:
+            
+                # Prepare notification message
+                notification_message = "Oxygen Sensor Bank 1 Sensor 2 is out of optimal range"
+
+                # Get the current date and time in UTC timezone
+                current_time_utc = datetime.datetime.now()
+
+                # Convert the current time to your timezone (GMT+7)
+                gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
+                current_time_gmt7 = current_time_utc + gmt_offset
+
+                # Convert the datetime object to the desired string format
+                timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+
+                notifications_data = {
+                    "car_id": os.getenv("CAR_ID"),
+                    "notifications": notification_message,
+                    "fixed_at": timestamp_str,
+                    "fixed": False,
+                    "timestamp": timestamp_str
+                }
+                
+                # Add logic to send notification to Notifications Page
+                hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
+            
 
             # Get the current date and time in UTC timezone
             current_time_utc = datetime.datetime.now()
@@ -201,37 +235,10 @@ def emitTelemetry():
                 "timestamp": timestamp_str
             }
 
-            for param, (min_val, max_val) in optimal_ranges.items():
-                value = locals().get(f"var{param}")
-                if value is not None and (value < min_val or value > max_val):
-                    out_of_range_counts[param] += 1
-                else:
-                    out_of_range_counts[param] = 0
 
-                if out_of_range_counts[param] >= 10:  # Check if out of range for 10 consecutive times
+
+           
                     
-                    # Notify that the parameter is out of optimal range
-                    notification_message = f"{param} is out of optimal range"
-                    
-                    # Get the current date and time in UTC timezone
-                    current_time_utc = datetime.datetime.now()
-
-                    # Convert the current time to your timezone (GMT+7)
-                    gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-                    current_time_gmt7 = current_time_utc + gmt_offset
-
-                    # Convert the datetime object to the desired string format
-                    timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-
-                    notifications_data = {
-                        "car_id": os.getenv("CAR_ID"),
-                        "notifications": notification_message,
-                        "fixed_at": timestamp_str,
-                        "fixed": False,
-                        "timestamp": timestamp_str
-                    }
-                    # Add logic to send notification to Notifications Page
-                    hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
 
             #publish data to hyperbase collection OBD Data
             hyperbase.publish(os.getenv("OBD_DATA_COLLECTION_ID"), data)
