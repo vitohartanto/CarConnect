@@ -227,7 +227,7 @@ def emitTelemetry():
                         "car_id": os.getenv("CAR_ID"),
                         "notifications": notification_message,
                         "fixed_at": timestamp_str,
-                        "fixed": false,
+                        "fixed": False,
                         "timestamp": timestamp_str
                     }
                     # Add logic to send notification to Notifications Page
