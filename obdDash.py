@@ -70,7 +70,7 @@ def emitDtcCodes():
 
     # Convert the current time to your timezone (GMT+7)
     gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-    current_time_gmt7 = current_time_utc + gmt_offset
+    current_time_gmt7 = current_time_utc - gmt_offset
 
     # Convert the datetime object to the desired string format
     timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
@@ -93,8 +93,8 @@ def emitTelemetry():
 
     # Define the optimal ranges for each parameter
     # Oxygen Sensor Bank 1 Sensor 2
-    OXYGENSENSORBANK1SENSOR2_MIN = 10
-    OXYGENSENSORBANK1SENSOR2_MAX = 11
+    OXYGENSENSORBANK1SENSOR2_MIN = 0.1
+    OXYGENSENSORBANK1SENSOR2_MAX = 0.9
 
     # Short Term Fuel Trim
     SHORTTERMFUELTRIM_MIN = -10
@@ -163,7 +163,7 @@ def emitTelemetry():
 
                 # Convert the current time to your timezone (GMT+7)
                 gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-                current_time_gmt7 = current_time_utc + gmt_offset
+                current_time_gmt7 = current_time_utc - gmt_offset
 
                 # Convert the datetime object to the desired string format
                 timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
@@ -202,7 +202,7 @@ def emitTelemetry():
 
                 # Convert the current time to your timezone (GMT+7)
                 gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-                current_time_gmt7 = current_time_utc + gmt_offset
+                current_time_gmt7 = current_time_utc - gmt_offset
 
                 # Convert the datetime object to the desired string format
                 timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
@@ -285,7 +285,7 @@ def emitTelemetry():
 
             # Convert the current time to your timezone (GMT+7)
             gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-            current_time_gmt7 = current_time_utc + gmt_offset
+            current_time_gmt7 = current_time_utc - gmt_offset
 
             # Convert the datetime object to the desired string format
             timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
@@ -315,11 +315,7 @@ def emitTelemetry():
                 "idle_time": idleTime,
                 "timestamp": timestamp_str
             }
-
-
-
-           
-                    
+                 
 
             #publish data to hyperbase collection OBD Data
             hyperbase.publish(os.getenv("OBD_DATA_COLLECTION_ID"), data)
