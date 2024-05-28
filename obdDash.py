@@ -96,7 +96,7 @@ def emitTelemetry():
     optimal_ranges = {
         "short_term_fuel_trim": (-10, 10),
         "long_term_fuel_trim": (-10, 10),
-        "oxygen_sensor": (0.1, 0.9)
+        "oxygen_sensor": (10, 12)
     }
 
     # Track consecutive out-of-range occurrences for each parameter
