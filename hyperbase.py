@@ -79,6 +79,7 @@ class HyperbaseREST:
             self.auth_token = res["data"]["token"]
         else:
             print("HyperbaseREST Client: login failed")
+            print(res)
     
     def setCollection(self, collection_id):
         return HyperbaseRESTCollection(self, collection_id)
