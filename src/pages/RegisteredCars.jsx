@@ -63,6 +63,7 @@ const RegisteredCars = () => {
   useEffect(() => {
     if (!carsCollection) return;
     fetchAllCars();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [carsCollection]);
 
@@ -131,6 +132,34 @@ const RegisteredCars = () => {
 
     return () => carsCollection.unsubscribe(1000);
   };
+
+  const checkAndUpdateCars = async () => {
+    const currentTime = new Date();
+
+    // Check if 'cars' and 'cars.data' are defined and 'cars.data' is an array
+    if (!cars) {
+      console.error('cars is undefined');
+      return;
+    }
+
+    for (const car of cars) {
+      const updatedAt = new Date(car._updated_at);
+      const timeDifference = (currentTime - updatedAt) / 1000; // Time difference in seconds
+
+      if (timeDifference > 10 && car.is_active) {
+        try {
+          await carsCollection.updateOne(car?._id, {
+            is_active: false,
+          });
+          await fetchAllCars();
+        } catch (err) {
+          console.error(`Error updating car with ID: ${car?._id}`, err);
+        }
+      }
+    }
+  };
+
+  checkAndUpdateCars();
 
   const addCarPlateBrand = async () => {
     const { value: plate_brand } = await Swal.fire({
