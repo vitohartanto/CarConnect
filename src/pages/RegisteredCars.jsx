@@ -394,6 +394,9 @@ const RegisteredCars = () => {
           triggerOnce={true}
           damping={1e-1}
         >
+          <div>
+            <h1>Welcome chibarage@gmail.com</h1>
+          </div>
           <div className="flex justify-between mx-5 min-[600px]:mx-10 mb-6 ">
             <input
               type="text"
@@ -412,7 +415,7 @@ const RegisteredCars = () => {
           </div>
         </Fade>
         <Fade delay={1e1} direction={'down'} triggerOnce={true} damping={1e-1}>
-          <div className="flex justify-start flex-col md:justify-between md:flex-row">
+          <div className="flex flex-col justify-start md:justify-between md:flex-row">
             <h1 className="py-2 flex items-center justify-center mb-4 w-64 lg:w-[240px] xl:w-[320px] text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
               Registered Cars
             </h1>
@@ -423,7 +426,7 @@ const RegisteredCars = () => {
                 checked={showIssuedOnly}
                 onChange={onChangeCheckboxHandler}
               />
-              <h2 className="text-lg font-medium inline text-center xl:text-xl">
+              <h2 className="inline text-lg font-medium text-center xl:text-xl">
                 Show Issued Cars Only
               </h2>
             </div>
