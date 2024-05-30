@@ -17,6 +17,7 @@ import ImageBackground from '../components/ImageBackground';
 
 const RegisteredCars = () => {
   const hyperbase = useContext(HyperbaseContext);
+
   const [notificationsCollection, setNotificationsCollection] = useState();
   const [carsCollection, setCarsCollection] = useState();
   const [cars, setCars] = useState([]);
@@ -396,7 +397,7 @@ const RegisteredCars = () => {
         >
           <div>
             <h2 className="ml-5 mb-4 py-2 w-[280px] sm:w-[350px] xl:w-[400px] text-center px-4 min-[600px]:ml-10 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-              Welcome, chibarage@gmail.com
+              Welcome, {hyperbase.user?.email}!
             </h2>
           </div>
           <div className="flex justify-between mx-5 min-[600px]:mx-10 mb-6 ">

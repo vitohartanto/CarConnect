@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
-import hyperbaseConfig from "../utils/hyperbase/hyperbaseConfig.json";
-import hyperbaseCollections from "../utils/hyperbase/hyperbaseCollections.json";
-import Hyperbase from "../utils/hyperbase/hyperbase";
+import { useEffect, useMemo, useState } from 'react';
+import hyperbaseConfig from '../utils/hyperbase/hyperbaseConfig.json';
+import hyperbaseCollections from '../utils/hyperbase/hyperbaseCollections.json';
+import Hyperbase from '../utils/hyperbase/hyperbase';
 
 function useHyperbase() {
   const hyperbase = useMemo(
@@ -22,16 +22,16 @@ function useHyperbase() {
   useEffect(() => {
     (async () => {
       setIsLoading(true);
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       if (token) {
         const newToken = await hyperbase.setAuthToken(token);
         if (newToken) {
-          localStorage.setItem("token", newToken);
+          localStorage.setItem('token', newToken);
           const user = await hyperbase.getUserData();
           setUser(user);
           setIsSignedIn(true);
         } else {
-          localStorage.removeItem("token");
+          localStorage.removeItem('token');
         }
       }
       setIsLoading(false);
@@ -45,14 +45,16 @@ function useHyperbase() {
       password,
     });
     if (token) {
-      localStorage.setItem("token", token);
+      localStorage.setItem('token', token);
+      const user = await hyperbase.getUserData();
+      setUser(user);
       setIsSignedIn(true);
     }
     setIsLoading(false);
   };
 
   const signOut = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     setIsSignedIn(false);
   };
 

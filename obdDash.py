@@ -238,11 +238,21 @@ def emitTelemetry():
             intakeManifoldPressureResp = connection.query(intakeManifoldPressureCmd)
             varIntakeManifoldPressure = intakeManifoldPressureResp.value.magnitude 
 
+            # fuel rate
+            fuelRateCmd = obd.commands.FUEL_RATE
+            fuelRateResp = connection.query(fuelRateCmd)
+            if fuelRateResp.value is not None:
+                varFuelRate = fuelRateResp.value.magnitude
+            else:
+                varFuelRate = "null"  # Atau bisa juga menggunakan nilai default lainnya
+
             # oxygen sensor bank 1 sensor 2
             oxygenSensorBank1Sensor2Cmd = obd.commands.O2_B1S2
             oxygenSensorBank1Sensor2Resp = connection.query(oxygenSensorBank1Sensor2Cmd)
             varOxygenSensorBank1Sensor2 = oxygenSensorBank1Sensor2Resp.value.magnitude
+
             
+
             # Check if the sensor value is out of the optimal range
             if varOxygenSensorBank1Sensor2 < OXYGENSENSORBANK1SENSOR2_MIN or varOxygenSensorBank1Sensor2 > OXYGENSENSORBANK1SENSOR2_MAX:
                 out_of_range_counter_OXYGENSENSORBANK1SENSOR2 += 1
@@ -277,7 +287,7 @@ def emitTelemetry():
                 
                 # Add logic to send notification to Notifications Page
                 hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
-                print("UDH TERPUBLISH")
+                
             
 
             # Get the current date and time in UTC timezone
