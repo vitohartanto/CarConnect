@@ -49,6 +49,17 @@ function Register() {
 
   const onRegisterSubmit = async (e) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      toast.error('Please complete both inputs');
+      return;
+    }
+
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters');
+      return;
+    }
+
     try {
       await usersCollection.insertOne({
         email,
@@ -57,7 +68,11 @@ function Register() {
       toast.success('Register successful!');
       navigate('/signin');
     } catch (err) {
-      toast.error(`${err.status}\n${err.message}`);
+      if (err.message.includes('duplicate')) {
+        toast.error('Email has been used, please use another email');
+      } else {
+        toast.error(`${err.status}\n${err.message}`);
+      }
     }
   };
 

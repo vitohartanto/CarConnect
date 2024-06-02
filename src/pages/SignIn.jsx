@@ -6,6 +6,7 @@ import { Fade } from 'react-awesome-reveal';
 import carBackground from '../img/Car_BG.png';
 import ImageBackground from '../components/ImageBackground';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function SignIn() {
   const hyperbase = useContext(HyperbaseContext);
@@ -30,6 +31,12 @@ function SignIn() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      toast.error('Please complete both inputs');
+      return;
+    }
+
     try {
       await hyperbase.signIn(email, password);
     } catch (err) {
