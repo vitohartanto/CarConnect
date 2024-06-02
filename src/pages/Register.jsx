@@ -62,10 +62,10 @@ function Register() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen px-6 sm:px-12  bg-cover bg-center">
+    <div className="relative flex items-center justify-center h-screen px-6 bg-center bg-cover sm:px-12">
       <ImageBackground
         src={carBackground}
-        hash="[E7Votu5D*W;MJjEyDkC8_R5wJniL~bbNGW=.mn#McaKofpI%#oyo}VsRPjYDOWCbcWWXmaeaKg3"
+        hash="|G7Vott.D*W;?^x[IAV@x]Q,jXyCkCRPjZt7ofRj9FR5r?jFIAM{tRofRPQlbbRjW=e:afR*WCtR.Sn$Mdad%gt7WBWBofofo~%#ofWBjrt6s:Rjo}VsRPjZofbbRjofs;H=WVbbWWM{a}j[RjayXSaeaKg3W;V@tQbGR*"
       />
       <Fade delay={1e1} triggerOnce={true} damping={1e-1}>
         <img
@@ -78,7 +78,7 @@ function Register() {
       <Fade delay={1e2} direction={'up'} triggerOnce={true} damping={1e-1}>
         <form
           action=""
-          className="flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[435px] lg:h-[470px] px-6 lg:px-12"
+          className="absolute top-1/2 left-1/2 translate -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[435px] lg:h-[470px] px-6 lg:px-12"
           onSubmit={onRegisterSubmit}
         >
           <h1 className="mb-4 text-2xl font-bold text-left lg:text-3xl lg:mt-8">

@@ -134,7 +134,7 @@ const Dashboard = () => {
           triggerOnce={true}
           damping={1e-1}
         >
-          <div className="flex items-center justify-between flex-wrap">
+          <div className="flex flex-wrap items-center justify-between">
             <h1 className="py-2 mb-4 w-48 xl:w-64 text-center px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
               Dashboard
             </h1>
@@ -144,13 +144,13 @@ const Dashboard = () => {
           </div>
 
           <div className="flex items-center justify-between mt-4 py-4 min-w-60 min-[600px]:w-[480px] xl:w-[520px] text-left px-4 ml-5 min-[600px]:ml-10 text-2xl font-bold xl:text-3xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
-            <h1 className="text-lg font-medium xl:text-xl w-11/12">
+            <h1 className="w-11/12 text-lg font-medium xl:text-xl">
               Choose which OBD2 parameters to display
             </h1>
             <AddModal className="ml-4" addComponent={addComponent} />
           </div>
         </Fade>
-        <div className="ml-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 ml-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
           {selectedComponents.map((data) => (
             <data.component key={data.id} id={data.id} carId={car_id}>
               <UpdateModal
