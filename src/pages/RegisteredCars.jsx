@@ -16,6 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ImageBackground from '../components/ImageBackground';
 import { Link } from 'react-router-dom';
 import { FaLocationDot } from 'react-icons/fa6';
+import { showFormattedDate } from '../utils/additionalFunctions';
 
 const RegisteredCars = () => {
   const hyperbase = useContext(HyperbaseContext);
@@ -490,10 +491,13 @@ const RegisteredCars = () => {
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div>
-                      <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl">
+                      <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl font-bold">
                         {parsedPlateBrand[0]}
                       </h1>
                       <h1 className="text-[#191919]">{parsedPlateBrand[1]}</h1>
+                      <h1 className="text-[#191919] mt-2 text-sm">{`Last active: ${showFormattedDate(
+                        car._updated_at
+                      )}`}</h1>
                     </div>
 
                     <div>

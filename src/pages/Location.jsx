@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   MapContainer,
   LayersControl,
@@ -17,6 +17,8 @@ import { useState } from 'react';
 import collections from '../utils/hyperbase/hyperbaseCollections.json';
 import { HyperbaseContext } from '../App';
 import { useContext } from 'react';
+import { showFormattedDate } from '../utils/additionalFunctions';
+import PropTypes from 'prop-types';
 
 const DynamicMap = ({ bounds }) => {
   const map = useMap();
@@ -35,7 +37,7 @@ const Location = () => {
   const [carsCollection, setCarsCollection] = useState();
   const [obdCollection, setObdCollection] = useState();
   const [cars, setCars] = useState([]);
-  const [obd, setObd] = useState([]);
+
   const [carsLocation, setCarsLocation] = useState([]);
   const navigate = useNavigate();
 
@@ -147,7 +149,7 @@ const Location = () => {
     try {
       if (!car_id) return;
       const obdDatas = await obdCollection.findMany({
-        fields: ['latitude', 'longitude', 'car_id', '_id'],
+        fields: ['latitude', 'longitude', 'car_id', '_updated_at'],
         filters: [{ field: 'car_id', op: '=', value: car_id }],
         orders: [{ field: '_id', kind: 'desc' }],
         limit: 1,
@@ -192,6 +194,7 @@ const Location = () => {
         const [car_plate, car_brand] = JSON.parse(car.plate_brand);
         newCarsLocation.push({
           _id: car._id,
+          last_active: car._updated_at,
           car_plate,
           car_brand,
           coordinates: [location.latitude, location.longitude],
@@ -206,26 +209,26 @@ const Location = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [obdCollection]);
 
-  const carsLocationDummy = [
-    {
-      _id: '123',
-      car_plate: 'AB 1911 TE',
-      car_brand: 'Mazda Sedan 2',
-      coordinates: [-7.698259, 110.433832],
-    },
-    {
-      _id: '234',
-      car_plate: 'AD 1933 YA',
-      car_brand: 'Mazda CX-5',
-      coordinates: [-7.696242, 110.435832],
-    },
-    {
-      _id: '456789',
-      car_plate: 'AB 1345 UB',
-      car_brand: 'Honda Brio',
-      coordinates: [-7.698226, 110.436832],
-    },
-  ];
+  // const carsLocationDummy = [
+  //   {
+  //     _id: '123',
+  //     car_plate: 'AB 1911 TE',
+  //     car_brand: 'Mazda Sedan 2',
+  //     coordinates: [-7.698259, 110.433832],
+  //   },
+  //   {
+  //     _id: '234',
+  //     car_plate: 'AD 1933 YA',
+  //     car_brand: 'Mazda CX-5',
+  //     coordinates: [-7.696242, 110.435832],
+  //   },
+  //   {
+  //     _id: '456789',
+  //     car_plate: 'AB 1345 UB',
+  //     car_brand: 'Honda Brio',
+  //     coordinates: [-7.698226, 110.436832],
+  //   },
+  // ];
 
   let uniqueCars = [
     ...new Map(
@@ -281,6 +284,12 @@ const Location = () => {
             <IoIosArrowRoundBack className="text-[#191919] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl" />
           </div>
         </button>
+        <h1 className="text-xl font-bold">
+          G
+          <br />
+          P
+          <br />S
+        </h1>
       </div>
       <div className="ml-12 sm:ml-16 lg:ml-20">
         <MapContainer
@@ -308,6 +317,10 @@ const Location = () => {
                       <Popup>
                         {uniqueCar.car_plate} <br />
                         {uniqueCar.car_brand} <br />
+                        {`Last active: ${showFormattedDate(
+                          uniqueCar.last_active
+                        )}`}{' '}
+                        <br />
                         Coordinates: {latlng[0]}, {latlng[1]}
                       </Popup>
                     </Marker>
@@ -320,6 +333,10 @@ const Location = () => {
       </div>
     </div>
   );
+};
+
+DynamicMap.propTypes = {
+  bounds: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
 };
 
 export default Location;
