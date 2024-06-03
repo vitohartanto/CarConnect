@@ -36,6 +36,7 @@ const Location = () => {
   const [obdCollection, setObdCollection] = useState();
   const [cars, setCars] = useState([]);
   const [obd, setObd] = useState([]);
+  const [carsLocation, setCarsLocation] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -136,21 +137,24 @@ const Location = () => {
 
   useEffect(() => {
     if (!obdCollection) return;
-    fetchAllLocations();
+
+    fetchLocationsForAllCars();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [obdCollection]);
+  }, [cars, obdCollection]);
 
   const fetchAllLocations = async (car_id) => {
     try {
+      if (!car_id) return;
       const obdDatas = await obdCollection.findMany({
         fields: ['latitude', 'longitude', 'car_id', '_id'],
         filters: [{ field: 'car_id', op: '=', value: car_id }],
-        orders: [{ field: '_id', kind: 'asc' }],
+        orders: [{ field: '_id', kind: 'desc' }],
         limit: 1,
       });
-      console.log(obdDatas.data);
-      setObd(obdDatas.data);
+      return obdDatas.data[0];
+      // console.log(obdDatas.data);
+      // setObd(obdDatas.data);
     } catch (err) {
       alert(`${err.status}\n${err.message}`);
     }
@@ -181,9 +185,20 @@ const Location = () => {
   };
 
   const fetchLocationsForAllCars = async () => {
+    const newCarsLocation = [];
     for (const car of cars) {
-      await fetchAllLocations(car._id);
+      const location = await fetchAllLocations(car._id);
+      if (location) {
+        const [car_plate, car_brand] = JSON.parse(car.plate_brand);
+        newCarsLocation.push({
+          _id: car._id,
+          car_plate,
+          car_brand,
+          coordinates: [location.latitude, location.longitude],
+        });
+      }
     }
+    setCarsLocation(newCarsLocation);
   };
 
   useEffect(() => {
@@ -191,7 +206,7 @@ const Location = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [obdCollection]);
 
-  const carsLocation = [
+  const carsLocationDummy = [
     {
       _id: '123',
       car_plate: 'AB 1911 TE',
