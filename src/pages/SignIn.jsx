@@ -39,11 +39,17 @@ function SignIn() {
 
     try {
       await hyperbase.signIn(email, password);
+      toast.success('Login Successful');
+      navigate('/app');
     } catch (err) {
-      alert(`${err.status}\n${err.message}`);
-      return;
+      if (err.message.includes('Authentication data not found')) {
+        toast.error('Incorrect Email or Password');
+        return;
+      } else {
+        alert(`${err.status}\n${err.message}`);
+        return;
+      }
     }
-    navigate('/app');
   };
 
   return (
@@ -63,7 +69,7 @@ function SignIn() {
       <Fade delay={1e2} direction={'up'} triggerOnce={true} damping={1e-1}>
         <form
           action=""
-          className="absolute top-1/2 left-1/2 translate -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[435px] lg:h-[470px] px-6 lg:px-12"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col justify-center backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)] w-80 lg:w-96 h-[435px] lg:h-[470px] px-6 lg:px-12"
           onSubmit={onSubmit}
         >
           <h1 className="mb-4 text-2xl font-bold text-left lg:text-3xl lg:mt-8">

@@ -14,6 +14,8 @@ import carBackground from '../img/pageRegisteredCars.png';
 import { Fade } from 'react-awesome-reveal';
 import { v4 as uuidv4 } from 'uuid';
 import ImageBackground from '../components/ImageBackground';
+import { Link } from 'react-router-dom';
+import { FaLocationDot } from 'react-icons/fa6';
 
 const RegisteredCars = () => {
   const hyperbase = useContext(HyperbaseContext);
@@ -399,6 +401,13 @@ const RegisteredCars = () => {
             <p className="text-[#191919] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               +
             </p>
+          </button>
+          <button className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]">
+            <Link to="/location" className="">
+              <p className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <FaLocationDot className="text-[#191919]" />
+              </p>
+            </Link>
           </button>
           <button
             onClick={signOutHandler}
