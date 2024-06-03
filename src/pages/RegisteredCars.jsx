@@ -403,13 +403,13 @@ const RegisteredCars = () => {
               +
             </p>
           </button>
-          <button className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]">
-            <Link to="/location" className="">
+          <Link to="/location" className="w-full">
+            <button className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]">
               <p className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                 <FaLocationDot className="text-[#191919]" />
               </p>
-            </Link>
-          </button>
+            </button>
+          </Link>
           <button
             onClick={signOutHandler}
             className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] bg-[rgba(255,255,255,0.90)]"
