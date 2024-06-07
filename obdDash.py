@@ -303,10 +303,14 @@ def emitTelemetry():
             runTimeCmd = obd.commands.RUN_TIME
             runTimeResp = connection.query(runTimeCmd)
             runTime = str(runTimeResp.value)
-            
+
+                      
             if (float(varVehicleSpeed) < .1):
                 idleTime += delay
             
+            varLatitude = -7.7705484
+            varLongitude = 110.3727516
+
             data = {
                 "car_id": os.getenv("CAR_ID"),
                 "fuel_system_status": varFuelSystemStatus,
@@ -323,7 +327,9 @@ def emitTelemetry():
                 "oxygen_sensor": varOxygenSensorBank1Sensor2,
                 "run_time": runTime,
                 "idle_time": idleTime,
-                "timestamp": timestamp_str
+                "timestamp": timestamp_str,
+                "latitude": varLatitude,
+                "longitude": varLongitude
             }
                  
 
