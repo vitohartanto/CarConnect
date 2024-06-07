@@ -5,7 +5,7 @@
 export DISPLAY=:0
 export XAUTHORITY=/home/pi/.Xauthority
 
-# cd /home/pi/CarConnect
+cd /home/pi/CarConnect
 
 #start the apps
 /home/pi/.nvm/versions/node/v21.7.2/bin/node index.js & #need to manually specify installation dir if node was installed by nvm
