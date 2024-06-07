@@ -487,9 +487,9 @@ const RegisteredCars = () => {
                 <div
                   key={uuidv4()}
                   onClick={() => (window.location.href = `/app/${car._id}`)}
-                  className="hover:cursor-pointer mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
+                  className="hover:cursor-pointer hover:bg-[rgba(205,205,205,0.90)]  mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
                 >
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-between mb-4 ">
                     <div>
                       <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl font-bold">
                         {parsedPlateBrand[0]}
