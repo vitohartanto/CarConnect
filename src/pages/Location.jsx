@@ -19,6 +19,16 @@ import { HyperbaseContext } from '../App';
 import { useContext } from 'react';
 import { showFormattedDate } from '../utils/additionalFunctions';
 import PropTypes from 'prop-types';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import L from 'leaflet';
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const DynamicMap = ({ bounds }) => {
   const map = useMap();
