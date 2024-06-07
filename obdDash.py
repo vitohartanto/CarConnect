@@ -308,8 +308,8 @@ def emitTelemetry():
             if (float(varVehicleSpeed) < .1):
                 idleTime += delay
             
-            varLatitude = -7.7705484
-            varLongitude = 110.3727516
+            varLatitude = -7.698259
+            varLongitude = 110.433832
 
             data = {
                 "car_id": os.getenv("CAR_ID"),
