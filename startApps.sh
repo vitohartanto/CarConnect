@@ -1,6 +1,9 @@
 #!/bin/bash
 # shebang is being used to announce the program is running on bash interpreter
 
+# Wait for the GUI to fully load
+sleep 10
+
 # Set DISPLAY for GUI applications
 export DISPLAY=:0
 export XAUTHORITY=/home/pi/.Xauthority
