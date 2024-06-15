@@ -481,77 +481,85 @@ const RegisteredCars = () => {
 
         <Fade delay={1e1} triggerOnce={false} damping={1e-1} duration={2000}>
           <div className="flex flex-col flex-grow px-5 mb-6 md:px-12 min-[600px]:flex-row min-[600px]:flex-wrap min-[600px]:justify-start">
-            {filteredCars.map((car) => {
-              let parsedPlateBrand = JSON.parse(car.plate_brand);
-              return (
-                <div
-                  key={uuidv4()}
-                  onClick={() => (window.location.href = `/app/${car._id}`)}
-                  className="hover:cursor-pointer hover:bg-[rgba(205,205,205,0.90)]  mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
-                >
-                  <div className="flex items-center justify-between mb-4 ">
-                    <div>
-                      <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl font-bold">
-                        {parsedPlateBrand[0]}
-                      </h1>
-                      <h1 className="text-[#191919]">{parsedPlateBrand[1]}</h1>
-                      <h1 className="text-[#191919] mt-2 text-sm">{`Last active: ${showFormattedDate(
-                        car._updated_at
-                      )}`}</h1>
+            {filteredCars.length !== 0 ? (
+              filteredCars.map((car) => {
+                let parsedPlateBrand = JSON.parse(car.plate_brand);
+                return (
+                  <div
+                    key={uuidv4()}
+                    onClick={() => (window.location.href = `/app/${car._id}`)}
+                    className="hover:cursor-pointer hover:bg-[rgba(205,205,205,0.90)]  mx-2 px-8 py-6 lg:py-8 mt-6 flex flex-col max-w-[300px] min-[600px]:w-[300px] font-medium backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(255,255,255,0.90)]"
+                  >
+                    <div className="flex items-center justify-between mb-4 ">
+                      <div>
+                        <h1 className="text-[#191919] min-[600px]:text-xl xl:text-2xl font-bold">
+                          {parsedPlateBrand[0]}
+                        </h1>
+                        <h1 className="text-[#191919]">
+                          {parsedPlateBrand[1]}
+                        </h1>
+                        <h1 className="text-[#191919] mt-2 text-sm">{`Last active: ${showFormattedDate(
+                          car._updated_at
+                        )}`}</h1>
+                      </div>
+
+                      <div>
+                        <FaCircle
+                          className={
+                            car.is_active ? 'text-[#20F95D]' : 'text-[#e64040]'
+                          }
+                          title="isActive"
+                        />
+                      </div>
                     </div>
 
-                    <div>
-                      <FaCircle
-                        className={
-                          car.is_active ? 'text-[#20F95D]' : 'text-[#e64040]'
-                        }
-                        title="isActive"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-center">
-                    <a
-                      href={`/app/${car._id}/notifications`}
-                      className="relative"
-                    >
-                      <FaBell className="text-[#191919] hover:text-white hover:bg-[rgba(25,25,25,0.90)] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
-                      <div
-                        className={
-                          displayCountIfFixedFalse(
-                            wholeNotifications,
-                            car._id
-                          ) === null
-                            ? 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full  border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-transparent'
-                            : 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]'
-                        }
+                    <div className="flex items-center justify-center">
+                      <a
+                        href={`/app/${car._id}/notifications`}
+                        className="relative"
                       >
-                        <div className="relative">
-                          <p className="absolute top-[-1px]  lg:top-0 left-1/2 transform -translate-x-1/2 text-sm">
-                            {displayCountIfFixedFalse(
+                        <FaBell className="text-[#191919] hover:text-white hover:bg-[rgba(25,25,25,0.90)] text-lg w-10 h-10 p-2 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]" />
+                        <div
+                          className={
+                            displayCountIfFixedFalse(
                               wholeNotifications,
                               car._id
-                            )}
-                          </p>
+                            ) === null
+                              ? 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full  border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-transparent'
+                              : 'absolute top-1 left-5 text-[#191919] w-5 h-5 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,0,0,0.90)]'
+                          }
+                        >
+                          <div className="relative">
+                            <p className="absolute top-[-1px]  lg:top-0 left-1/2 transform -translate-x-1/2 text-sm">
+                              {displayCountIfFixedFalse(
+                                wholeNotifications,
+                                car._id
+                              )}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </a>
-                    <button
-                      className=" hover:bg-[rgba(25,25,25,0.90)] text-[#191919] hover:text-white ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
-                      onClick={(e) => editCarPlateBrand(e, car._id)}
-                    >
-                      <FontAwesomeIcon icon={faPenToSquare} />
-                    </button>
-                    <button
-                      className="hover:bg-[rgba(25,25,25,0.90)] text-[#191919] hover:text-white ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
-                      onClick={(e) => deleteCarPlateBrand(e, car._id)}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </button>
+                      </a>
+                      <button
+                        className=" hover:bg-[rgba(25,25,25,0.90)] text-[#191919] hover:text-white ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
+                        onClick={(e) => editCarPlateBrand(e, car._id)}
+                      >
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                      </button>
+                      <button
+                        className="hover:bg-[rgba(25,25,25,0.90)] text-[#191919] hover:text-white ml-4 sm:text-xl lg:text-2xl w-10 h-10 rounded-full backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)]  bg-[rgba(255,255,255,0.90)]"
+                        onClick={(e) => deleteCarPlateBrand(e, car._id)}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              <h2 className="mt-4 py-2 w-[270px] xl:w-[336px] text-center px-4 ml-0 min-[600px]:ml-5 md:ml-0 text-lg font-medium xl:text-xl backdrop-blur-[2px] border-[1px_solid_rgba(255,255,255,0.18)] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] rounded-[18px] bg-[rgba(25,25,25,0.90)]">
+                Car is not found
+              </h2>
+            )}
           </div>
         </Fade>
       </div>
