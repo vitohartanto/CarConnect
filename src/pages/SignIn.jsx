@@ -76,7 +76,7 @@ function SignIn() {
             Sign In
           </h1>
           <p className="mb-6 font-normal lg:text-lg">
-            Empowering car rental companies with vehicle health monitoring
+            Smart Solutions for Your Car&apos;s Health Monitoring
           </p>
           <div className="flex flex-col">
             <input
