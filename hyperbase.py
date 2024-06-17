@@ -10,8 +10,6 @@ class Hyperbase:
 
         client = mqtt_client.Client(mqtt_client.CallbackAPIVersion.VERSION2, client_id)
         client.username_pw_set(username, password)
-        # client.connect(broker, int(port))
-
         
         print(broker)
         print(port)
