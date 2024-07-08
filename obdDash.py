@@ -14,8 +14,6 @@ from hyperbase import HyperbaseREST
 
 load_dotenv(dotenv_path=Path("./.env.obd-dash"))
 
-
-
 hyperbase = Hyperbase(
     os.getenv("HYPERBASE_MQTT_HOST"),
     os.getenv("HYPERBASE_MQTT_PORT"),
@@ -48,7 +46,7 @@ SENSOR_TYPE = 'OBD'
 ERROR = 'ERR'
 RETRY_INTERVAL = 1 #Delay in seconds when retrying to connect to node server
 
-delay = 1 #Delay in seconds before sending data. This can be decreased, but .3s seems to be the fastest
+delay = 2 #Delay in seconds before sending data. This can be decreased, but .3s seems to be the fastest
             #that the pi can display on the web dashboard. Otherwise the web page updating begins lagging
 
 idleTime = 0.0 #Time the engine is idling in seconds
