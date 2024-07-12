@@ -102,10 +102,20 @@ def emitTelemetry():
     LONGTERMFUELTRIM_MIN = -10
     LONGTERMFUELTRIM_MAX = 10
 
+    # Engine Coolant Temperature
+    ENGINECOOLANTTEMPERATURE_MIN = 70
+    ENGINECOOLANTTEMPERATURE_MAX = 105
+
+    # Catalyst Temperature
+    CATALYSTTEMPERATURE_MIN = 200
+    CATALYSTTEMPERATURE_MAX = 800
+
     # Initialize counter for out-of-range readings
     out_of_range_counter_OXYGENSENSORBANK1SENSOR2 = 0
     out_of_range_counter_SHORTTERMFUELTRIM = 0
     out_of_range_counter_LONGTERMFUELTRIM = 0
+    out_of_range_counter_ENGINECOOLANTTEMPERATURE = 0
+    out_of_range_counter_CATALYSTTEMPERATURE = 0
 
     # Define the number of consecutive readings to check
     CONSECUTIVE_LIMIT = 10
