@@ -148,6 +148,41 @@ def emitTelemetry():
             engineCoolantTemperatureResp = connection.query(engineCoolantTemperatureCmd)
             varEngineCoolantTemperature = engineCoolantTemperatureResp.value.magnitude
 
+            # Check if the sensor value is out of the optimal range
+            if varEngineCoolantTemperature < ENGINECOOLANTTEMPERATURE_MIN or varEngineCoolantTemperature > ENGINECOOLANTTEMPERATURE_MAX:
+                out_of_range_counter_ENGINECOOLANTTEMPERATURE += 1
+                
+            else:
+                out_of_range_counter_ENGINECOOLANTTEMPERATURE = 0  # Reset counter if value is back in range
+                
+            # Check if the counter has reached the limit
+            if out_of_range_counter_ENGINECOOLANTTEMPERATURE == CONSECUTIVE_LIMIT:
+                
+                # Prepare notification message
+                notification_message = "Engine Coolant Temperature is out of optimal range"
+
+                # Get the current date and time in UTC timezone
+                current_time_utc = datetime.datetime.now()
+
+                # Convert the current time to your timezone (GMT+7)
+                gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
+                current_time_gmt7 = current_time_utc - gmt_offset
+
+                # Convert the datetime object to the desired string format
+                timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+
+                notifications_data = {
+                    "car_id": os.getenv("CAR_ID"),
+                    "notifications": notification_message,
+                    "fixed_at": timestamp_str,
+                    "fixed": False,
+                    "timestamp": timestamp_str
+                }
+                
+                # Add logic to send notification to Notifications Page
+                hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
+            
+
             # short term fuel trim
             shortTermFuelTrimCmd = obd.commands.SHORT_FUEL_TRIM_1
             shortTermFuelTrimResp = connection.query(shortTermFuelTrimCmd)
@@ -240,6 +275,41 @@ def emitTelemetry():
             catalystTemperatureCmd = obd.commands.CATALYST_TEMP_B1S1
             catalystTemperatureResp = connection.query(catalystTemperatureCmd)
             varCatalystTemperature = catalystTemperatureResp.value.magnitude
+
+            if varCatalystTemperature < CATALYSTTEMPERATURE_MIN or varCatalystTemperature > CATALYSTTEMPERATURE_MAX:
+                out_of_range_counter_CATALYSTTEMPERATURE += 1
+                
+            else:
+                out_of_range_counter_CATALYSTTEMPERATURE = 0  # Reset counter if value is back in range
+                
+        
+            # Check if the counter has reached the limit
+            if out_of_range_counter_CATALYSTTEMPERATURE == CONSECUTIVE_LIMIT:
+                
+                # Prepare notification message
+                notification_message = "Catalyst Temperature is out of optimal range"
+
+                # Get the current date and time in UTC timezone
+                current_time_utc = datetime.datetime.now()
+
+                # Convert the current time to your timezone (GMT+7)
+                gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
+                current_time_gmt7 = current_time_utc - gmt_offset
+
+                # Convert the datetime object to the desired string format
+                timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+
+                notifications_data = {
+                    "car_id": os.getenv("CAR_ID"),
+                    "notifications": notification_message,
+                    "fixed_at": timestamp_str,
+                    "fixed": False,
+                    "timestamp": timestamp_str
+                }
+                
+                # Add logic to send notification to Notifications Page
+                hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
+                
 
             # intake manifold pressure
             intakeManifoldPressureCmd = obd.commands.INTAKE_PRESSURE
