@@ -61,6 +61,7 @@ def emitDtcCodes():
     response = connection.query(dtcCmd)
     dtcCodes = response.value
 
+
     dtcJSON = json.dumps(dtcCodes)
 
     # Get the current date and time in UTC timezone
@@ -72,6 +73,20 @@ def emitDtcCodes():
 
     # Convert the datetime object to the desired string format
     timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+
+    
+    if dtcCodes != []:
+        notification_message = "Diagnostic Trouble Codes (DTCs) exist, please check DTC page for description"
+        notifications_data = {
+                    "car_id": os.getenv("CAR_ID"),
+                    "notifications": notification_message,
+                    "fixed_at": timestamp_str,
+                    "fixed": False,
+                    "timestamp": timestamp_str
+                }    
+        hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
+
+  
     
     data = {
         "car_id": os.getenv("CAR_ID"),
