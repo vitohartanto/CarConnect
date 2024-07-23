@@ -129,7 +129,8 @@ def emitTelemetry():
     ENGINECOOLANTTEMPERATURE_MAX = 105
 
     # Catalyst Temperature
-    CATALYSTTEMPERATURE_MIN = 200
+    # CATALYSTTEMPERATURE_MIN = 200
+    CATALYSTTEMPERATURE_MIN = 100
     CATALYSTTEMPERATURE_MAX = 800
 
     # Initialize counter for out-of-range readings
