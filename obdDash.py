@@ -64,15 +64,18 @@ def emitDtcCodes():
 
     dtcJSON = json.dumps(dtcCodes)
 
-    # Get the current date and time in UTC timezone
     current_time_utc = datetime.datetime.now()
+    timestamp_str = current_time_utc.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
-    # Convert the current time to your timezone (GMT+7)
-    gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-    current_time_gmt7 = current_time_utc - gmt_offset
+    # # Get the current date and time in UTC timezone
+    # current_time_utc = datetime.datetime.now()
 
-    # Convert the datetime object to the desired string format
-    timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+    # # Convert the current time to your timezone (GMT+7)
+    # gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
+    # current_time_gmt7 = current_time_utc - gmt_offset
+
+    # # Convert the datetime object to the desired string format
+    # timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
     
     if dtcCodes != []:
@@ -99,6 +102,7 @@ def emitDtcCodes():
 
     print("===DTC DATA===")
     print(json.dumps(data))
+
 
 # emitTelemetry function to emit the obd data
 def emitTelemetry():
@@ -176,15 +180,10 @@ def emitTelemetry():
                 # Prepare notification message
                 notification_message = "Engine Coolant Temperature is out of optimal range"
 
-                # Get the current date and time in UTC timezone
                 current_time_utc = datetime.datetime.now()
+                timestamp_str = current_time_utc.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
-                # Convert the current time to your timezone (GMT+7)
-                gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-                current_time_gmt7 = current_time_utc - gmt_offset
 
-                # Convert the datetime object to the desired string format
-                timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
                 notifications_data = {
                     "car_id": os.getenv("CAR_ID"),
@@ -216,15 +215,9 @@ def emitTelemetry():
                 # Prepare notification message
                 notification_message = "Short Term Fuel Trim is out of optimal range"
 
-                # Get the current date and time in UTC timezone
                 current_time_utc = datetime.datetime.now()
+                timestamp_str = current_time_utc.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
-                # Convert the current time to your timezone (GMT+7)
-                gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-                current_time_gmt7 = current_time_utc - gmt_offset
-
-                # Convert the datetime object to the desired string format
-                timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
                 notifications_data = {
                     "car_id": os.getenv("CAR_ID"),
@@ -255,15 +248,10 @@ def emitTelemetry():
                 # Prepare notification message
                 notification_message = "Long Term Fuel Trim is out of optimal range"
 
-                # Get the current date and time in UTC timezone
                 current_time_utc = datetime.datetime.now()
+                timestamp_str = current_time_utc.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
-                # Convert the current time to your timezone (GMT+7)
-                gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-                current_time_gmt7 = current_time_utc - gmt_offset
 
-                # Convert the datetime object to the desired string format
-                timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
                 notifications_data = {
                     "car_id": os.getenv("CAR_ID"),
@@ -304,15 +292,9 @@ def emitTelemetry():
                 # Prepare notification message
                 notification_message = "Catalyst Temperature is out of optimal range"
 
-                # Get the current date and time in UTC timezone
                 current_time_utc = datetime.datetime.now()
+                timestamp_str = current_time_utc.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
-                # Convert the current time to your timezone (GMT+7)
-                gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-                current_time_gmt7 = current_time_utc - gmt_offset
-
-                # Convert the datetime object to the desired string format
-                timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
                 notifications_data = {
                     "car_id": os.getenv("CAR_ID"),
@@ -344,8 +326,6 @@ def emitTelemetry():
             oxygenSensorBank1Sensor2Resp = connection.query(oxygenSensorBank1Sensor2Cmd)
             varOxygenSensorBank1Sensor2 = oxygenSensorBank1Sensor2Resp.value.magnitude
 
-            
-
             # Check if the sensor value is out of the optimal range
             if varOxygenSensorBank1Sensor2 < OXYGENSENSORBANK1SENSOR2_MIN or varOxygenSensorBank1Sensor2 > OXYGENSENSORBANK1SENSOR2_MAX:
                 out_of_range_counter_OXYGENSENSORBANK1SENSOR2 += 1
@@ -360,15 +340,8 @@ def emitTelemetry():
                 # Prepare notification message
                 notification_message = "Oxygen Sensor Bank 1 Sensor 2 is out of optimal range"
 
-                # Get the current date and time in UTC timezone
                 current_time_utc = datetime.datetime.now()
-
-                # Convert the current time to your timezone (GMT+7)
-                gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-                current_time_gmt7 = current_time_utc - gmt_offset
-
-                # Convert the datetime object to the desired string format
-                timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+                timestamp_str = current_time_utc.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
                 notifications_data = {
                     "car_id": os.getenv("CAR_ID"),
@@ -380,19 +353,13 @@ def emitTelemetry():
                 
                 # Add logic to send notification to Notifications Page
                 hyperbase.publish(os.getenv("NOTIFICATIONS_DATA_COLLECTION_ID"), notifications_data)
+
+                print(json.dumps(notifications_data))
                 
-            
-
-            # Get the current date and time in UTC timezone
             current_time_utc = datetime.datetime.now()
+            timestamp_str = current_time_utc.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
-            # Convert the current time to your timezone (GMT+7)
-            gmt_offset = datetime.timedelta(hours=7)  # Offset for GMT+7
-            current_time_gmt7 = current_time_utc - gmt_offset
-
-            # Convert the datetime object to the desired string format
-            timestamp_str = current_time_gmt7.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-
+         
             runTimeCmd = obd.commands.RUN_TIME
             runTimeResp = connection.query(runTimeCmd)
             runTime = str(runTimeResp.value)
@@ -451,6 +418,9 @@ def emitTelemetry():
 
             print("===OBD DATA===")
             print(json.dumps(data))
+            # print("UTC Time:", current_time_utc)
+            # print("GMT+7 Time:", current_time_gmt7)
+            # print("Timestamp String:", timestamp_str)
             
             emitDtcCodes()
             time.sleep(delay)
