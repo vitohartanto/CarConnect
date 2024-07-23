@@ -331,13 +331,13 @@ def emitTelemetry():
             intakeManifoldPressureResp = connection.query(intakeManifoldPressureCmd)
             varIntakeManifoldPressure = intakeManifoldPressureResp.value.magnitude 
 
-            # fuel rate
-            fuelRateCmd = obd.commands.FUEL_RATE
-            fuelRateResp = connection.query(fuelRateCmd)
-            if fuelRateResp.value is not None:
-                varFuelRate = fuelRateResp.value.magnitude
-            else:
-                varFuelRate = "null"  # Atau bisa juga menggunakan nilai default lainnya
+            # # fuel rate
+            # fuelRateCmd = obd.commands.FUEL_RATE
+            # fuelRateResp = connection.query(fuelRateCmd)
+            # if fuelRateResp.value is not None:
+            #     varFuelRate = fuelRateResp.value.magnitude
+            # else:
+            #     varFuelRate = "null"  # Atau bisa juga menggunakan nilai default lainnya
 
             # oxygen sensor bank 1 sensor 2
             oxygenSensorBank1Sensor2Cmd = obd.commands.O2_B1S2
