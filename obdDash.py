@@ -110,8 +110,11 @@ def emitTelemetry():
 
     # Define the optimal ranges for each parameter
     # Oxygen Sensor Bank 1 Sensor 2
-    OXYGENSENSORBANK1SENSOR2_MIN = 0.1
-    OXYGENSENSORBANK1SENSOR2_MAX = 0.9
+    # OXYGENSENSORBANK1SENSOR2_MIN = 0.1
+    # OXYGENSENSORBANK1SENSOR2_MAX = 0.9
+
+    OXYGENSENSORBANK1SENSOR2_MIN = 10
+    OXYGENSENSORBANK1SENSOR2_MAX = 11
 
     # Short Term Fuel Trim
     SHORTTERMFUELTRIM_MIN = -10
